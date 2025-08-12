@@ -22,6 +22,7 @@
     .dropdown a{ display:block; padding:10px 12px; border-radius:8px; font-weight:800; }
     .dropdown a:hover,.dropdown a:focus{ background:var(--prolium-blue); color:#fff; }
     .nav-item:focus-within>.dropdown,.nav-item:hover>.dropdown{ display:block; }
+    .nav-links a.active{ background:var(--prolium-blue); color:#fff; }
 
     /* Mobile drawer */
     .menu-toggle{ display:none; background:transparent; border:none; padding:8px; margin-left:8px; border-radius:10px; }
@@ -82,7 +83,7 @@
           <a href="team.html" role="menuitem">Meet the Team</a>
         </div>
       </div>
-      <a href="contact.html" aria-current="page">Contact</a>
+      <a href="contact.html" class="active">Contact</a>
     </div>
 
     <button class="menu-toggle" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false" aria-haspopup="dialog">
