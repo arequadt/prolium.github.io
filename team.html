@@ -1,3 +1,4 @@
+<!-- team_hero.html — Meet the Team with hero and pulsing balls background -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +10,7 @@
     :root { --prolium-blue:#63c5ed; --prolium-green:#21c036; --prolium-orange:#ff9100; --prolium-dark:#16404c; --offwhite:#f7fafc; --gray:#e9eff3; --text-main:#123e47; --modal-bg: rgba(30,44,52,0.68); }
     html,body{ margin:0; padding:0; font-family:'Inter',Arial,sans-serif; background:var(--offwhite); color:var(--text-main); min-height:100vh; overflow-x:hidden; }
 
-    /* --- Shared NAV (matches index/contact) --- */
+    /* --- Shared NAV (matches other pages) --- */
     .nav{ display:flex; justify-content:space-between; align-items:center; padding:16px 24px; background:rgba(255,255,255,0.98); box-shadow:0 3px 18px #21c03614; position:sticky; top:0; z-index:10000; }
     .nav-brand{ display:flex; align-items:center; gap:12px; min-width:0; }
     .nav-logo{ height:44px; width:auto; }
@@ -40,12 +41,45 @@
     @media (max-width:980px){ .nav-links{ display:none; } .menu-toggle{ display:inline-block; } }
     @media (max-width:420px){ .brand-text{ display:none; } }
 
-    /* --- PAGE HEAD --- */
-    .page-head{ text-align:center; padding:44px 6vw 16px; position:relative; }
-    .page-title{ font-size:clamp(1.6rem,5vw,2.2rem); font-weight:900; color:var(--prolium-blue); margin:6px 0 10px; }
+    /* --- HERO with pulsing balls --- */
+    .hero {
+      position: relative;
+      height: 48vh;
+      min-height: 340px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 10px 6vw;
+      isolation: isolate;
+      overflow: hidden;
+      background: var(--offwhite);
+      border-radius: 0 0 28px 28px;
+      box-shadow: 0 8px 40px #63c5ed17;
+    }
+    .hero-title { font-size: clamp(1.6rem, 4.5vw, 2.6rem); font-weight: 900; letter-spacing: -0.01em; color: var(--prolium-blue); margin: 0 0 8px; z-index: 1; }
+    .hero-sub { font-size: clamp(1rem, 2.2vw, 1.2rem); color: #25565d; margin: 0; z-index: 1; }
+    .balls{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+    .ball{
+      position:absolute; width:var(--size,120px); height:var(--size,120px); border-radius:9999px; opacity:.88;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), rgba(255,255,255,0) 45%),
+        radial-gradient(circle at 50% 50%, var(--c), var(--c) 70%);
+      box-shadow:0 0 28px 6px color-mix(in srgb, var(--c), transparent 60%);
+      animation:pulse var(--dur,3.8s) ease-in-out infinite;
+      animation-delay:var(--delay,0s);
+      will-change:transform,filter;
+    }
+    .ball.green{ --c: var(--prolium-green); }
+    .ball.blue{ --c: color-mix(in srgb, var(--prolium-blue), white 12%); }
+    @keyframes pulse{ 0%,100%{ transform:scale(1); filter:blur(0);} 50%{ transform:scale(1.22); filter:blur(.8px);} }
+    @media (prefers-reduced-motion:reduce){ .ball{ animation:none; } }
+
+    /* --- PAGE HEAD (kept for spacing under hero if needed) --- */
+    .page-head{ text-align:center; padding:24px 6vw 8px; position:relative; }
+    .page-title{ font-size:clamp(1.4rem,4.6vw,2rem); font-weight:900; color:var(--prolium-blue); margin:6px 0 10px; }
     .page-sub{ color:#25565d; max-width:900px; margin:0 auto; }
 
-    /* --- GRID + CARDS (from original, lightly tuned) --- */
+    /* --- GRID + CARDS --- */
     .team-grid, .board-grid{ display:flex; flex-wrap:wrap; justify-content:center; align-items:flex-start; gap:38px 30px; margin: 16px auto 40px auto; max-width:1200px; position:relative; z-index:1; padding:0 4vw; }
     .member-card{ background:#fff; border-radius:32px; box-shadow:0 6px 32px #21c03613; min-width:250px; max-width:350px; width:29vw; min-height:220px; transition: box-shadow .24s, transform .18s; position:relative; display:flex; flex-direction:column; align-items:center; cursor:pointer; z-index:1; overflow:visible; perspective:1200px; padding:18px 12px; }
     .member-card:hover{ box-shadow:0 14px 54px #21c03620, 0 3px 12px #ff91001c; transform: translateY(-4px) scale(1.035); }
@@ -91,7 +125,7 @@
     <div class="nav-links" aria-label="Primary links">
       <a href="index.html">Home</a>
       <a href="Pipeline.html">Science/Pipeline</a>
-      <a href="#">Clinical Trials</a>
+      <a href="index2.html">Clinical Trials</a>
       <div class="nav-item">
         <button class="linklike" aria-haspopup="true" aria-expanded="false">About ▾</button>
         <div class="dropdown" role="menu" aria-label="About submenu">
@@ -122,11 +156,39 @@
     </div>
   </div>
 
-  <!-- Page head -->
-  <header class="page-head">
-    <h1 class="page-title">Meet the Team</h1>
-    <p class="page-sub">Click a card to read a short bio.</p>
-  </header>
+  <!-- HERO -->
+  <section class="hero" aria-label="Meet the Team hero">
+    <div class="balls" aria-hidden="true">
+      <!-- Greens mostly left (7) -->
+      <div class="ball green" style="--size:140px; top:6%;  left:6%;  --dur:4.2s; --delay:-.2s"></div>
+      <div class="ball green" style="--size:100px; top:14%; left:18%; --dur:3.7s; --delay:.1s"></div>
+      <div class="ball green" style="--size:90px;  top:28%; left:10%; --dur:3.5s; --delay:.3s"></div>
+      <div class="ball green" style="--size:110px; top:42%; left:22%; --dur:4.1s; --delay:.5s"></div>
+      <div class="ball green" style="--size:80px;  top:56%; left:14%; --dur:3.6s; --delay:.2s"></div>
+      <div class="ball green" style="--size:100px; bottom:18%; left:8%; --dur:4s;   --delay:.4s"></div>
+      <div class="ball green" style="--size:85px;  bottom:12%; left:28%; --dur:3.8s; --delay:.25s"></div>
+      <!-- Greens crossing to right (3) -->
+      <div class="ball green" style="--size:70px; top:20%; right:16%; --dur:3.9s; --delay:.3s"></div>
+      <div class="ball green" style="--size:60px; bottom:22%; right:30%; --dur:3.6s; --delay:.5s"></div>
+      <div class="ball green" style="--size:55px; top:70%; right:12%; --dur:3.3s; --delay:.6s"></div>
+
+      <!-- Blues mostly right (7) -->
+      <div class="ball blue"  style="--size:130px; top:8%;  right:8%;  --dur:3.9s; --delay:.2s"></div>
+      <div class="ball blue"  style="--size:110px; top:18%; right:22%; --dur:4.2s; --delay:-.1s"></div>
+      <div class="ball blue"  style="--size:100px; top:32%; right:10%; --dur:3.5s; --delay:.15s"></div>
+      <div class="ball blue"  style="--size:140px; top:46%; right:20%; --dur:4.1s; --delay:.3s"></div>
+      <div class="ball blue"  style="--size:90px;  top:60%; right:12%; --dur:3.7s; --delay:.5s"></div>
+      <div class="ball blue"  style="--size:120px; bottom:12%; right:8%; --dur:3.8s; --delay:.4s"></div>
+      <div class="ball blue"  style="--size:95px;  bottom:8%;  right:24%; --dur:4s;   --delay:.35s"></div>
+      <!-- Blues crossing to left (3) -->
+      <div class="ball blue"  style="--size:70px; top:16%; left:30%; --dur:3.2s; --delay:.4s"></div>
+      <div class="ball blue"  style="--size:65px; bottom:26%; left:20%; --dur:3.5s; --delay:.55s"></div>
+      <div class="ball blue"  style="--size:60px; top:68%; left:36%; --dur:3.3s; --delay:.5s"></div>
+    </div>
+
+    <h1 class="hero-title">Meet the Team</h1>
+    <p class="hero-sub">Click a card to read a short bio.</p>
+  </section>
 
   <!-- Tabs -->
   <div class="tabs-bar">
@@ -142,7 +204,7 @@
   <div class="modal-overlay" id="modalOverlay" tabindex="-1" aria-modal="true" role="dialog"></div>
 
   <script>
-    // Drawer toggle & focus trap (same as other pages)
+    // Drawer toggle & focus trap
     const toggle = document.querySelector('.menu-toggle');
     const drawer = document.getElementById('mobile-drawer');
     function closeDrawer(){ drawer.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
@@ -166,9 +228,6 @@
       { name: "Carrie Bell", title: "Director, Program Management", long_bio: `Carrie is passionate about turning scientific ideas into real treatments that improve lives. She spent 16 years in CMC at a leading global pharmaceutical company, mastering the art and science of bringing complex therapies to life. For the past 5 years, she’s applied that expertise in clinical program management at small, agile biotech companies – helping guide promising programs through the challenges of early clinical development. Carrie thrives at the intersection of science, strategy, and teamwork, and is driven by the belief that every step forward brings patients closer to new hope.`, img: "https://randomuser.me/api/portraits/women/50.jpg" },
       { name: "Sergio Rodriguez", title: "Director, Clinical Operations", long_bio: `(Bio coming soon.)`, img: "https://randomuser.me/api/portraits/men/68.jpg" },
       { name: "James Sims, PhD", title: "Director, Alliance Management", long_bio: `James has over a decade of experience in the biotech industry, primarily in alliance management, supporting collaboration programs from preclinical development through commercialization. Most recently, James was with Voyager Therapeutics, managing a portfolio of gene therapy programs under the partnership with Neurocrine Biosciences.<br><br>Prior to Voyager, James spent five years with Akebia Therapeutics, overseeing several key global alliances, including Otsuka Pharmaceuticals, Mitsubishi Tanabe Pharma, and Vifor Pharma (now part of CSL), as well as supporting business development and strategic planning initiatives. Additionally, James has several years of strategic consulting experience and holds a PhD in Chemical Engineering.`, img: "https://randomuser.me/api/portraits/men/60.jpg" },
-      { name: "Chris Seiter", title: "CFO (RTW Support)", long_bio: `As Chief Corporate Finance Officer of RTW, Chris provides structuring and transactional leadership for new ventures originated at RTW as well as royalty and alternative investments. Prior to joining RTW, Chris served as Chief Financial Officer of two development stage biopharmaceutical companies, Trevi Therapeutics and Millendo Therapeutics. Before shifting to an operational role, Chris served as Managing Director and Head of Life Sciences Investment Banking at Bank of America Merrill Lynch.<br><br>Chris served in the Navy as a Nuclear Submarine Officer for five years before beginning his investment banking career. Chris received a BA in economics cum laude from the University of Rochester and completed a graduate level program in nuclear engineering at the U.S. Naval Nuclear Power School.`, img: "https://randomuser.me/api/portraits/men/27.jpg" },
-      { name: "Alice Lee", title: "General Counsel", long_bio: `Alice leads legal execution and provides strategic guidance on RTW’s transactions, including new ventures, royalty and alternative investments, equity investments, M&A and licensing and collaborations. She also acts as general counsel to RTW’s newly formed ventures.<br><br>Prior to joining RTW, Alice was a senior associate in the Life Sciences practice at Ropes & Gray LLP, where she advised biotechnology, pharmaceutical and technology companies and investment funds on strategic transactions. Earlier in her career, she practiced in the Intellectual Property Transactions group at Sullivan & Cromwell LLP and the Mergers & Acquisitions group at Cravath, Swaine & Moore LLP.<br><br>Alice holds a J.D. from Columbia Law School, where she was a Senior Editor of the Columbia Law Review and a Harlan Fiske Stone Scholar. She also holds an M.S. in Computer Science (Bioinformatics) from Stanford University and completed two years of pre-clinical coursework at Stanford Medical School. She earned her B.A. in Philosophy from Columbia University, graduating summa cum laude, Phi Beta Kappa.`, img: "https://randomuser.me/api/portraits/women/62.jpg" },
-      { name: "Luna Ji, MD", title: "CBO", long_bio: `Luna has more than a decade of professional experience in the pharmaceutical industry as a business development and licensing professional, venture capital investor, and clinical development physician.<br><br>Prior to joining RTW, she served as Director of BD&L at Merck and was as a key contributor on a leading a number of licensing deals in the landscape.<br><br>Prior to Merck, Dr. Ji worked in Lilly Asia Ventures where she was a Vice President on the investment team; she led multiple investments in both China and the US across different therapeutic areas and served as a Director of the Board on these portfolio companies. She began her career at Johnson & Johnson as a Therapeutic Area (“TA”) Physician in the clinical development department.<br><br>She was trained as a physician and completed a residency in Dermatology at Peking University People’s hospital. Dr. Ji received her B.S. and M.D. from Peking University.`, img: "https://randomuser.me/api/portraits/women/39.jpg" }
     ];
 
     // --- BOARD DATA ---
@@ -179,7 +238,7 @@
     ];
 
     // --- CARD GENERATION ---
-    function makeMemberCard(m, i, type){ return `<div class=\"member-card\" tabindex=\"0\" data-index=\"${i}\" data-type=\"${type}\"><img class=\"avatar-img\" src=\"${m.img}\" alt=\"${m.name}\"/><div class=\"member-name\">${m.name}</div><div class=\"member-title\">${m.title}</div></div>`; }
+    function makeMemberCard(m, i, type){ return `<div class="member-card" tabindex="0" data-index="${i}" data-type="${type}"><img class="avatar-img" src="${m.img}" alt="${m.name}"/><div class="member-name">${m.name}</div><div class="member-title">${m.title}</div></div>`; }
     function renderTeamGrid(){ document.getElementById('team-grid').innerHTML = team.map((m,i)=>makeMemberCard(m,i,'team')).join(''); }
     function renderBoardGrid(){ document.getElementById('board-grid').innerHTML = board.map((m,i)=>makeMemberCard(m,i,'board')).join(''); }
     renderTeamGrid(); renderBoardGrid();
@@ -187,7 +246,7 @@
     // Modal
     const modalOverlay = document.getElementById('modalOverlay');
     function showExpandedCard(member){
-      modalOverlay.innerHTML = `<div class=\"expanded-card-outer\" id=\"expandedCardOuter\"><button class=\"close-btn\" id=\"closeModalBtn\" aria-label=\"Close\">&times;</button><img class=\"expanded-avatar\" src=\"${member.img}\" alt=\"${member.name}\"/><div class=\"expanded-member-name\">${member.name}</div><div class=\"expanded-member-title\">${member.title}</div><div class=\"expanded-member-bio\">${member.long_bio}</div></div>`;
+      modalOverlay.innerHTML = `<div class="expanded-card-outer" id="expandedCardOuter"><button class="close-btn" id="closeModalBtn" aria-label="Close">&times;</button><img class="expanded-avatar" src="${member.img}" alt="${member.name}"/><div class="expanded-member-name">${member.name}</div><div class="expanded-member-title">${member.title}</div><div class="expanded-member-bio">${member.long_bio}</div></div>`;
       modalOverlay.classList.add('active'); document.body.style.overflow='hidden';
       document.getElementById('closeModalBtn').onclick = closeModal;
       modalOverlay.focus();
