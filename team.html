@@ -1,4 +1,4 @@
-<!-- team_hero.html — Meet the Team with hero and pulsing balls background -->
+<!-- :contentReference[oaicite:0]{index=0} -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +10,8 @@
     :root { --prolium-blue:#63c5ed; --prolium-green:#21c036; --prolium-orange:#ff9100; --prolium-dark:#16404c; --offwhite:#f7fafc; --gray:#e9eff3; --text-main:#123e47; --modal-bg: rgba(30,44,52,0.68); }
     html,body{ margin:0; padding:0; font-family:'Inter',Arial,sans-serif; background:var(--offwhite); color:var(--text-main); min-height:100vh; overflow-x:hidden; }
 
-    /* --- Shared NAV (matches other pages) --- */
-    .nav{ display:flex; justify-content:space-between; align-items:center; padding:16px 24px; background:rgba(255,255,255,0.98); box-shadow:0 3px 18px #21c03614; position:sticky; top:0; z-index:10000; }
+    /* --- Shared NAV (matches index.html) --- */
+    .nav{ display:flex; justify-content:space-between; align-items:center; padding:16px 24px; background:#fff; box-shadow:0 3px 18px #21c03614; position:sticky; top:0; z-index:10000; }
     .nav-brand{ display:flex; align-items:center; gap:12px; min-width:0; }
     .nav-logo{ height:44px; width:auto; }
     .brand-text{ font-weight:900; letter-spacing:-0.01em; white-space:nowrap; font-size:1.05rem; color:var(--prolium-dark); }
@@ -23,6 +23,8 @@
     .dropdown a{ display:block; padding:10px 12px; border-radius:8px; font-weight:800; }
     .dropdown a:hover,.dropdown a:focus{ background:var(--prolium-blue); color:#fff; }
     .nav-item:focus-within>.dropdown,.nav-item:hover>.dropdown{ display:block; }
+
+    /* Hamburger + drawer */
     .menu-toggle{ display:none; background:transparent; border:none; padding:8px; margin-left:8px; border-radius:10px; }
     .menu-toggle:focus-visible{ outline:2px solid var(--prolium-blue); }
     .menu-bars{ display:block; width:24px; height:2px; background:var(--prolium-dark); position:relative; }
@@ -35,9 +37,12 @@
     .drawer-links{ display:flex; flex-direction:column; padding:16px 18px 40px; gap:6px; max-width:640px; margin:64px auto; }
     .drawer-links a, .drawer-links button{ padding:16px 14px; font-size:1.08rem; border-radius:12px; font-weight:800; outline-offset:3px; text-align:left; background:none; border:none; color:var(--text-main); }
     .drawer-links a:hover,.drawer-links a:focus,.drawer-links button:hover,.drawer-links button:focus{ background:var(--prolium-blue); color:#fff; }
+
+    /* Mobile sub-menus */
     .sublist{ display:none; padding-left:10px; }
     .sublist a{ padding-left:28px; font-weight:700; }
     .sublist.open{ display:block; }
+
     @media (max-width:980px){ .nav-links{ display:none; } .menu-toggle{ display:inline-block; } }
     @media (max-width:420px){ .brand-text{ display:none; } }
 
@@ -56,7 +61,7 @@
       border-radius: 0 0 28px 28px;
       box-shadow: 0 8px 40px #63c5ed17;
     }
-    .hero-title { font-size: clamp(1.6rem, 4.5vw, 2.6rem); font-weight: 900; letter-spacing: -0.01em; color: var(--prolium-blue); margin: 0 0 8px; z-index: 1; }
+    .hero-title { font-size: clamp(1.6rem, 4.5vw, 2.6rem); font-weight: 900; letter-spacing: -0.01em; color: var(--prolium-orange); margin: 0 0 8px; z-index: 1; }
     .hero-sub { font-size: clamp(1rem, 2.2vw, 1.2rem); color: #25565d; margin: 0; z-index: 1; }
     .balls{ position:absolute; inset:0; z-index:0; pointer-events:none; }
     .ball{
@@ -74,7 +79,7 @@
     @keyframes pulse{ 0%,100%{ transform:scale(1); filter:blur(0);} 50%{ transform:scale(1.22); filter:blur(.8px);} }
     @media (prefers-reduced-motion:reduce){ .ball{ animation:none; } }
 
-    /* --- PAGE HEAD (kept for spacing under hero if needed) --- */
+    /* --- PAGE HEAD (optional) --- */
     .page-head{ text-align:center; padding:24px 6vw 8px; position:relative; }
     .page-title{ font-size:clamp(1.4rem,4.6vw,2rem); font-weight:900; color:var(--prolium-blue); margin:6px 0 10px; }
     .page-sub{ color:#25565d; max-width:900px; margin:0 auto; }
@@ -124,8 +129,19 @@
 
     <div class="nav-links" aria-label="Primary links">
       <a href="index.html">Home</a>
-      <a href="Pipeline.html">Science/Pipeline</a>
-      <a href="index2.html">Clinical Trials</a>
+
+      <!-- Science & Pipeline dropdown (desktop) -->
+      <div class="nav-item">
+        <button class="linklike" aria-haspopup="true" aria-expanded="false">Science &amp; Pipeline ▾</button>
+        <div class="dropdown" role="menu" aria-label="Science and Pipeline submenu">
+          <a href="landing.html" role="menuitem">Science</a>
+          <a href="pipeline.html" role="menuitem">Pipeline</a>
+        </div>
+      </div>
+
+      <a href="landing.html">Clinical Trials</a>
+
+      <!-- About dropdown (desktop) -->
       <div class="nav-item">
         <button class="linklike" aria-haspopup="true" aria-expanded="false">About ▾</button>
         <div class="dropdown" role="menu" aria-label="About submenu">
@@ -133,6 +149,7 @@
           <a href="team.html" role="menuitem" aria-current="page">Meet the Team</a>
         </div>
       </div>
+
       <a href="contact.html">Contact</a>
     </div>
 
@@ -145,13 +162,23 @@
   <div id="mobile-drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
     <div class="drawer-links">
       <a href="index.html" onclick="closeDrawer()">Home</a>
-      <a href="Pipeline.html" onclick="closeDrawer()">Science/Pipeline</a>
-      <a href="#" onclick="closeDrawer()">Clincal Trials</a>
+
+      <!-- Science & Pipeline submenu (mobile) -->
+      <button id="science-toggle" type="button" aria-expanded="false">Science &amp; Pipeline ▸</button>
+      <div id="science-sublist" class="sublist" aria-label="Science and Pipeline sublinks">
+        <a href="landing.html" onclick="closeDrawer()">Science</a>
+        <a href="pipeline.html" onclick="closeDrawer()">Pipeline</a>
+      </div>
+
+      <a href="landing.html" onclick="closeDrawer()">Clinical Trials</a>
+
+      <!-- About submenu (mobile) -->
       <button id="about-toggle" type="button" aria-expanded="false">About ▸</button>
       <div id="about-sublist" class="sublist" aria-label="About sublinks">
         <a href="about.html" onclick="closeDrawer()">About</a>
         <a href="team.html" onclick="closeDrawer()" aria-current="page">Meet the Team</a>
       </div>
+
       <a href="contact.html" onclick="closeDrawer()">Contact</a>
     </div>
   </div>
@@ -174,7 +201,7 @@
 
       <!-- Blues mostly right (7) -->
       <div class="ball blue"  style="--size:130px; top:8%;  right:8%;  --dur:3.9s; --delay:.2s"></div>
-      <div class="ball blue"  style="--size:110px; top:18%; right:22%; --dur:4.2s; --delay:-.1s"></div>
+      <div class="ball blue  " style="--size:110px; top:18%; right:22%; --dur:4.2s; --delay:-.1s"></div>
       <div class="ball blue"  style="--size:100px; top:32%; right:10%; --dur:3.5s; --delay:.15s"></div>
       <div class="ball blue"  style="--size:140px; top:46%; right:20%; --dur:4.1s; --delay:.3s"></div>
       <div class="ball blue"  style="--size:90px;  top:60%; right:12%; --dur:3.7s; --delay:.5s"></div>
@@ -208,18 +235,49 @@
     const toggle = document.querySelector('.menu-toggle');
     const drawer = document.getElementById('mobile-drawer');
     function closeDrawer(){ drawer.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
-    function trapFocus(e){ if(!drawer.classList.contains('open')) return; const f=drawer.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])'); if(!f.length) return; const first=f[0], last=f[f.length-1]; if(e.key==='Tab'){ if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); } else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); } } }
-    toggle?.addEventListener('click',()=>{ const isOpen=drawer.classList.toggle('open'); toggle.setAttribute('aria-expanded', String(isOpen)); document.body.style.overflow=isOpen?'hidden':''; if(isOpen){ drawer.querySelector('.drawer-links a')?.focus(); } });
+    function trapFocus(e){
+      if(!drawer.classList.contains('open')) return;
+      const f=drawer.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
+      if(!f.length) return; const first=f[0], last=f[f.length-1];
+      if(e.key==='Tab'){
+        if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+        else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+      }
+    }
+    toggle?.addEventListener('click',()=>{
+      const isOpen=drawer.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow=isOpen?'hidden':'';
+      if(isOpen){ drawer.querySelector('.drawer-links a, .drawer-links button')?.focus(); }
+    });
     document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeDrawer(); trapFocus(e); });
     document.addEventListener('click',(e)=>{ if(!drawer.contains(e.target) && !toggle.contains(e.target)) { closeDrawer(); } });
-    const aboutBtn=document.querySelector('.nav-item > .linklike');
-    aboutBtn?.addEventListener('focus',()=>aboutBtn.setAttribute('aria-expanded','true'));
-    aboutBtn?.addEventListener('blur',()=>aboutBtn.setAttribute('aria-expanded','false'));
+
+    // Desktop dropdown ARIA
+    document.querySelectorAll('.nav-item > .linklike').forEach(btn=>{
+      btn.addEventListener('focus',()=>btn.setAttribute('aria-expanded','true'));
+      btn.addEventListener('blur',()=>btn.setAttribute('aria-expanded','false'));
+    });
+
+    // Mobile About submenu
     const aboutToggle=document.getElementById('about-toggle');
     const aboutSub=document.getElementById('about-sublist');
-    aboutToggle?.addEventListener('click',()=>{ const open=aboutSub.classList.toggle('open'); aboutToggle.textContent=open?'About ▾':'About ▸'; aboutToggle.setAttribute('aria-expanded', String(open)); });
+    aboutToggle?.addEventListener('click',()=>{
+      const open=aboutSub.classList.toggle('open');
+      aboutToggle.textContent=open?'About ▾':'About ▸';
+      aboutToggle.setAttribute('aria-expanded', String(open));
+    });
 
-    // --- TEAM DATA ---
+    // Mobile Science & Pipeline submenu
+    const scienceToggle=document.getElementById('science-toggle');
+    const scienceSub=document.getElementById('science-sublist');
+    scienceToggle?.addEventListener('click',()=>{
+      const open=scienceSub.classList.toggle('open');
+      scienceToggle.textContent=open?'Science & Pipeline ▾':'Science & Pipeline ▸';
+      scienceToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    // --- TEAM DATA (unchanged copy) ---
     const team = [
       { name: "Scott Requadt", title: "CEO", long_bio: `Scott has over 24 years of operating and investing experience in biotech and pharmaceuticals. Most recently, he was CEO of Talaris Therapeutics, which was developing a novel cell therapy to induce or restore immune tolerance in organ transplant and severe auto-immune disease settings. In support of Talaris' late-clinical stage pipeline, he grew Talaris from 10 to 135 FTEs and raised over $330M, including a successful IPO in 2021.<br><br>He previously spent 14 years at Clarus Ventures (acquired by Blackstone Life Sciences), where he led and managed numerous investments spanning therapeutics, medtech and diagnostics. His original training is in finance and law, and he holds an MBA from Harvard, a JD/LL.B from University of Toronto and a B.Com from McGill.`, img: "https://randomuser.me/api/portraits/men/20.jpg" },
       { name: "Salim Mujais, MD", title: "CMO", long_bio: `Dr. Salim Mujais is an experienced drug developer and academic nephrologist, with over 25 years in the industry and 12 years of academic experience at Northwestern University. Salim was most recently the SVP of Clinical Development at Generate: Biomedicines and spent many years at both Astellas Pharma and Baxter, after teaching for 12 years at Northwestern University.`, img: "https://randomuser.me/api/portraits/men/30.jpg" },
@@ -230,7 +288,7 @@
       { name: "James Sims, PhD", title: "Director, Alliance Management", long_bio: `James has over a decade of experience in the biotech industry, primarily in alliance management, supporting collaboration programs from preclinical development through commercialization. Most recently, James was with Voyager Therapeutics, managing a portfolio of gene therapy programs under the partnership with Neurocrine Biosciences.<br><br>Prior to Voyager, James spent five years with Akebia Therapeutics, overseeing several key global alliances, including Otsuka Pharmaceuticals, Mitsubishi Tanabe Pharma, and Vifor Pharma (now part of CSL), as well as supporting business development and strategic planning initiatives. Additionally, James has several years of strategic consulting experience and holds a PhD in Chemical Engineering.`, img: "https://randomuser.me/api/portraits/men/60.jpg" },
     ];
 
-    // --- BOARD DATA ---
+    // --- BOARD DATA (unchanged copy) ---
     const board = [
       { name: "Peter Fong, PhD", title: "Chairman", long_bio: `Peter is a partner and the president of RTW. In addition to his broad management and oversight of the firm, Peter has retained his role as head of Asset Development and Financing (ADF). One of ADF’s primary responsibilities is the creation and incubation of RTW-founded companies.<br><br>Peter also serves as founding CEO and board member of RTW’s incubated companies, building their management teams, pipelines, and drug development capabilities with the goal of creating the next generation of leading biotech firms capable of bringing life-saving medicines to patients. He currently serves on the board of directors for both Ji Xing Pharmaceuticals and Yarrow Biotechnologies, which were founded by RTW under his leadership.<br><br>Prior to joining RTW, Peter worked at Flagship Pioneering in Cambridge as a member of the innovation team. In this role he led the creation of four Flagship companies, including Harbinger Health, and served as the founding CEO of each of them.<br><br>Peter previously worked at Genentech in Business Development, where he helped build the company’s pipeline through partnering. Peter led multiple transactions for Genentech, including the company’s collaboration with BioNTech to develop mRNA-based personalized cancer vaccines. He has also worked at Memorial Sloan-Kettering; Carigent Therapeutics, which he co-founded; and General Electric as a chemist.<br><br>Peter received a PhD in bioengineering from Yale University, where he subsequently was a Brown-Coxe Postdoctoral Fellow, and his BS in biochemistry from Indiana University.`, img: "https://randomuser.me/api/portraits/men/11.jpg" },
       { name: "Lauren Cuje", title: "Managing Director, New Ventures (RTW)", long_bio: `As the Managing Director, New Ventures at RTW, Lauren is responsible for expanding RTW’s research interests in new disease areas, as well as supporting efforts around new company formation.<br><br>Prior to joining RTW, Lauren worked as a consultant to the life sciences industry and within the asset management division of Goldman Sachs. Lauren received a MA in Biotechnology from Columbia University and a BA in Molecular, Cellular and Developmental Biology from the University of Colorado.`, img: "https://randomuser.me/api/portraits/women/56.jpg" },
@@ -238,7 +296,13 @@
     ];
 
     // --- CARD GENERATION ---
-    function makeMemberCard(m, i, type){ return `<div class="member-card" tabindex="0" data-index="${i}" data-type="${type}"><img class="avatar-img" src="${m.img}" alt="${m.name}"/><div class="member-name">${m.name}</div><div class="member-title">${m.title}</div></div>`; }
+    function makeMemberCard(m, i, type){
+      return `<div class="member-card" tabindex="0" data-index="${i}" data-type="${type}">
+        <img class="avatar-img" src="${m.img}" alt="${m.name}"/>
+        <div class="member-name">${m.name}</div>
+        <div class="member-title">${m.title}</div>
+      </div>`;
+    }
     function renderTeamGrid(){ document.getElementById('team-grid').innerHTML = team.map((m,i)=>makeMemberCard(m,i,'team')).join(''); }
     function renderBoardGrid(){ document.getElementById('board-grid').innerHTML = board.map((m,i)=>makeMemberCard(m,i,'board')).join(''); }
     renderTeamGrid(); renderBoardGrid();
@@ -246,7 +310,14 @@
     // Modal
     const modalOverlay = document.getElementById('modalOverlay');
     function showExpandedCard(member){
-      modalOverlay.innerHTML = `<div class="expanded-card-outer" id="expandedCardOuter"><button class="close-btn" id="closeModalBtn" aria-label="Close">&times;</button><img class="expanded-avatar" src="${member.img}" alt="${member.name}"/><div class="expanded-member-name">${member.name}</div><div class="expanded-member-title">${member.title}</div><div class="expanded-member-bio">${member.long_bio}</div></div>`;
+      modalOverlay.innerHTML = `
+        <div class="expanded-card-outer" id="expandedCardOuter">
+          <button class="close-btn" id="closeModalBtn" aria-label="Close">&times;</button>
+          <img class="expanded-avatar" src="${member.img}" alt="${member.name}"/>
+          <div class="expanded-member-name">${member.name}</div>
+          <div class="expanded-member-title">${member.title}</div>
+          <div class="expanded-member-bio">${member.long_bio}</div>
+        </div>`;
       modalOverlay.classList.add('active'); document.body.style.overflow='hidden';
       document.getElementById('closeModalBtn').onclick = closeModal;
       modalOverlay.focus();
@@ -256,10 +327,26 @@
       setTimeout(()=>{ document.getElementById('closeModalBtn').focus(); }, 80);
     }
     function closeModal(){ modalOverlay.classList.remove('active'); setTimeout(()=>{ modalOverlay.innerHTML=''; },180); document.body.style.overflow=''; }
-    function setupCardEvents(){ document.querySelectorAll('.member-card').forEach(card=>{ card.onclick = ()=>{ const idx=card.getAttribute('data-index'); const type=card.getAttribute('data-type'); const member=(type==='team'?team:board)[idx]; showExpandedCard(member); }; card.onkeydown=(e)=>{ if(e.key==='Enter'||e.key===' '){ card.click(); e.preventDefault(); } }; }); }
+
+    function setupCardEvents(){
+      document.querySelectorAll('.member-card').forEach(card=>{
+        card.onclick = ()=>{
+          const idx=card.getAttribute('data-index');
+          const type=card.getAttribute('data-type');
+          const member=(type==='team'?team:board)[idx];
+          showExpandedCard(member);
+        };
+        card.onkeydown=(e)=>{ if(e.key==='Enter'||e.key===' '){ card.click(); e.preventDefault(); } };
+      });
+    }
     setupCardEvents();
 
-    function activateTab(tab, content){ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active')); tab.classList.add('active'); content.classList.add('active'); setTimeout(setupCardEvents, 300); }
+    function activateTab(tab, content){
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+      tab.classList.add('active'); content.classList.add('active');
+      setTimeout(setupCardEvents, 300);
+    }
     const teamTab=document.getElementById('teamTab');
     const boardTab=document.getElementById('boardTab');
     const teamContent=document.getElementById('teamContent');
