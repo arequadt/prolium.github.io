@@ -110,14 +110,14 @@
     .wrap{max-width:1120px;margin:0 auto;padding:0 5vw}
 
     /* TEAM PHOTO SHOWCASE — refined layout */
-    .team-showcase{position:relative;display:grid;place-items:center;margin:-72px 0 48px;padding:0 2vw}
+    .team-showcase{position:relative;display:grid;place-items:center;margin:96px 0 48px;padding:0 2vw}
     .team-stack{position:relative;width:min(1180px,94vw)}
     .team-stack::before,.team-stack::after{content:"";position:absolute;z-index:-1;border-radius:999px;filter:blur(40px);opacity:.55}
     .team-stack::before{width:clamp(240px,28vw,420px);height:clamp(140px,16vw,220px);left:-4%;bottom:-6%;background:radial-gradient(50% 50% at 50% 50%, #9ed4ef66, transparent 70%)}
     .team-stack::after{width:clamp(260px,30vw,460px);height:clamp(160px,18vw,260px);right:-2%;top:-8%;background:radial-gradient(50% 50% at 50% 50%, #63d48e66, transparent 70%)}
 
-    .team-frame{position:relative;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.6);transform:rotate(-.6deg);transition:transform .35s ease}
-    .team-frame:hover{transform:rotate(0)}
+    .team-frame{position:relative;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.6);transform:none}
+    .team-frame:hover{transform:none}
     .team-frame::after{content:"";position:absolute;inset:-14px;border-radius:36px;background:radial-gradient(60% 50% at 15% 10%, rgba(255,255,255,.6), rgba(255,255,255,0) 60%), linear-gradient(120deg, #9ed4ef44, #21c03633);z-index:-1;filter:blur(10px)}
     .team-frame img{display:block;width:100%;height:auto;aspect-ratio:16/7;object-fit:cover;object-position:center;filter:saturate(1.02) contrast(1.02)}
     .team-cap{position:absolute;left:18px;bottom:18px;background:rgba(255,255,255,.85);backdrop-filter:saturate(140%) blur(2px);padding:8px 12px;border-radius:999px;font-weight:700;font-size:.92rem;color:#0a3f14;box-shadow:0 6px 18px rgba(0,0,0,.12)}
