@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pipeline — Prolium Bio</title>
+  <title>Science — Prolium Bio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -35,7 +35,7 @@
       background-attachment:fixed, fixed;
     }
 
-    /* NAV (match site) */
+    /* NAV (matches index/pipeline) */
     .nav{display:flex;justify-content:space-between;align-items:center;padding:18px 28px;background:#fff;border-bottom:1px solid #e8eef0;position:sticky;top:0;z-index:10000;box-shadow:0 4px 16px #00000010}
     .nav-brand{display:flex;align-items:center;gap:14px;min-width:0}
     .nav-logo{height:48px;width:auto}
@@ -64,10 +64,10 @@
     .sublist a{padding-left:28px;font-weight:700}
     .sublist.open{display:block}
 
-    /* HERO — wave, no content box, engaging but not overbearing */
+    /* HERO — wave, no content box, engaging but not over-bold */
     .hero{
       position:relative;isolation:isolate;
-      min-height:92svh;
+      min-height:90svh;
       display:flex;align-items:center;justify-content:center;
       padding:12svh 6vw 10svh;
       overflow:hidden;border-radius:0 0 36px 36px;text-align:center;
@@ -113,14 +113,15 @@
     /* CONTENT WRAPPER */
     .wrap{max-width:1120px;margin:0 auto;padding:0 5vw}
 
-    /* On-page jump nav */
+    /* On-page jump nav (engaging, light) */
     .page-nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:-24px auto 10px;position:relative;z-index:3}
     .page-chip{font-weight:700;color:#0a3f14;background:rgba(255,255,255,.7);border-radius:999px;padding:8px 14px;font-size:.95rem;text-transform:uppercase;letter-spacing:.06em;text-decoration:none}
     .page-chip:hover,.page-chip:focus{outline:none;filter:brightness(1.05)}
 
-    /* OVERVIEW (big, engaging paragraph + fact chips) */
+    /* PRIMER SECTION (engaging typography, not shouty) */
     .lead-section{margin:54px auto 0}
     .lead-title{font-size:clamp(1.5rem,4.6vw,2.4rem);color:#0b2f39;font-weight:800;margin:0 0 12px;letter-spacing:-0.01em;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.28)}
+    .lead-note{display:inline-block;margin:0 auto 12px;font-weight:800;color:#0a3f14;background:rgba(255,255,255,.6);border-radius:999px;padding:7px 12px;font-size:.87rem;text-transform:uppercase;letter-spacing:.08em}
     .lead-blurb{
       font-size:clamp(1.02rem,2.1vw,1.2rem);
       line-height:1.7;
@@ -130,22 +131,10 @@
       max-width:980px;
       text-shadow:0 1px 0 rgba(255,255,255,.22);
     }
-    .lead-blurb strong{font-weight:800;color:#0a3f14}
-    .chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px auto 0;justify-content:center}
-    .chip{font-weight:800;color:#0a3f14;background:rgba(255,255,255,.65);border-radius:999px;padding:8px 14px;font-size:.92rem;text-transform:uppercase;letter-spacing:.05em}
 
-    /* EVIDENCE — light checklist style */
-    .evidence{margin:64px auto 0}
-    .section-title{font-size:clamp(1.4rem,4.4vw,2.1rem);color:#0b2f39;font-weight:800;margin:0 0 14px;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.25)}
-    .checks{max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .check{display:flex;gap:10px;align-items:flex-start}
-    .tick{flex:0 0 28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.75);box-shadow:0 4px 16px rgba(0,0,0,.12)}
-    .tick svg{width:16px;height:16px}
-    .check p{margin:0;font-weight:600;color:#0e3a27;line-height:1.6}
-    @media (max-width:800px){ .checks{grid-template-columns:1fr} }
-
-    /* PLAN — simple 3-step with soft connectors */
-    .plan{margin:64px auto 0}
+    /* HOW IT WORKS — icon steps, no boxes, only icons + text with connectors */
+    .how{margin:64px auto 0}
+    .how-title{font-size:clamp(1.4rem,4.4vw,2.1rem);color:#0b2f39;font-weight:800;margin:0 0 16px;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.25)}
     .steps{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;position:relative}
     .step{flex:1 1 240px;max-width:300px;min-width:220px;text-align:center}
     .ico{
@@ -157,12 +146,24 @@
     .ico svg{width:40px;height:40px}
     .step h3{font-size:1.05rem;font-weight:800;color:#0a3f14;margin:8px 0 6px;letter-spacing:.01em}
     .step p{font-size:1rem;font-weight:500;color:#0f3b3f;margin:0}
+    /* connectors (soft gradient lines) */
     .steps::before{
       content:"";position:absolute;top:39px;left:6%;right:6%;height:3px;
       background:linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.7), rgba(255,255,255,.0));
       border-radius:3px;pointer-events:none;
     }
     @media (max-width:760px){ .steps::before{display:none} }
+
+    /* WHY IT MATTERS — clean list with ticks */
+    .why{margin:64px auto 0}
+    .why-title{font-size:clamp(1.4rem,4.4vw,2.1rem);color:#0b2f39;font-weight:800;margin:0 0 14px;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.25)}
+    .why-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .why-item{display:flex;gap:10px;align-items:flex-start}
+    .tick{flex:0 0 28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.75);box-shadow:0 4px 16px rgba(0,0,0,.12)}
+    .tick svg{width:16px;height:16px}
+    .why-item p{margin:0;font-weight:600;color:#0e3a27;line-height:1.6}
+    @media (max-width:940px){ .why-list{grid-template-columns:1fr 1fr} }
+    @media (max-width:600px){ .why-list{grid-template-columns:1fr} }
 
     /* CTA */
     .cta{text-align:center;margin:72px 0 36px}
@@ -172,7 +173,7 @@
     /* RESPONSIVE */
     @media (max-width:980px){.nav-links{display:none}.menu-toggle{display:inline-block}.brand-text{font-size:1rem}}
     @media (max-width:700px){
-      .hero{padding:14svh 5vw 10svh;min-height:88svh}
+      .hero{padding:14svh 5vw 10svh;min-height:84svh}
       .hero-logo-topright{height:60px}
     }
     @media (max-width:420px){
@@ -198,8 +199,8 @@
       <div class="nav-item">
         <button class="linklike" aria-haspopup="true" aria-expanded="false">Science &amp; Pipeline ▾</button>
         <div class="dropdown" role="menu" aria-label="Science and Pipeline submenu">
-          <a href="science.html" role="menuitem">Science</a>
-          <a href="pipeline.html" class="active" role="menuitem" aria-current="page">Pipeline</a>
+          <a href="science.html" class="active" role="menuitem">Science</a>
+          <a href="pipeline.html" role="menuitem">Pipeline</a>
         </div>
       </div>
 
@@ -248,9 +249,9 @@
     <img class="hero-logo-topright" src="Prolium_color_transparent (1) (1).png" alt="Prolium Bio Logo">
 
     <div class="hero-content">
-      <div class="hero-kicker">Pipeline</div>
-      <h1 class="hero-title">PRO-203 — CD20×CD3 Bispecific</h1>
-      <p class="hero-desc">A confident, focused program built on early clinical experience—now advancing for autoimmune disease.</p>
+      <div class="hero-kicker">Science</div>
+      <h1 class="hero-title">Primer on T-Cell Engagers</h1>
+      <p class="hero-desc">A modern modality aiming for deeper B-cell depletion and more durable control in autoimmune disease.</p>
     </div>
 
     <div class="hero-glow" aria-hidden="true"></div>
@@ -265,8 +266,7 @@
               <stop offset="1" stop-color="#e3f2fb"/>
             </linearGradient>
           </defs>
-          <path fill="url(#bgBlue)" d="M0,260 C180,210 320,150 540,240 C760,330 870,320 1040,210 C1210,100 1350,80 1440,130 L1440,720 L0,720 Z"/>
-        </svg>
+        <path fill="url(#bgBlue)" d="M0,260 C180,210 320,150 540,240 C760,330 870,320 1040,210 C1210,100 1350,80 1440,130 L1440,720 L0,720 Z"/></svg>
       </div>
       <div class="wave wave--front">
         <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
@@ -276,90 +276,66 @@
               <stop offset="1" stop-color="#21c036"/>
             </linearGradient>
           </defs>
-          <path fill="url(#fgGreen)" d="M0,460 C260,520 420,520 680,470 C940,420 1110,460 1300,560 C1370,600 1410,640 1440,680 L1440,720 L0,720 Z"/>
-        </svg>
+        <path fill="url(#fgGreen)" d="M0,460 C260,520 420,520 680,470 C940,420 1110,460 1300,560 C1370,600 1410,640 1440,680 L1440,720 L0,720 Z"/></svg>
       </div>
     </div>
   </header>
 
   <!-- On-page quick nav -->
   <nav class="page-nav" aria-label="On this page">
-    <a class="page-chip" href="#overview">Overview</a>
-    <a class="page-chip" href="#evidence">Phase I/II snapshot</a>
-    <a class="page-chip" href="#plan">Development plan</a>
+    <a class="page-chip" href="#primer">Primer</a>
+    <a class="page-chip" href="#how">How it works</a>
+    <a class="page-chip" href="#why">Why it matters</a>
   </nav>
 
   <!-- CONTENT -->
   <main class="wrap">
-    <!-- OVERVIEW -->
-    <section class="lead-section" id="overview">
-      <h2 class="lead-title">PRO-203 at a glance</h2>
+    <!-- PRIMER -->
+    <section class="lead-section" id="primer">
+      <h2 class="lead-title">Primer on T-Cell Engagers</h2>
+      <div class="lead-note">PLACEHOLDER NOT TO BE USED IN FINAL SITE</div>
       <p class="lead-blurb">
-        <strong>Prolium’s first asset is PRO-203, a CD20×CD3 bispecific antibody.</strong> Originally developed by InnoCare and Keymed, PRO-203 was first studied in relapsed / refractory Non-Hodgkin’s lymphoma (NHL). The Phase I/II clinical trial in China to assess the safety, tolerability, PK and the preliminary anti-tumor activity of ICP-B02 has shown promising early results in both intravenous (IV) and subcutaneous (SC) formulations, particularly in patients with follicular lymphoma (FL) and diffuse large B-cell lymphoma (DLBCL). Prolium will initiate development of PRO-203 in autoimmune indications.
+        Approved B-cell therapies such as Rituxan® have demonstrated significant clinical benefit in a broad range of autoimmune
+        diseases but efficacy is potentially limited by depth of B-cell depletion. Cell therapy approaches have demonstrated initial
+        compelling proof of concept efficacy on the benefits of deeper depletion of B-cells; however, the burdensome process of a cell
+        therapy approach, involving lymphodepletion and high cost of manufacturing is likely to limit cell therapy’s usage to only a
+        selected set of patients.
       </p>
-
-      <div class="chips" aria-hidden="true">
-        <span class="chip">CD20×CD3</span>
-        <span class="chip">Bispecific antibody</span>
-        <span class="chip">IV &amp; SC</span>
-        <span class="chip">R/R NHL</span>
-        <span class="chip">FL &amp; DLBCL</span>
-        <span class="chip">Autoimmune next</span>
-      </div>
+      <p class="lead-blurb">
+        T-cell engagers have the potential to overcome traditional hurdles of antibody and cellular therapy approaches and become highly
+        effective and viable therapies for various autoimmune diseases. By additionally engaging T-cells, a deeper depletion of B-cells and
+        more durable therapeutic could be realized. T-cell engagers have the potential to change the treatment paradigm in various
+        autoimmune diseases and establish a new standard of care.
+      </p>
     </section>
 
-    <!-- EVIDENCE -->
-    <section class="evidence" id="evidence" aria-label="Phase I/II (China) snapshot">
-      <h2 class="section-title">Phase I/II snapshot (ICP-B02, China)</h2>
-      <div class="checks">
-        <div class="check">
-          <div class="tick" aria-hidden="true">
-            <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <p>Assessed <strong>safety</strong>, <strong>tolerability</strong>, and <strong>PK</strong> with preliminary anti-tumor activity readouts.</p>
-        </div>
-        <div class="check">
-          <div class="tick" aria-hidden="true">
-            <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <p>Both <strong>IV</strong> and <strong>SC</strong> formulations evaluated.</p>
-        </div>
-        <div class="check">
-          <div class="tick" aria-hidden="true">
-            <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <p><strong>Promising early results</strong> reported, particularly in <strong>FL</strong> and <strong>DLBCL</strong>.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- PLAN -->
-    <section class="plan" id="plan" aria-label="Development plan">
-      <h2 class="section-title">Development plan</h2>
+    <!-- HOW IT WORKS -->
+    <section class="how" id="how" aria-label="How T-cell engagers work">
+      <h2 class="how-title">How it works — at a glance</h2>
       <div class="steps">
-        <div class="step">
-          <div class="ico" aria-hidden="true">
-            <!-- document/transfer icon -->
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke="#21c036" stroke-width="2"/>
-              <path d="M14 3v5h5" stroke="#21c036" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3>Program onboarding</h3>
-          <p>Integrate prior data and formulations to inform autoimmune strategy.</p>
-        </div>
-
         <div class="step">
           <div class="ico" aria-hidden="true">
             <!-- target icon -->
             <svg viewBox="0 0 24 24" fill="none">
               <circle cx="12" cy="12" r="9" stroke="#21c036" stroke-width="2"/>
               <circle cx="12" cy="12" r="4" stroke="#21c036" stroke-width="2"/>
-              <circle cx="12" cy="12" r="1.6" fill="#21c036"/>
+              <circle cx="12" cy="12" r="1.5" fill="#21c036"/>
             </svg>
           </div>
-          <h3>Autoimmune focus</h3>
-          <p>Prioritize indications where deeper B-cell depletion may be impactful.</p>
+          <h3>Dual binding</h3>
+          <p>One arm targets B-cell antigen; the other engages CD3 on T-cells.</p>
+        </div>
+
+        <div class="step">
+          <div class="ico" aria-hidden="true">
+            <!-- connect icon -->
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 12a5 5 0 0 1 5-5M12 17a5 5 0 0 1-5-5" stroke="#21c036" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="12" cy="12" r="3" stroke="#21c036" stroke-width="2"/>
+            </svg>
+          </div>
+          <h3>Immune synapse</h3>
+          <p>Brings T-cells and B-cells together to trigger cytotoxic activity.</p>
         </div>
 
         <div class="step">
@@ -370,8 +346,33 @@
               <path d="M9 12l2 2 4-4" stroke="#21c036" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h3>Clinical execution</h3>
-          <p>Advance into studies designed for durability and patient access.</p>
+          <h3>Depletion & reset</h3>
+          <p>Targets disease-driving B-cells, aiming for deeper, durable control.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY IT MATTERS -->
+    <section class="why" id="why" aria-label="Why this matters">
+      <h2 class="why-title">Why it matters</h2>
+      <div class="why-list">
+        <div class="why-item">
+          <div class="tick" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <p>Potential for **deeper B-cell depletion** than traditional antibodies.</p>
+        </div>
+        <div class="why-item">
+          <div class="tick" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <p>Aim for **durable disease control** without the burdens of cell therapy.</p>
+        </div>
+        <div class="why-item">
+          <div class="tick" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <p>**Scalable biologic** manufacturing vs. bespoke autologous processes.</p>
         </div>
       </div>
     </section>
@@ -383,7 +384,7 @@
   </main>
 
   <script>
-    // Mobile drawer logic (match site)
+    // Mobile drawer logic
     const toggle = document.querySelector('.menu-toggle');
     const drawer = document.getElementById('mobile-drawer');
 
