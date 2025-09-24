@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About — Prolium Bio (Team Layout V2)</title>
+  <title>About & Meet the Team — Prolium Bio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root{
       --prolium-blue:#63c5ed;
       --prolium-green:#21c036;
-      --prolium-orange:#ff9100;
       --prolium-dark:#16404c;
       --gray:#e9eff3;
       --text-main:#123e47;
 
-      /* Page background greens */
-      --bg-green-0:#e9f9ee;
-      --bg-green-1:#c9f1d6;
-      --bg-green-2:#9fe6ba;
+      /* Page background greens (match index) */
+      --bg-green-0:#d8efe3;
+      --bg-green-1:#c4e9d4;
+      --bg-green-2:#9fe0bb;
       --bg-green-3:#63d48e;
       --bg-green-4:#21c036;
     }
@@ -28,105 +27,124 @@
       color:var(--text-main);
       font-family:'Inter',Arial,sans-serif;
       background:
-        radial-gradient(1200px 800px at 85% -10%, rgba(255,255,255,0.35), rgba(255,255,255,0) 60%),
-        linear-gradient(180deg, var(--bg-green-0) 0%, var(--bg-green-1) 28%, var(--bg-green-2) 55%, var(--bg-green-3) 78%, var(--bg-green-4) 100%);
-      background-attachment:fixed, fixed;
+        linear-gradient(180deg,
+          var(--bg-green-0) 0%,
+          var(--bg-green-1) 28%,
+          var(--bg-green-2) 55%,
+          var(--bg-green-3) 78%,
+          var(--bg-green-4) 100%);
+      background-attachment:fixed;
       scroll-behavior:smooth;
     }
 
-    /* NAV (shared across new pages) */
-    .nav{display:flex;justify-content:space-between;align-items:center;padding:18px 28px;background:#fff;border-bottom:1px solid #e8eef0;position:sticky;top:0;z-index:10000;box-shadow:0 4px 16px #00000010}
-    .nav-brand{display:flex;align-items:center;gap:14px;min-width:0}
-    .nav-logo{height:48px;width:auto}
-    .brand-text{font-weight:900;letter-spacing:-0.01em;white-space:nowrap;font-size:1.15rem;color:var(--prolium-dark)}
+    /* NAV — IDENTICAL TO INDEX */
+    .nav{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:10px 20px;background:#ffffffb3;backdrop-filter:blur(6px);
+      position:sticky;top:0;z-index:10000;box-shadow:0 4px 16px #00000010
+    }
+    .nav-brand{display:flex;align-items:center;gap:14px}
+    .nav-logo{height:72px;width:auto}
+
     .nav-links{display:flex;align-items:center;gap:1.1rem;position:relative}
-    .nav-links a,.nav-links button.linklike{color:var(--prolium-dark);text-decoration:none;font-weight:800;letter-spacing:0.005em;padding:10px 12px;border-radius:10px;transition:background .16s,color .16s;font-size:1.02rem;background:none;border:none;cursor:pointer}
-    .nav-links a:hover,.nav-links a:focus,.nav-links button.linklike:hover,.nav-links button.linklike:focus{background:var(--prolium-blue);color:#fff}
-    .nav-links a.active{background:var(--prolium-blue);color:#f4faff}
-    .nav-item{position:relative}
-    .dropdown{position:absolute;top:120%;left:0;background:#fff;border:1px solid var(--gray);border-radius:12px;box-shadow:0 10px 28px #00000018;padding:6px;display:none;min-width:200px;z-index:10001}
-    .dropdown a{display:block;padding:12px 14px;border-radius:10px;font-weight:800}
-    .dropdown a:hover,.dropdown a:focus{background:var(--prolium-blue);color:#fff}
-    .nav-item:focus-within>.dropdown,.nav-item:hover>.dropdown{display:block}
-    .menu-toggle{display:none;background:transparent;border:none;padding:10px;margin-left:8px;border-radius:10px}
-    .menu-bars{display:block;width:26px;height:2px;background:var(--prolium-dark);position:relative}
-    .menu-bars::before,.menu-bars::after{content:"";position:absolute;left:0;right:0;height:2px;background:var(--prolium-dark)}
-    .menu-bars::before{top:-7px}.menu-bars::after{top:7px}
+    .nav-links a,
+    .nav-links button{
+      font-size:1.02rem;font-weight:800;letter-spacing:.005em;line-height:1;
+      color:#0b2f39;text-decoration:none;padding:10px 12px;border-radius:10px;
+      background:none;border:none;cursor:pointer;transition:background .16s,color .16s;
+    }
+    .nav-links a:hover,
+    .nav-links button:hover,
+    .nav-links a.active{background:rgba(0,0,0,.05)}
 
-    /* MOBILE DRAWER */
-    .drawer{position:fixed;inset:0;height:100dvh;background:rgba(255,255,255,0.98);backdrop-filter:saturate(140%) blur(2px);border-bottom:1px solid var(--gray);box-shadow:0 20px 40px #00000022;z-index:9999;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .18s ease,transform .18s ease;overflow-y:auto}
-    .drawer.open{opacity:1;transform:translateY(0);pointer-events:auto}
-    .drawer-links{display:flex;flex-direction:column;padding:18px 20px 40px;gap:8px;max-width:640px;margin:64px auto}
-    .drawer-links a,.drawer-links button{padding:18px 16px;font-size:1.12rem;border-radius:12px;font-weight:800;outline-offset:3px;text-align:left;background:none;border:none;color:var(--prolium-dark)}
-    .drawer-links a:hover,.drawer-links a:focus,.drawer-links button:hover,.drawer-links button:focus{background:var(--prolium-blue);color:#fff}
-    .sublist{display:none;padding-left:10px}
-    .sublist a{padding-left:28px;font-weight:700}
-    .sublist.open{display:block}
+    /* Desktop dropdowns (hover, focus-within, and click-open) */
+    .submenu{position:relative}
+    .submenu > button[aria-expanded]{user-select:none}
+    .sublist{
+      position:absolute;top:calc(100% + 6px);left:0;
+      background:#fff;border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,.18);
+      padding:6px;min-width:220px;z-index:10001;display:none;
+    }
+    .submenu:hover .sublist,
+    .submenu:focus-within .sublist,
+    .submenu.open .sublist{display:block}
+    .sublist a{display:block;padding:12px 14px;border-radius:10px;font-weight:800;color:#0b2f39;font-size:1.02rem}
+    .sublist a:hover{background:#f3f7fb}
 
-    /* HERO — wave, subtle pulse, clean content */
+    /* Mobile drawer (same as index) */
+    .nav-toggle{display:none;background:none;border:none;font-size:2rem;cursor:pointer}
+    .drawer{
+      position:fixed;top:0;right:-100%;height:100%;width:min(86vw,340px);
+      background:white;box-shadow:-2px 0 24px rgba(0,0,0,.18);transition:right .28s ease;
+      z-index:20000;padding:20px;display:flex;flex-direction:column;gap:.5rem
+    }
+    .drawer.open{right:0}
+    .drawer a,.drawer button{
+      color:#0b2f39;text-decoration:none;font-weight:800;background:none;border:none;
+      text-align:left;font-size:1.05rem;padding:10px 8px;border-radius:10px
+    }
+    .drawer a:hover,.drawer button:hover{background:#eef6ff}
+    .drawer .submenu{display:flex;flex-direction:column}
+    .drawer .sublist{display:none;flex-direction:column;padding-left:10px}
+    .drawer .sublist.open{display:flex}
+
+    @media(max-width:980px){.nav-links{display:none}.nav-toggle{display:block}}
+
+    /* HERO (About) — solid background, waves */
     .hero{
       position:relative;isolation:isolate;
       min-height:92svh;
       display:flex;align-items:center;justify-content:center;
       padding:12svh 6vw 10svh;
       overflow:hidden;border-radius:0 0 36px 36px;text-align:center;
-      background:radial-gradient(1100px 700px at 80% 10%, #f7ffff 0%, #ffffff 60%);
+      background:#f6fbf8;
       box-shadow:0 16px 60px rgba(0,0,0,.08)
     }
-    .hero::before{
-      content:"";position:absolute;inset:-20% -10% 0 -10%;z-index:0;
-      background:
-        radial-gradient(1200px 600px at 85% 5%, rgba(255,255,255,.9), rgba(255,255,255,0) 60%),
-        linear-gradient(180deg, rgba(12,37,43,.06), rgba(12,37,43,0) 28%),
-        radial-gradient(900px 380px at 50% 100%, rgba(22,64,76,.06), rgba(22,64,76,0) 60%);
-      pointer-events:none;
-    }
-    .hero-logo-topright{position:absolute;top:22px;right:22px;z-index:5;height:70px;width:auto;filter:drop-shadow(0 6px 18px rgba(0,0,0,.08))}
     .hero-content{position:relative;z-index:4;max-width:1100px}
-    .hero-kicker{display:inline-block;font-weight:800;font-size:.92rem;letter-spacing:.12em;text-transform:uppercase;color:#0a3f14;background:rgba(255,255,255,.6);padding:6px 12px;border-radius:999px;margin-bottom:12px}
-    .hero-title{
-      font-size:clamp(2.2rem,6.2vw,5rem);line-height:1.02;font-weight:800;letter-spacing:-0.02em;margin:0 0 12px;color:#0e2f36;
-      text-shadow:0 1px 0 rgba(255,255,255,.6),0 10px 30px rgba(0,0,0,.12)
-    }
-    .hero-desc{
-      font-size:clamp(1.04rem,2.1vw,1.35rem);font-weight:600;color:#154e59;margin:0 auto;max-width:900px;
-      text-shadow:0 1px 0 rgba(255,255,255,.4)
-    }
-    .hero-glow{position:absolute;inset:0;z-index:2;pointer-events:none;background:
-      radial-gradient(80% 45% at 50% 35%, rgba(255,255,255,.45), rgba(255,255,255,0) 60%),
-      radial-gradient(70% 40% at 50% 65%, rgba(255,255,255,.28), rgba(255,255,255,0) 65%)}
+    .hero-title{padding-bottom: 2%; font-size:clamp(2.2rem,6.2vw,5rem);line-height:1.22;font-weight:900;letter-spacing:-0.02em;margin:0 0 12px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25)}
+    .hero-desc{padding-bottom: 20%; font-size:clamp(1.04rem,2.1vw,1.35rem);font-weight:700;color:#154e59;margin:0 auto;max-width:900px;line-height:2;text-shadow:0 1px 0 rgba(255,255,255,.2)}
 
-    .wave-wrap{position:absolute;inset:0;z-index:1;pointer-events:none}
+    /* WAVES (match site) */
+    .wave-wrap{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
     .wave{position:absolute;inset:auto 0 0 0;height:68svh;min-height:420px}
     .wave svg{width:100%;height:100%;transform-origin:50% 100%;will-change:transform}
-    .wave--back{opacity:.95}
-    .wave--front{opacity:.95}
-    @keyframes pulseA{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
-    @keyframes pulseB{0%,100%{transform:scale(1)}50%{transform:scale(1.018)}}
+    @keyframes pulseA{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.03)}}
+    @keyframes pulseB{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.06)}}
     .wave--back svg{animation:pulseA 12s ease-in-out infinite}
-    .wave--front svg{animation:pulseB 14s ease-in-out infinite}
+    .wave-clip{
+      position:absolute;left:0;right:0;bottom:0;
+      height:720px;min-height:720px;z-index:2;
+      background:
+        linear-gradient(180deg,
+          var(--bg-green-0) 0%,
+          var(--bg-green-1) 28%,
+          var(--bg-green-2) 55%,
+          var(--bg-green-3) 78%,
+          var(--bg-green-2) 100%);
+      background-attachment:fixed;background-repeat:no-repeat;
+      clip-path: path("M0,460 C260,520 420,520 680,470 C940,420 1110,460 1300,560 C1370,600 1410,640 1440,680 L1440,720 L0,720 Z");
+      animation:pulseB 16s ease-in-out infinite;
+      transform-origin:50% 100%;
+    }
 
     /* WRAPPER */
     .wrap{max-width:1120px;margin:0 auto;padding:0 5vw}
 
-    /* TEAM PHOTO SHOWCASE — refined layout */
-    .team-showcase{position:relative;display:grid;place-items:center;margin:96px 0 48px;padding:0 2vw}
+    /* TEAM PHOTO BRIDGE */
+    .team-showcase{position:relative;display:grid;place-items:center;margin:90px 0 40px;padding:0 2vw}
     .team-stack{position:relative;width:min(1180px,94vw)}
-    .team-stack::before,.team-stack::after{content:"";position:absolute;z-index:-1;border-radius:999px;filter:blur(40px);opacity:.55}
-    .team-stack::before{width:clamp(240px,28vw,420px);height:clamp(140px,16vw,220px);left:-4%;bottom:-6%;background:radial-gradient(50% 50% at 50% 50%, #9ed4ef66, transparent 70%)}
-    .team-stack::after{width:clamp(260px,30vw,460px);height:clamp(160px,18vw,260px);right:-2%;top:-8%;background:radial-gradient(50% 50% at 50% 50%, #63d48e66, transparent 70%)}
-
-    .team-frame{position:relative;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.6);transform:none}
-    .team-frame:hover{transform:none}
-    .team-frame::after{content:"";position:absolute;inset:-14px;border-radius:36px;background:radial-gradient(60% 50% at 15% 10%, rgba(255,255,255,.6), rgba(255,255,255,0) 60%), linear-gradient(120deg, #9ed4ef44, #21c03633);z-index:-1;filter:blur(10px)}
-    .team-frame img{display:block;width:100%;height:auto;aspect-ratio:16/7;object-fit:cover;object-position:center;filter:saturate(1.02) contrast(1.02)}
+    .team-frame{position:relative;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.6)}
+    .team-frame img{
+      display:block;width:100%;height:auto;
+      aspect-ratio:16/6.5;object-fit:cover;object-position:center 20%;
+      filter:saturate(1.02) contrast(1.02)
+    }
     .team-cap{position:absolute;left:18px;bottom:18px;background:rgba(255,255,255,.85);backdrop-filter:saturate(140%) blur(2px);padding:8px 12px;border-radius:999px;font-weight:700;font-size:.92rem;color:#0a3f14;box-shadow:0 6px 18px rgba(0,0,0,.12)}
 
-    /* MISSION + VALUES (lighter, no heavy boxes) */
+    /* ABOUT CONTENT */
     .about-sections{margin:40px auto 70px}
     .section-title{font-size:clamp(1.5rem,4.6vw,2.4rem);color:#0b2f39;font-weight:800;margin:0 0 12px;letter-spacing:-0.01em;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.28)}
     .lead{font-size:clamp(1.02rem,2.1vw,1.2rem);line-height:1.7;font-weight:600;color:#0e3a27;margin:0 auto 18px;max-width:980px;text-shadow:0 1px 0 rgba(255,255,255,.22);text-align:center}
-
     .values-kicker{text-align:center;color:#0f3b3f;font-weight:700;margin:26px 0 14px}
     .values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
     .value{background:rgba(255,255,255,.8);border-radius:16px;padding:16px 16px 14px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
@@ -134,22 +152,118 @@
     .value p{margin:0;font-size:1rem;color:#0f3b3f;font-weight:500}
     .pill{display:inline-block;margin-bottom:8px;font-weight:800;color:#0a3f14;background:rgba(33,192,54,.16);border-radius:999px;padding:6px 10px;font-size:.88rem}
 
-    /* CTA */
-    .cta{text-align:center;margin:54px 0 36px}
+    /* TEAM SECTION (no hero) */
+    #team .section-title{margin-top:8px}
+    .tabs-bar{display:flex;justify-content:center;align-items:center;gap:10px;margin:8px auto 6px;position:relative;z-index:3}
+    .tab{cursor:pointer;background:rgba(255,255,255,.7);border:none;border-radius:999px;padding:10px 16px;font-size:.98rem;font-weight:800;color:#0a3f14;text-transform:uppercase;letter-spacing:.06em}
+    .tab.active,.tab:focus{background:#21c036;color:#fff;outline:none}
+    .team-grid,.board-grid{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:28px 24px;margin:16px auto 44px;max-width:1140px;position:relative;z-index:1}
+    .member-card{background:#fff;border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,.10);width:290px;min-height:230px;transition:box-shadow .24s, transform .18s;display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:18px 14px;border-left:6px solid var(--prolium-green)}
+    .member-card:hover{box-shadow:0 14px 46px rgba(0,0,0,.18);transform:translateY(-4px)}
+    .avatar-img{width:120px;height:120px;object-fit:cover;border-radius:50%;box-shadow:0 4px 20px rgba(0,0,0,.12);margin-bottom:12px;border:6px solid #e8f6fd;background:#fff}
+    .member-name{font-size:1.12rem;font-weight:800;margin-bottom:4px;color:#0b2f39;text-align:center}
+    .member-title{color:#0a3f14;font-size:1rem;font-weight:700;text-align:center;min-height:20px}
+    .tab-content{display:none}
+    .tab-content.active{display:block}
+
+    /* Bottom CTA under team */
+    .cta-bottom{ text-align:center; margin:10px 0 60px }
     .cta-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);border:none;border-radius:14px;font-weight:800;padding:14px 30px;font-size:1.06rem;cursor:pointer;box-shadow:0 10px 22px rgba(0,0,0,.14);text-decoration:none;display:inline-block}
-    .cta-link:hover,.cta-link:focus{filter:brightness(1.06)}
+
+    /* ===== Card Expander (flip + grow) ===== */
+    .expander{
+      position:fixed; inset:0; z-index:30000;
+      display:grid; place-items:center;
+      background:rgba(0,0,0,.35);
+      opacity:0; pointer-events:none;
+      transition:opacity .28s ease;
+    }
+    .expander.active{opacity:1; pointer-events:auto}
+    .expander-card{
+      position:relative;
+      width:min(980px,92vw);
+      max-height:88vh;
+      background:#fff;
+      border-radius:24px;
+      box-shadow:0 22px 70px rgba(0,0,0,.28);
+      overflow:hidden;
+      transform-origin: top left;
+    }
+    .expander-inner{
+      position:relative;
+      transform-style:preserve-3d;
+      transition:transform .6s ease;
+      min-height:560px;
+    }
+    .expander-inner.flipped{ transform:rotateY(180deg) }
+
+    .face{
+      position:absolute; inset:0; backface-visibility:hidden;
+      display:grid; place-items:center;
+      padding:28px;
+    }
+    .face.front{
+      background:radial-gradient(circle at 30% 20%, #f7fbff, #eef7ff);
+      gap:16px;
+      text-align:center;
+    }
+    .face.back{ transform:rotateY(180deg); overflow:auto; }
+
+    .expanded-head{
+      display:flex; gap:24px; align-items:center; padding:22px 28px;
+      position:sticky; top:0; background:#fff; z-index:2;
+      border-bottom:1px solid #eef2f6;
+    }
+
+    /* >>> Bigger, circular avatar on expanded view <<< */
+    .expanded-avatar{
+      width:180px; height:180px;
+      border-radius:50%;
+      object-fit:cover;
+      box-shadow:0 12px 28px rgba(0,0,0,.18);
+      border:6px solid #e8f6fd;
+      background:#fff;
+    }
+
+    .expanded-meta{display:flex; flex-direction:column}
+    .expanded-name{font-size:1.6rem; font-weight:900; color:#0b2f39; line-height:1.15}
+    .expanded-title{font-size:1.08rem; font-weight:800; color:#0a3f14}
+
+    .expanded-body{
+      padding:18px 28px 32px; line-height:1.75; color:#0f3b3f; font-weight:500;
+      max-width:1000px;
+    }
+
+    .close-btn{
+      position:absolute; top:12px; right:12px;
+      width:40px; height:40px; border-radius:999px;
+      border:none; background:#0b2f39; color:#fff; font-size:24px; font-weight:900;
+      cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,.18);
+    }
+    .close-btn:hover{filter:brightness(1.05)}
+    .close-btn:focus{outline:3px solid #21c03644}
+
+    @media (max-width:820px){
+      .expanded-avatar{width:160px; height:160px}
+      .expanded-name{font-size:1.45rem}
+    }
+    @media (max-width:620px){
+      .expanded-head{flex-direction:column; align-items:flex-start}
+      .expanded-avatar{width:140px; height:140px}
+      .expanded-name{font-size:1.32rem}
+    }
 
     /* RESPONSIVE */
-    @media (max-width:980px){.nav-links{display:none}.menu-toggle{display:inline-block}}
     @media (max-width:940px){.values-grid{grid-template-columns:1fr 1fr}}
-    @media (max-width:620px){.values-grid{grid-template-columns:1fr}.team-frame img{aspect-ratio:16/10}.team-cap{left:12px;bottom:12px}}
-    @media (max-width:420px){.brand-text{display:none}}
+    @media (max-width:620px){.values-grid{grid-template-columns:1fr}.team-frame img{aspect-ratio:16/7.5;object-position:center 18%}}
+    @media (max-width:560px){.hero{min-height:78svh;padding:14svh 5vw 10svh}}
+    @media (max-width:420px){.nav-logo{height:60px}}
     @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
     img{max-width:100%;height:auto}
   </style>
 </head>
 <body>
-  <!-- NAV -->
+  <!-- NAV (same as index) -->
   <nav class="nav" role="navigation" aria-label="Primary">
     <div class="nav-brand">
       <a href="index.html" style="display:flex;align-items:center;gap:14px;text-decoration:none">
@@ -160,61 +274,58 @@
     <div class="nav-links" aria-label="Primary links">
       <a href="index.html">Home</a>
 
-      <div class="nav-item">
-        <button class="linklike" aria-haspopup="true" aria-expanded="false">Science &amp; Pipeline ▾</button>
-        <div class="dropdown" role="menu" aria-label="Science and Pipeline submenu">
-          <a href="science.html" role="menuitem">Science</a>
+      <div class="submenu">
+        <button type="button" aria-haspopup="true" aria-expanded="false">Science ▾</button>
+        <div class="sublist" role="menu" aria-label="Science submenu">
+          <a href="science.html" role="menuitem">Science Overview</a>
           <a href="pipeline.html" role="menuitem">Pipeline</a>
         </div>
       </div>
 
       <a href="trials.html">Clinical Trials</a>
 
-      <div class="nav-item">
-        <button class="linklike" aria-haspopup="true" aria-expanded="false">About ▾</button>
-        <div class="dropdown" role="menu" aria-label="About submenu">
-          <a href="about.html" class="active" role="menuitem" aria-current="page">About</a>
-          <a href="team.html" role="menuitem">Meet the Team</a>
+      <div class="submenu">
+        <button type="button" aria-haspopup="true" aria-expanded="false">About ▾</button>
+        <div class="sublist" role="menu" aria-label="About submenu">
+          <a href="about.html#about" class="active" role="menuitem" aria-current="page">About</a>
+          <a href="about.html#team" role="menuitem">Meet the Team</a>
         </div>
       </div>
 
       <a href="contact.html">Contact</a>
     </div>
 
-    <button class="menu-toggle" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false" aria-haspopup="dialog">
-      <span class="menu-bars" aria-hidden="true"></span>
-    </button>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
   </nav>
 
   <!-- MOBILE DRAWER -->
   <div id="mobile-drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
-    <div class="drawer-links">
-      <a href="index.html" onclick="closeDrawer()">Home</a>
+    <a href="index.html">Home</a>
 
-      <button id="science-toggle" type="button" aria-expanded="false">Science &amp; Pipeline ▸</button>
-      <div id="science-sublist" class="sublist" aria-label="Science and Pipeline sublinks">
-        <a href="science.html" onclick="closeDrawer()">Science</a>
-        <a href="pipeline.html" onclick="closeDrawer()">Pipeline</a>
+    <div class="submenu">
+      <button id="scienceToggle" type="button" aria-expanded="false">Science ▸</button>
+      <div id="scienceMenu" class="sublist" aria-label="Science sublinks">
+        <a href="science.html">Science Overview</a>
+        <a href="pipeline.html">Pipeline</a>
       </div>
-
-      <a href="trials.html" onclick="closeDrawer()">Clinical Trials</a>
-
-      <button id="about-toggle" type="button" aria-expanded="false">About ▸</button>
-      <div id="about-sublist" class="sublist" aria-label="About sublinks">
-        <a href="about.html" onclick="closeDrawer()" aria-current="page">About</a>
-        <a href="team.html" onclick="closeDrawer()">Meet the Team</a>
-      </div>
-
-      <a href="contact.html" onclick="closeDrawer()">Contact</a>
     </div>
+
+    <a href="trials.html">Clinical Trials</a>
+
+    <div class="submenu">
+      <button id="aboutToggle" type="button" aria-expanded="false">About ▸</button>
+      <div id="aboutMenu" class="sublist" aria-label="About sublinks">
+        <a href="about.html#about" aria-current="page">About</a>
+        <a href="about.html#team">Meet the Team</a>
+      </div>
+    </div>
+
+    <a href="contact.html">Contact</a>
   </div>
 
-  <!-- HERO -->
-  <header class="hero">
-    <img class="hero-logo-topright" src="Prolium_color_transparent (1) (1).png" alt="Prolium Bio Logo">
-
+  <!-- ABOUT HERO -->
+  <header id="about" class="hero" aria-label="About Prolium">
     <div class="hero-content">
-      <div class="hero-kicker">About</div>
       <h1 class="hero-title">About Prolium</h1>
       <p class="hero-desc">
         Prolium is a clinical-stage biotechnology company focused on bringing breakthrough therapy to patients with autoimmune diseases.
@@ -223,10 +334,9 @@
       </p>
     </div>
 
-    <div class="hero-glow" aria-hidden="true"></div>
-
     <!-- Waves -->
     <div class="wave-wrap" aria-hidden="true">
+      <!-- Blue back SVG -->
       <div class="wave wave--back">
         <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
           <defs>
@@ -238,21 +348,13 @@
           <path fill="url(#bgBlue)" d="M0,260 C180,210 320,150 540,240 C760,330 870,320 1040,210 C1210,100 1350,80 1440,130 L1440,720 L0,720 Z"/>
         </svg>
       </div>
-      <div class="wave wave--front">
-        <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
-          <defs>
-            <linearGradient id="fgGreen" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#6be08a"/>
-              <stop offset="1" stop-color="#21c036"/>
-            </linearGradient>
-          </defs>
-          <path fill="url(#fgGreen)" d="M0,460 C260,520 420,520 680,470 C940,420 1110,460 1300,560 C1370,600 1410,640 1440,680 L1440,720 L0,720 Z"/>
-        </svg>
-      </div>
+
+      <!-- Green front: clipped body gradient -->
+      <div class="wave-clip"></div>
     </div>
   </header>
 
-  <!-- TEAM PHOTO (Refined) -->
+  <!-- TEAM PHOTO BRIDGE -->
   <section class="team-showcase" aria-label="Prolium team photo">
     <div class="team-stack">
       <figure class="team-frame">
@@ -262,7 +364,7 @@
     </div>
   </section>
 
-  <!-- CONTENT -->
+  <!-- ABOUT CONTENT -->
   <main class="wrap about-sections">
     <section aria-labelledby="values-title">
       <h2 id="values-title" class="section-title">Our ARCH Values</h2>
@@ -274,86 +376,276 @@
         <article class="value">
           <span class="pill">A — Accountability</span>
           <h3>Own outcomes</h3>
-          <p>We communicate clearly and hold ourselves to reproducible, auditable work—because patients depend on us.</p>
+          <p>We take ownership of our actions, decisions and outcomes.
+            We honor our commitments, hold ourselves and others to high standards,
+            and continuously strive to earn trust through transparency, integrity, and
+            follow-through.</p>
         </article>
 
         <article class="value">
           <span class="pill">R — Resourcefulness</span>
           <h3>Turn constraints into velocity</h3>
-          <p>We reduce complexity, choose tractable paths, and adapt fast to move the program forward.</p>
+          <p>We approach challenges with creativity, agility, and
+            determination. We find smart, effective solutions with the tools at hand,
+            adapt quickly to change, and turn obstacles into opportunities through
+            innovation and initiative.</p>
         </article>
 
         <article class="value">
           <span class="pill">C — Collaboration</span>
           <h3>Decide better, together</h3>
-          <p>We span biology, data, engineering, and operations with humility and respect.</p>
+          <p>We believe that honest conversations, strong teamwork,
+            and genuine connection fuel our success. We speak openly and
+            respectfully, work together across boundaries, and foster a culture of
+            camaraderie where every voice is heard, and every person feels valued.</p>
         </article>
 
         <article class="value">
           <span class="pill">H — Humility</span>
           <h3>Let data lead</h3>
-          <p>We invite critique and stay curious—so our science improves and our therapies earn trust.</p>
+          <p>We lead with confidence, not ego. We value diverse
+            perspectives, listen with curiosity, and treat every interaction as a chance
+            to learn and grow. Respect and humility guide our actions, no matter our
+            experience or title.</p>
         </article>
       </div>
     </section>
-
-    <section class="cta" aria-label="Contact Prolium">
-      <a class="cta-link" href="contact.html">Contact Prolium</a>
-    </section>
   </main>
 
+  <!-- TEAM SECTION -->
+  <section id="team" class="wrap" aria-labelledby="team-title">
+    <h2 id="team-title" class="section-title">Meet the Team</h2>
+
+    <div class="tabs-bar">
+      <button class="tab active" id="teamTab" aria-controls="teamContent" tabindex="0">Team Members</button>
+      <button class="tab" id="boardTab" aria-controls="boardContent" tabindex="0">Board Members</button>
+    </div>
+
+    <div class="tab-content active" id="teamContent"><div class="team-grid" id="team-grid"></div></div>
+    <div class="tab-content" id="boardContent"><div class="board-grid" id="board-grid"></div></div>
+  </section>
+
+  <!-- Bottom CTA (under Meet the Team) -->
+  <div class="wrap cta-bottom">
+    <a class="cta-link" href="contact.html">Contact Prolium</a>
+  </div>
+
+  <!-- Card Expander (flip + grow) -->
+  <div class="expander" id="cardExpander" aria-modal="true" role="dialog" aria-label="Team member details"></div>
+
   <script>
-    // Mobile drawer logic
-    const toggle = document.querySelector('.menu-toggle');
-    const drawer = document.getElementById('mobile-drawer');
-
-    function closeDrawer(){
-      drawer.classList.remove('open');
-      toggle.setAttribute('aria-expanded','false');
-      document.body.style.overflow='';
-    }
-    function trapFocus(e){
-      if(!drawer.classList.contains('open')) return;
-      const f = drawer.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
-      if(!f.length) return;
-      const first=f[0], last=f[f.length-1];
-      if(e.key==='Tab'){
-        if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
-        else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+    /* ===== DESKTOP DROPDOWNS: click-to-toggle + outside-click/Escape close ===== */
+    const desktopSubmenus = document.querySelectorAll('.nav .submenu > button');
+    desktopSubmenus.forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        const parent = btn.parentElement;
+        const isOpen = parent.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(isOpen));
+        // close others
+        document.querySelectorAll('.nav .submenu.open').forEach(s=>{
+          if(s!==parent){ s.classList.remove('open'); s.querySelector('button').setAttribute('aria-expanded','false'); }
+        });
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('click', ()=>{
+      document.querySelectorAll('.nav .submenu.open').forEach(s=>{
+        s.classList.remove('open');
+        s.querySelector('button').setAttribute('aria-expanded','false');
+      });
+    });
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='Escape'){
+        document.querySelectorAll('.nav .submenu.open').forEach(s=>{
+          s.classList.remove('open');
+          s.querySelector('button').setAttribute('aria-expanded','false');
+          s.querySelector('button').focus();
+        });
       }
-    }
+    });
+
+    /* ===== MOBILE DRAWER ===== */
+    const toggle=document.querySelector('.nav-toggle');
+    const drawer=document.getElementById('mobile-drawer');
     toggle?.addEventListener('click', ()=>{
-      const isOpen = drawer.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-      if(isOpen){ drawer.querySelector('.drawer-links a, .drawer-links button')?.focus(); }
-    });
-    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); trapFocus(e); });
-    document.addEventListener('click', (e)=>{ if(!drawer.contains(e.target) && !toggle.contains(e.target)) { closeDrawer(); } });
-
-    // Desktop dropdown ARIA
-    const dropdownBtns = document.querySelectorAll('.nav-item > .linklike');
-    dropdownBtns.forEach(btn=>{
-      btn.addEventListener('focus', ()=> btn.setAttribute('aria-expanded','true'));
-      btn.addEventListener('blur',  ()=> btn.setAttribute('aria-expanded','false'));
+      const open = !drawer.classList.contains('open');
+      drawer.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
     });
 
-    // Mobile submenus
-    const scienceToggle = document.getElementById('science-toggle');
-    const scienceSub = document.getElementById('science-sublist');
+    const scienceToggle=document.getElementById('scienceToggle');
+    const scienceMenu=document.getElementById('scienceMenu');
     scienceToggle?.addEventListener('click', ()=>{
-      const open = scienceSub.classList.toggle('open');
-      scienceToggle.textContent = open ? 'Science & Pipeline ▾' : 'Science & Pipeline ▸';
+      const open = scienceMenu.classList.toggle('open');
+      scienceToggle.textContent = open ? "Science ▾" : "Science ▸";
       scienceToggle.setAttribute('aria-expanded', String(open));
     });
 
-    const aboutToggle = document.getElementById('about-toggle');
-    const aboutSub = document.getElementById('about-sublist');
+    const aboutToggle=document.getElementById('aboutToggle');
+    const aboutMenu=document.getElementById('aboutMenu');
     aboutToggle?.addEventListener('click', ()=>{
-      const open = aboutSub.classList.toggle('open');
-      aboutToggle.textContent = open ? 'About ▾' : 'About ▸';
+      const open = aboutMenu.classList.toggle('open');
+      aboutToggle.textContent = open ? "About ▾" : "About ▸";
       aboutToggle.setAttribute('aria-expanded', String(open));
     });
+
+    /* ===== Team data (content preserved) ===== */
+    const team = [
+      { name:"Scott Requadt", title:"CEO", long_bio:`Scott has over 24 years of operating and investing experience in biotech and pharmaceuticals. Most recently, he was CEO of Talaris Therapeutics, which was developing a novel cell therapy to induce or restore immune tolerance in organ transplant and severe auto-immune disease settings. In support of Talaris' late-clinical stage pipeline, he grew Talaris from 10 to 135 FTEs and raised over $330M, including a successful IPO in 2021.<br><br>He previously spent 14 years at Clarus Ventures (acquired by Blackstone Life Sciences), where he led and managed numerous investments spanning therapeutics, medtech and diagnostics. His original training is in finance and law, and he holds an MBA from Harvard, a JD/LL.B from University of Toronto and a B.Com from McGill.`, img:"Scott_Requadt.png" },
+      { name:"Salim Mujais, MD", title:"CMO", long_bio:`Dr. Salim Mujais is an experienced drug developer and academic nephrologist, with over 25 years in the industry and 12 years of academic experience at Northwestern University. Salim was most recently the SVP of Clinical Development at Generate: Biomedicines and spent many years at both Astellas Pharma and Baxter, after teaching for 12 years at Northwestern University.`, img:"Salim_Mujais.png" },
+      { name:"Niki Bili, MD, MPH", title:"VP, Clinical Development", long_bio:`Androniki “Niki” Bili is a board-certified rheumatologist, and brings over 25 years of experience spanning clinical practice, academic medicine, and medical education across a range of health systems. For the past decade, she has held key roles in drug development at Janssen, Merck, Bristol Myers Squibb, and most recently, Celldex. Her expertise encompasses the development of monoclonal and bispecific antibodies, and small molecules targeting immunological diseases, as well as vaccines.`, img:"Niki_Bili.png" },
+      { name:"Bob Huang", title:"VP, CMC & Manufacturing", long_bio:`Bob brings more than 20 years of experience in manufacturing across modalities, from bispecifics to cell and gene therapy. Most recently, Bob was the VP of Technical Operations at CARsgen Therapeutics. Prior to that, Bob held roles at Frontera Therapeutics, Kiniksa, Tesaro, Shire, Amgen and Baxter.`, img:"Bob_Huang.png" },
+      { name:"Carrie Bell", title:"Director, Program Management", long_bio:`Carrie is passionate about turning scientific ideas into real treatments that improve lives. She spent 16 years in CMC at a leading global pharmaceutical company, mastering the art and science of bringing complex therapies to life. For the past 5 years, she’s applied that expertise in clinical program management at small, agile biotech companies – helping guide promising programs through the challenges of early clinical development. Carrie thrives at the intersection of science, strategy, and teamwork, and is driven by the belief that every step forward brings patients closer to new hope.`, img:"Carrie_Bell.png" },
+      { name:"Sergio Rodriguez", title:"Director, Clinical Operations", long_bio:`Sergio is a cool dude who likes to run clinical studies.`, img:"Sergio_Rodriguez.png" },
+      { name:"James Sims, PhD", title:"Director, Alliance Management", long_bio:`James has over a decade of experience in the biotech industry, primarily in alliance management, supporting collaboration programs from preclinical development through commercialization. Most recently, James was with Voyager Therapeutics, managing a portfolio of gene therapy programs under the partnership with Neurocrine Biosciences.<br><br>Prior to Voyager, James spent five years with Akebia Therapeutics, overseeing several key global alliances, including Otsuka Pharmaceuticals, Mitsubishi Tanabe Pharma, and Vifor Pharma (now part of CSL), as well as supporting business development and strategic planning initiatives. Additionally, James has several years of strategic consulting experience and holds a PhD in Chemical Engineering.`, img:"James_Sims.png" },
+    ];
+
+    const board = [
+      { name:"Peter Fong, PhD", title:"Chairman", long_bio:`Peter is a partner and the president of RTW. In addition to his broad management and oversight of the firm, Peter has retained his role as head of Asset Development and Financing (ADF). One of ADF’s primary responsibilities is the creation and incubation of RTW-founded companies.<br><br>Peter also serves as founding CEO and board member of RTW’s incubated companies, building their management teams, pipelines, and drug development capabilities with the goal of creating the next generation of leading biotech firms capable of bringing life-saving medicines to patients. He currently serves on the board of directors for both Ji Xing Pharmaceuticals and Yarrow Biotechnologies, which were founded by RTW under his leadership.<br><br>Prior to joining RTW, Peter worked at Flagship Pioneering in Cambridge as a member of the innovation team. In this role he led the creation of four Flagship companies, including Harbinger Health, and served as the founding CEO of each of them.<br><br>Peter previously worked at Genentech in Business Development, where he helped build the company’s pipeline through partnering. Peter led multiple transactions for Genentech, including the company’s collaboration with BioNTech to develop mRNA-based personalized cancer vaccines. He has also worked at Memorial Sloan-Kettering; Carigent Therapeutics, which he co-founded; and General Electric as a chemist.<br><br>Peter received a PhD in bioengineering from Yale University, where he subsequently was a Brown-Coxe Postdoctoral Fellow, and his BS in biochemistry from Indiana University.`, img:"https://randomuser.me/api/portraits/men/11.jpg" },
+      { name:"Lauren Cuje", title:"Managing Director, New Ventures (RTW)", long_bio:`As the Managing Director, New Ventures at RTW, Lauren is responsible for expanding RTW’s research interests in new disease areas, as well as supporting efforts around new company formation.<br><br>Prior to joining RTW, Lauren worked as a consultant to the life sciences industry and within the asset management division of Goldman Sachs. Lauren received a MA in Biotechnology from Columbia University and a BA in Molecular, Cellular and Developmental Biology from the University of Colorado.`, img:"https://randomuser.me/api/portraits/women/56.jpg" },
+      { name:"Joshua Kennedy-Smith, PhD", title:"Partner, Research Analyst (RTW)", long_bio:`As Partner, Research Analyst at RTW, Josh specializes in the chemistry of small and large molecules, new modalities, and intellectual property. He oversees RTW's efforts in Immunology and Inflammation and also leads the firm's internship and outreach programs.<br><br>Josh has more than a decade of professional experience in the biopharmaceutical industry. Prior to joining RTW, he served as Principal Scientist and Head of Externalization at Schrondinger. The majority of his professional experience has been spent in the area of inflammation and autoimmune disease, serving as a key contributor in the early development of fenebrutinib and zasocitinib. He began his career at Roche as a medicinal chemist working on the team that discovered the drug Elpida (elsulfavirine) for the treatment of HIV.<br><br>Josh received a PhD in Chemistry from University of California, Berkeley and a BS in Chemistry from University of California, Santa Cruz and appears as an author and inventor on over 35 publications and patents. He has worked globally at sites in the US, Switzerland, and India.`, img:"https://randomuser.me/api/portraits/men/53.jpg" }
+    ];
+
+    function makeMemberCard(m,i,type){
+      return `<div class="member-card" tabindex="0" data-index="${i}" data-type="${type}">
+        <img class="avatar-img" src="${m.img}" alt="${m.name}"/>
+        <div class="member-name">${m.name}</div>
+        <div class="member-title">${m.title}</div>
+      </div>`;
+    }
+    function renderTeamGrid(){ document.getElementById('team-grid').innerHTML = team.map((m,i)=>makeMemberCard(m,i,'team')).join(''); }
+    function renderBoardGrid(){ document.getElementById('board-grid').innerHTML = board.map((m,i)=>makeMemberCard(m,i,'board')).join(''); }
+    renderTeamGrid(); renderBoardGrid();
+
+    /* ===== Flip + Expand logic ===== */
+    const expander = document.getElementById('cardExpander');
+    let lastSourceRect = null, lastCard = null;
+
+    function openCard(member, sourceEl){
+      lastCard = sourceEl;
+      const {left, top, width, height} = sourceEl.getBoundingClientRect();
+      lastSourceRect = {left, top, width, height};
+
+      // Build expander markup (front/back faces)
+      expander.innerHTML = `
+        <div class="expander-card" id="expanderCard" role="document" aria-label="${member.name}">
+          <div class="expander-inner" id="expanderInner">
+            <div class="face front">
+              <div>
+                <img class="expanded-avatar" src="${member.img}" alt="${member.name}">
+                <div class="expanded-name" style="margin-top:14px">${member.name}</div>
+                <div class="expanded-title">${member.title}</div>
+              </div>
+            </div>
+            <div class="face back">
+              <button class="close-btn" id="closeBtn" aria-label="Close">×</button>
+              <div class="expanded-head">
+                <img class="expanded-avatar" src="${member.img}" alt="${member.name}">
+                <div class="expanded-meta">
+                  <div class="expanded-name">${member.name}</div>
+                  <div class="expanded-title">${member.title}</div>
+                </div>
+              </div>
+              <div class="expanded-body">${member.long_bio}</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Show container
+      expander.classList.add('active');
+      document.body.style.overflow='hidden';
+
+      const cardEl = document.getElementById('expanderCard');
+      const innerEl = document.getElementById('expanderInner');
+
+      // Compute FLIP: from source rect -> final rect (centered card)
+      const finalRect = cardEl.getBoundingClientRect();
+      const dx = left - finalRect.left;
+      const dy = top - finalRect.top;
+      const sx = width / finalRect.width;
+      const sy = height / finalRect.height;
+      cardEl.style.transformOrigin = 'top left';
+      cardEl.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+
+      requestAnimationFrame(()=> {
+        cardEl.style.transition = 'transform 450ms ease';
+        cardEl.style.transform = 'translate(0,0) scale(1,1)';
+        // flip to back halfway through
+        setTimeout(()=> innerEl.classList.add('flipped'), 220);
+      });
+
+      // Close handlers
+      const closeBtn = document.getElementById('closeBtn');
+      const close = () => closeCard();
+      closeBtn.addEventListener('click', close);
+      expander.addEventListener('click', (e)=>{ if(e.target === expander) close(); });
+      document.addEventListener('keydown', escCloseOnce);
+    }
+
+    function escCloseOnce(e){
+      if(e.key === 'Escape'){ closeCard(); }
+    }
+
+    function closeCard(){
+      document.removeEventListener('keydown', escCloseOnce);
+      const cardEl = document.getElementById('expanderCard');
+      const innerEl = document.getElementById('expanderInner');
+      if(!cardEl || !lastSourceRect){ expander.classList.remove('active'); expander.innerHTML=''; document.body.style.overflow=''; return; }
+
+      // Flip back first
+      innerEl.classList.remove('flipped');
+
+      // Compute new final position of source card (in case page scrolled)
+      const srcRect = lastCard.getBoundingClientRect();
+      const finalRect = cardEl.getBoundingClientRect();
+      const dx = srcRect.left - finalRect.left;
+      const dy = srcRect.top - finalRect.top;
+      const sx = srcRect.width / finalRect.width;
+      const sy = srcRect.height / finalRect.height;
+
+      // After a short delay (to let the flip start), shrink to the card
+      setTimeout(()=>{
+        cardEl.style.transition = 'transform 420ms ease';
+        cardEl.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+      }, 120);
+
+      // When the shrink finishes, hide overlay
+      cardEl.addEventListener('transitionend', function handler(){
+        cardEl.removeEventListener('transitionend', handler);
+        expander.classList.remove('active');
+        setTimeout(()=>{ expander.innerHTML=''; document.body.style.overflow=''; }, 180);
+      });
+    }
+
+    function setupCardEvents(){
+      document.querySelectorAll('.member-card').forEach(card=>{
+        card.onclick=()=>{
+          const idx=card.getAttribute('data-index');
+          const type=card.getAttribute('data-type');
+          const member=(type==='team'?team:board)[idx];
+          openCard(member, card);
+        };
+        card.onkeydown=(e)=>{ if(e.key==='Enter'||e.key===' '){ card.click(); e.preventDefault(); } };
+      });
+    }
+    setupCardEvents();
+
+    /* Tabs */
+    function activateTab(tab,content){
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+      tab.classList.add('active'); content.classList.add('active');
+      setTimeout(setupCardEvents,150); // re-bind after DOM swap
+    }
+    const teamTab=document.getElementById('teamTab');
+    const boardTab=document.getElementById('boardTab');
+    const teamContent=document.getElementById('teamContent');
+    const boardContent=document.getElementById('boardContent');
+    teamTab.addEventListener('click',()=>activateTab(teamTab,teamContent));
+    boardTab.addEventListener('click',()=>activateTab(boardTab,boardContent));
+    teamTab.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ activateTab(teamTab,teamContent); }});
+    boardTab.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ activateTab(boardTab,boardContent); }});
   </script>
 </body>
 </html>

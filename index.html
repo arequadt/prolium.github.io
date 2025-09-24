@@ -9,236 +9,256 @@
     :root{
       --prolium-blue:#63c5ed;
       --prolium-green:#21c036;
-      --prolium-orange:#ff9100;
-      --prolium-dark:#16404c;
-      --offwhite:#f7fafc;
-      --gray:#e9eff3;
       --text-main:#123e47;
 
-      /* page background greens */
-      --bg-green-0:#e9f9ee;
-      --bg-green-1:#c9f1d6;
-      --bg-green-2:#9fe6ba;
+      /* Body gradient stops (match About) */
+      --bg-green-0:#d8efe3;
+      --bg-green-1:#c4e9d4;
+      --bg-green-2:#9fe0bb;
       --bg-green-3:#63d48e;
       --bg-green-4:#21c036;
     }
 
-    /* PAGE BACKGROUND */
     html,body{
       margin:0;padding:0;min-height:100%;
       color:var(--text-main);
       font-family:'Inter',Arial,sans-serif;
-      background:
-        radial-gradient(1200px 800px at 85% -10%, rgba(255,255,255,0.35), rgba(255,255,255,0) 60%),
-        linear-gradient(180deg, var(--bg-green-0) 0%, var(--bg-green-1) 28%, var(--bg-green-2) 55%, var(--bg-green-3) 78%, var(--bg-green-4) 100%);
-      background-attachment:fixed, fixed;
+      background:linear-gradient(180deg,
+        var(--bg-green-0) 0%,
+        var(--bg-green-1) 28%,
+        var(--bg-green-2) 55%,
+        var(--bg-green-3) 78%,
+        var(--bg-green-4) 100%);
+      background-attachment:fixed;
     }
 
-    /* NAV */
-    .nav{display:flex;justify-content:space-between;align-items:center;padding:18px 28px;background:#fff;border-bottom:1px solid #e8eef0;position:sticky;top:0;z-index:10000;box-shadow:0 4px 16px #00000010}
-    .nav-brand{display:flex;align-items:center;gap:14px;min-width:0}
-    .nav-logo{height:48px;width:auto}
-    .brand-text{font-weight:900;letter-spacing:-0.01em;white-space:nowrap;font-size:1.15rem;color:var(--prolium-dark)}
+    /* NAV — sticky, blurred, larger logo (same sizing as About) */
+    .nav{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:10px 20px;background:#ffffffb3;backdrop-filter:blur(6px);
+      position:sticky;top:0;z-index:10000;box-shadow:0 4px 16px #00000010
+    }
+    .nav-brand{display:flex;align-items:center;gap:14px}
+    .nav-logo{height:72px;width:auto}
+
     .nav-links{display:flex;align-items:center;gap:1.1rem;position:relative}
-    .nav-links a,.nav-links button.linklike{color:var(--prolium-dark);text-decoration:none;font-weight:900;letter-spacing:0.005em;padding:10px 12px;border-radius:10px;transition:background .16s,color .16s;font-size:1.08rem;background:none;border:none;cursor:pointer}
-    .nav-links a:hover,.nav-links a:focus,.nav-links button.linklike:hover,.nav-links button.linklike:focus{background:var(--prolium-blue);color:#fff}
-    .nav-links a.active{background:var(--prolium-blue);color:#f4faff}
-    .nav-item{position:relative}
-    .dropdown{position:absolute;top:120%;left:0;background:#fff;border:1px solid var(--gray);border-radius:12px;box-shadow:0 10px 28px #00000018;padding:6px;display:none;min-width:200px;z-index:10001}
-    .dropdown a{display:block;padding:12px 14px;border-radius:10px;font-weight:900}
-    .dropdown a:hover,.dropdown a:focus{background:var(--prolium-blue);color:#fff}
-    .nav-item:focus-within>.dropdown,.nav-item:hover>.dropdown{display:block}
-    .menu-toggle{display:none;background:transparent;border:none;padding:10px;margin-left:8px;border-radius:10px}
-    .menu-bars{display:block;width:26px;height:2px;background:var(--prolium-dark);position:relative}
-    .menu-bars::before,.menu-bars::after{content:"";position:absolute;left:0;right:0;height:2px;background:var(--prolium-dark)}
-    .menu-bars::before{top:-7px}.menu-bars::after{top:7px}
+    .nav-links a,
+    .nav-links button{
+      font-size:1.02rem;font-weight:800;letter-spacing:.005em;line-height:1;
+      color:#0b2f39;text-decoration:none;padding:10px 12px;border-radius:10px;
+      background:none;border:none;cursor:pointer;transition:background .16s,color .16s;
+    }
+    .nav-links a:hover,
+    .nav-links button:hover,
+    .nav-links a.active{background:rgba(0,0,0,.05)}
 
-    /* MOBILE DRAWER */
-    .drawer{position:fixed;inset:0;height:100dvh;background:rgba(255,255,255,0.98);backdrop-filter:saturate(140%) blur(2px);border-bottom:1px solid var(--gray);box-shadow:0 20px 40px #00000022;z-index:9999;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .18s ease,transform .18s ease;overflow-y:auto}
-    .drawer.open{opacity:1;transform:translateY(0);pointer-events:auto}
-    .drawer-links{display:flex;flex-direction:column;padding:18px 20px 40px;gap:8px;max-width:640px;margin:64px auto}
-    .drawer-links a,.drawer-links button{padding:18px 16px;font-size:1.12rem;border-radius:12px;font-weight:900;outline-offset:3px;text-align:left;background:none;border:none;color:var(--prolium-dark)}
-    .drawer-links a:hover,.drawer-links a:focus,.drawer-links button:hover,.drawer-links button:focus{background:var(--prolium-blue);color:#fff}
-    .sublist{display:none;padding-left:10px}
-    .sublist a{padding-left:28px;font-weight:800}
-    .sublist.open{display:block}
+    /* Desktop dropdowns (hover, focus-within, and click-open) */
+    .submenu{position:relative}
+    .submenu > button[aria-expanded]{user-select:none}
+    .sublist{
+      position:absolute;top:calc(100% + 6px);left:0;
+      background:#fff;border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,.18);
+      padding:6px;min-width:220px;z-index:10001;display:none;
+    }
+    .submenu:hover .sublist,
+    .submenu:focus-within .sublist,
+    .submenu.open .sublist{display:block}
+    .sublist a{display:block;padding:12px 14px;border-radius:10px;font-weight:800;color:#0b2f39;font-size:1.02rem}
+    .sublist a:hover{background:#f3f7fb}
 
-    /* HERO (brought up, BBB) */
+    /* Mobile drawer */
+    .nav-toggle{display:none;background:none;border:none;font-size:2rem;cursor:pointer}
+    .drawer{
+      position:fixed;top:0;right:-100%;height:100%;width:min(86vw,340px);
+      background:white;box-shadow:-2px 0 24px rgba(0,0,0,.18);transition:right .28s ease;
+      z-index:20000;padding:20px;display:flex;flex-direction:column;gap:.5rem
+    }
+    .drawer.open{right:0}
+    .drawer a,.drawer button{
+      color:#0b2f39;text-decoration:none;font-weight:800;background:none;border:none;
+      text-align:left;font-size:1.05rem;padding:10px 8px;border-radius:10px
+    }
+    .drawer a:hover,.drawer button:hover{background:#eef6ff}
+    .drawer .submenu{display:flex;flex-direction:column}
+    .drawer .sublist{display:none;flex-direction:column;padding-left:10px}
+    .drawer .sublist.open{display:flex}
+
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .nav-toggle{display:block}
+    }
+
+    /* HERO — solid bg behind text, waves below (matches About vibe) */
     .hero{
       position:relative;isolation:isolate;
-      min-height:95svh; /* was 120svh -> ensures headline fully above fold */
+      min-height:120svh;
       display:flex;align-items:center;justify-content:center;
-      padding:12svh 6vw 10svh; /* was 18svh top -> brings content up */
-      overflow:hidden;border-radius:0 0 36px 36px;
-      text-align:center;
-      background:radial-gradient(1100px 700px at 80% 10%, #f7ffff 0%, #ffffff 60%);
-      box-shadow:0 16px 60px rgba(0,0,0,.08)
+      padding:0 6vw 12svh;
+      text-align:center;background:#f6fbf8;
+      box-shadow:0 16px 60px var(--bg-green-2)
     }
-    .hero::before{
-      content:"";position:absolute;inset:-20% -10% 0 -10%;z-index:0;
-      background:
-        radial-gradient(1200px 600px at 85% 5%, rgba(255,255,255,.9), rgba(255,255,255,0) 60%),
-        linear-gradient(180deg, rgba(12,37,43,.06), rgba(12,37,43,0) 28%),
-        radial-gradient(900px 380px at 50% 100%, rgba(22,64,76,.06), rgba(22,64,76,0) 60%);
-      pointer-events:none;
-    }
-    .hero-logo-topright{position:absolute;top:22px;right:22px;z-index:5;height:72px;width:auto;filter:drop-shadow(0 6px 18px rgba(0,0,0,.08))}
-    .hero-content{position:relative;z-index:4;max-width:1100px;padding:0}
+    .hero-content{position:relative;z-index:4;max-width:1100px;transform:translateY(-56px);}
     .hero-title{
-      font-size:clamp(2.4rem,6.6vw,5.4rem);line-height:1.02;font-weight:900;letter-spacing:-0.025em;margin:0 0 14px;color:#0e2f36;
-      text-shadow:0 1px 0 rgba(255,255,255,.6),0 10px 30px rgba(0,0,0,.12)
+      font-size:clamp(2.25rem,6.6vw,5.4rem);
+      line-height:1.5;font-weight:900;letter-spacing:-0.025em;
+      margin:0 0 14px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25)
     }
-    .hero-title .accent{color:var(--prolium-green);text-shadow:0 1px 0 rgba(255,255,255,.35)}
+    .hero-title .accent{color:var(--bg-green-4);}
     .hero-desc{
-      font-size:clamp(1.1rem,2.3vw,1.5rem);font-weight:800;color:#154e59;margin:0 auto;max-width:820px;
-      text-shadow:0 1px 0 rgba(255,255,255,.4)
+      font-size:clamp(1.08rem,1.2vw + .85rem,1.35rem);
+      color:#21525d;font-weight:700;max-width:980px;margin:0 auto;line-height:1.55
     }
 
-    /* glow to lift text off waves */
-    .hero-glow{position:absolute;inset:0;z-index:2;pointer-events:none;background:
-      radial-gradient(80% 45% at 50% 35%, rgba(255,255,255,.45), rgba(255,255,255,0) 60%),
-      radial-gradient(70% 40% at 50% 65%, rgba(255,255,255,.28), rgba(255,255,255,0) 65%)}
+    /* WAVES — shapes & palettes match About */
+    .wave-wrap{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+    .wave{position:absolute;left:0;right:0;bottom:0;height:70svh;min-height:420px}
+    .wave svg{width:100%;height:100%}
 
-    /* WAVES */
-    .wave-wrap{position:absolute;inset:0;z-index:1;pointer-events:none}
-    .wave{position:absolute;inset:auto 0 0 0;height:70svh;min-height:420px}
-    .wave svg{width:100%;height:100%;transform-origin:50% 100%;will-change:transform}
-    .wave--back{opacity:.95}
-    .wave--front{opacity:.95}
-    /* scale pulse not drift */
-    @keyframes pulseA{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
-    @keyframes pulseB{0%,100%{transform:scale(1)}50%{transform:scale(1.018)}}
-    .wave--back svg{animation:pulseA 12s ease-in-out infinite}
-    .wave--front svg{animation:pulseB 14s ease-in-out infinite}
+    /* Gentle breathing animation */
+    @keyframes waveBreathBack{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.03)}}
+    @keyframes waveBreathFront{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.06)}}
+    .wave--back svg{animation:waveBreathBack 12s ease-in-out infinite}
 
-    /* CONTENT SECTIONS (BBB, no boxes behind mission/news) */
-    .wrap{max-width:1080px;margin:0 auto;padding:0 5vw}
-    .spacer-xl{height:28px}
+    /* FRONT green wave: use same body-gradient continuation + same clip-path as About */
+    .wave-clip{
+      position:absolute;left:0;right:0;bottom:0;height:720px;min-height:720px;
+      background:
+        linear-gradient(180deg,
+          var(--bg-green-0) 0%,
+          var(--bg-green-1) 28%,
+          var(--bg-green-2) 55%,
+          var(--bg-green-3) 78%,
+          var(--bg-green-2) 100%);
+      background-attachment:fixed;background-repeat:no-repeat;
+      clip-path: path("M0,460 C260,520 420,520 680,470 C940,420 1110,460 1300,560 C1370,600 1410,640 1440,680 L1440,720 L0,720 Z");
+      animation:waveBreathFront 16s ease-in-out infinite;transform-origin:50% 100%;
+    }
 
-    .mission-section{margin:64px auto 0;text-align:center}
-    .mission-title{font-size:clamp(1.6rem,4.8vw,2.4rem);color:#0a3f14;font-weight:900;letter-spacing:-0.01em;margin:0 0 8px;text-shadow:0 1px 0 rgba(255,255,255,.35)}
-    .mission-desc{color:#0e3a27;font-size:clamp(1.8rem,2.4vw,1.25rem);margin:0;font-weight:550;text-shadow:0 1px 0 rgba(255,255,255,.25); padding-left: 10%; padding-right: 10%;}
+    /* CONTENT (spacing consistent with About’s rhythm) */
+    main{max-width:1200px;margin:0 auto;padding:0 5vw}
+    .section{margin:68px 0;text-align:center}
+    .section-title{font-size:280%;margin:0 0 18px;color:#0b2f39}
 
-    .section-title{font-size:clamp(1.6rem,4.8vw,2.4rem);color:#0b2f39;font-weight:900;margin:0 0 18px;text-align:center;letter-spacing:-0.01em;text-shadow:0 1px 0 rgba(255,255,255,.25)}
+    /* TEAM TEASER (hover ring style kept) */
+    .team-teaser{margin:72px auto 0;text-align:center}
+    .team-avatars{display:flex;gap:18px;justify-content:center;margin:22px 0 16px;flex-wrap:wrap}
+    .team-avatar{
+      --ring:#6ec3ff;--ring-hover:#2983ff;
+      width:108px;height:108px;border-radius:999px;object-fit:cover;
+      border:5px solid var(--ring);
+      box-shadow:0 10px 24px rgba(0,0,0,.14);
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      background:#fff;
+    }
+    .team-avatars .team-avatar:nth-child(1){--ring:#6ec3ff;--ring-hover:#2a90ff}
+    .team-avatars .team-avatar:nth-child(2){--ring:#45d36a;--ring-hover:#1cab45}
+    .team-avatars .team-avatar:nth-child(3){--ring:#ffb257;--ring-hover:#ff8a00}
+    .team-avatar:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.18);border-color:var(--ring-hover)}
+    .team-link{
+      display:inline-flex;align-items:center;gap:10px;
+      text-decoration:none;font-weight:900;color:#073445;padding:12px 16px;border-radius:14px;
+      background:linear-gradient(#fff,#fff) padding-box, linear-gradient(90deg,#0ea5e9,#22c55e) border-box;
+      border:2px solid transparent; box-shadow:0 10px 24px rgba(0,0,0,.10);
+      transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;
+    }
+    .team-link:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(0,0,0,.14);filter:brightness(1.02)}
+    .team-link .arrow{font-weight:900}
+    .mission-desc{font-weight:500; font-size: 175%}
 
-    .team-teaser{margin:60px auto 0;text-align:center}
-    .team-avatars{display:flex;justify-content:center;gap:22px;flex-wrap:wrap}
-    .team-avatar{width:128px;height:128px;border-radius:50%;object-fit:cover;box-shadow:0 4px 18px #00000014;border:5px solid var(--prolium-green);background:#fff;transition:transform .15s,border-color .15s}
-    .team-avatar:hover{transform:scale(1.055);border-color:var(--prolium-orange)}
-    .team-teaser-link{color:#fff;text-decoration:none;font-weight:900;background:linear-gradient(90deg,var(--prolium-green),#1aa62f);padding:13px 26px;border-radius:14px;font-size:1.06rem;display:inline-block;margin-top:14px;box-shadow:0 8px 20px rgba(0,0,0,.12)}
-    .team-teaser-link:hover,.team-teaser-link:focus{filter:brightness(1.05)}
-
-    /* NEWS – no white boxes */
+    /* NEWS */
     .news-section{margin:68px auto 0;text-align:center}
     .news-list{display:flex;flex-direction:column;gap:14px;align-items:center}
-    .news-item{width:100%;max-width:820px;text-align:left;padding:0}
-    .news-head{display:flex;align-items:center;gap:12px}
-    .news-date{display:inline-block;font-size:.92rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#0a3f14;background:rgba(255,255,255,.6);padding:6px 10px;border-radius:999px}
-    .news-text{font-size:1.12rem;font-weight:900;color:#0b2f39;text-shadow:0 1px 0 rgba(255,255,255,.25)}
+    .news-item{max-width:820px;text-align:left}
+    .news-date{font-size:.92rem;font-weight:900;color:#10303a;background:rgba(255,255,255,.4);padding:6px 10px;border-radius:999px}
+    .news-text{font-size:1.12rem;font-weight:900;color:#0b2f39}
     .news-link{color:#062c7a;text-decoration:underline;font-weight:900}
-
-    /* CTA */
     .cta{text-align:center;margin:72px 0 36px}
-    .cta-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);border:none;border-radius:14px;font-weight:900;padding:14px 30px;font-size:1.1rem;cursor:pointer;box-shadow:0 10px 22px rgba(0,0,0,.14);text-decoration:none;display:inline-block}
-    .cta-link:hover,.cta-link:focus{filter:brightness(1.06)}
+    .cta-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);padding:14px 18px;border-radius:14px;text-decoration:none;display:inline-block;font-weight:800}
 
-    /* PIPELINE (kept for anchor; still boxed for information density) */
-    .pipeline-section{background:linear-gradient(90deg,#ffffff 68%,#e9fafd 100%);border-radius:24px;box-shadow:0 3px 24px #63c5ed17;max-width:1100px;margin:64px auto 0;padding:28px 4vw 24px;text-align:center}
-    .pipeline-title{color:var(--prolium-blue);font-size:1.45rem;font-weight:900;margin-bottom:12px}
-    .pipeline-timeline{display:flex;justify-content:center;align-items:flex-start;gap:40px;margin-top:12px;flex-wrap:wrap}
-    .timeline-step{background:#fff;border-radius:16px;box-shadow:0 2px 14px #63c5ed15;padding:18px 18px 16px;min-width:180px;max-width:240px;flex:1 1 180px;border:2px solid #e9eff3;color:var(--prolium-dark);position:relative}
-    .timeline-step:not(:last-child)::after{content:"";position:absolute;right:-22px;top:50%;width:30px;height:3px;background:linear-gradient(90deg,var(--prolium-green),var(--prolium-blue));border-radius:3px;transform:translateY(-50%);z-index:2}
-    .step-title{font-weight:900;color:var(--prolium-green);font-size:1.06rem;margin-bottom:6px}
-    .step-desc{color:#387078;font-size:1rem;margin:0;font-weight:600}
-
-    /* RESPONSIVE */
-    @media (max-width:980px){.nav-links{display:none}.menu-toggle{display:inline-block}.brand-text{font-size:1rem}}
-    @media (max-width:700px){
-      .hero{padding:14svh 5vw 10svh;min-height:100svh}
-      .hero-logo-topright{height:60px}
-      .team-avatar{width:100px;height:100px}
-      .timeline-step:not(:last-child)::after{display:none}
+    /* Responsive tweaks */
+    @media (max-width:560px){
+      .hero{min-height:100svh;padding-bottom:10svh}
+      .nav-logo{height:60px}
+      .team-avatar{width:96px;height:96px}
     }
-    @media (max-width:420px){
-      .brand-text{display:none}
-      .news-text{font-size:1.02rem}
+    @media (prefers-reduced-motion:reduce){
+      *{animation:none!important;transition:none!important}
     }
-    @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-    img{max-width:100%;height:auto}
   </style>
 </head>
 <body>
   <nav class="nav" role="navigation" aria-label="Primary">
     <div class="nav-brand">
-      <a href="index.html" style="display:flex;align-items:center;gap:14px;text-decoration:none">
-        <img class="nav-logo" src="Prolium_color_transparent (1) (1).png" alt="Prolium Logo">
-      </a>
+      <a href="index.html"><img class="nav-logo" src="Prolium_color_transparent (1) (1).png" alt="Prolium Logo"></a>
     </div>
 
     <div class="nav-links" aria-label="Primary links">
       <a href="index.html" class="active">Home</a>
 
-      <div class="nav-item">
-        <button class="linklike" aria-haspopup="true" aria-expanded="false">Science &amp; Pipeline ▾</button>
-        <div class="dropdown" role="menu" aria-label="Science and Pipeline submenu">
-          <a href="science.html" role="menuitem">Science</a>
+      <div class="submenu">
+        <button type="button" aria-haspopup="true" aria-expanded="false">Science ▾</button>
+        <div class="sublist" role="menu" aria-label="Science submenu">
+          <a href="science.html" role="menuitem">Science Overview</a>
           <a href="pipeline.html" role="menuitem">Pipeline</a>
         </div>
       </div>
 
       <a href="trials.html">Clinical Trials</a>
 
-      <div class="nav-item">
-        <button class="linklike" aria-haspopup="true" aria-expanded="false">About ▾</button>
-        <div class="dropdown" role="menu" aria-label="About submenu">
-          <a href="about.html" role="menuitem">About</a>
-          <a href="team.html" role="menuitem">Meet the Team</a>
+      <div class="submenu">
+        <button type="button" aria-haspopup="true" aria-expanded="false">About ▾</button>
+        <div class="sublist" role="menu" aria-label="About submenu">
+          <a href="about.html#about" role="menuitem">About</a>
+          <a href="about.html#team" role="menuitem">Meet the Team</a>
         </div>
       </div>
 
       <a href="contact.html">Contact</a>
     </div>
 
-    <button class="menu-toggle" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false" aria-haspopup="dialog">
-      <span class="menu-bars" aria-hidden="true"></span>
-    </button>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
   </nav>
 
-  <div id="mobile-drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
-    <div class="drawer-links">
-      <a href="index.html" onclick="closeDrawer()">Home</a>
+  <!-- Mobile drawer -->
+  <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
+    <a href="index.html">Home</a>
 
-      <button id="science-toggle" type="button" aria-expanded="false">Science &amp; Pipeline ▸</button>
-      <div id="science-sublist" class="sublist" aria-label="Science and Pipeline sublinks">
-        <a href="science.html" onclick="closeDrawer()">Science</a>
-        <a href="pipeline.html" onclick="closeDrawer()">Pipeline</a>
+    <div class="submenu">
+      <button id="scienceToggle" type="button" aria-expanded="false">Science ▸</button>
+      <div class="sublist" id="scienceMenu">
+        <a href="science.html">Science Overview</a>
+        <a href="pipeline.html">Pipeline</a>
       </div>
-
-      <a href="trials.html" onclick="closeDrawer()">Clinical Trials</a>
-
-      <button id="about-toggle" type="button" aria-expanded="false">About ▸</button>
-      <div id="about-sublist" class="sublist" aria-label="About sublinks">
-        <a href="about.html" onclick="closeDrawer()">About</a>
-        <a href="team.html" onclick="closeDrawer()">Meet the Team</a>
-      </div>
-
-      <a href="contact.html" onclick="closeDrawer()">Contact</a>
     </div>
+
+    <a href="trials.html">Clinical Trials</a>
+
+    <div class="submenu">
+      <button id="aboutToggle" type="button" aria-expanded="false">About ▸</button>
+      <div class="sublist" id="aboutMenu">
+        <a href="about.html#about">About</a>
+        <a href="about.html#team">Meet the Team</a>
+      </div>
+    </div>
+
+    <a href="contact.html">Contact</a>
   </div>
 
-  <!-- HERO -->
   <header class="hero">
-    <img class="hero-logo-topright" src="Prolium_color_transparent (1) (1).png" alt="Prolium Bio Logo">
-
     <div class="hero-content">
-      <h1 class="hero-title">Depleting Disease, <span class="accent">Empowering Health</span><br><span>Next-Gen Immunotherapy</span></h1>
-      <p class="hero-desc">Prolium is a small, but dedicated team leveraging big science to better the lives of people with autoimmune disorders.</p>
+      <h1 class="hero-title">
+        Depleting Disease, <span class="accent">Empowering Health</span><br>
+        <span>Next-Gen Immunotherapy</span>
+      </h1>
+      <p class="hero-desc">
+        Prolium is a small, but dedicated team focused on developing next-generation immunotherapies to deplete pathological B cells.
+        We use cutting-edge bispecific antibody engineering and immunology science to better the lives of people with autoimmune disorders.
+      </p>
     </div>
 
-    <div class="hero-glow" aria-hidden="true"></div>
-
-    <!-- Waves -->
+    <!-- Waves (identical palette & shape to About) -->
     <div class="wave-wrap" aria-hidden="true">
+      <!-- BLUE BACK WAVE -->
       <div class="wave wave--back">
         <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
           <defs>
@@ -247,51 +267,23 @@
               <stop offset="1" stop-color="#e3f2fb"/>
             </linearGradient>
           </defs>
-          <path fill="url(#bgBlue)" d="M0,260 C180,210 320,150 540,240 C760,330 870,320 1040,210 C1210,100 1350,80 1440,130 L1440,720 L0,720 Z"/>
+          <path
+            d="M0,260 C180,210 320,150 540,240 C760,330 870,320 1040,210 C1210,100 1350,80 1440,130 L1440,720 L0,720 Z"
+            fill="url(#bgBlue)"/>
         </svg>
       </div>
-      <div class="wave wave--front">
-        <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
-          <defs>
-            <linearGradient id="fgGreen" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#6be08a"/>
-              <stop offset="1" stop-color="#21c036"/>
-            </linearGradient>
-          </defs>
-          <path fill="url(#fgGreen)" d="M0,460 C260,520 420,520 680,470 C940,420 1110,460 1300,560 C1370,600 1410,640 1440,680 L1440,720 L0,720 Z"/>
-        </svg>
-      </div>
+
+      <!-- GREEN FRONT WAVE: clipped body gradient (same stops/shape as About) -->
+      <div class="wave-clip"></div>
     </div>
   </header>
 
-  <!-- CONTENT -->
-  <main class="wrap">
-    <section class="mission-section">
-      <h2 class="mission-title">Our Mission</h2>
+  <main>
+    <section class="section" id="mission">
+      <h2 class="section-title">Our Mission</h2>
       <p class="mission-desc">We are committed to delivering breakthrough therapies for
-        autoimmune disease by combining scientific rigor and deep compassion –
-        bringing hope and healing to patients who need it most.</p>
-    </section>
-
-    <div class="spacer-xl"></div>
-
-    <!-- Pipeline (optional preview; still boxed intentionally for structure) -->
-    <section id="pipeline" class="pipeline-section" hidden>
-      <div class="pipeline-title">Pipeline Preview</div>
-      <div class="pipeline-timeline">
-        <div class="timeline-step">
-          <div class="step-title">Lead Optimization</div>
-          <p class="step-desc">Lead ProliumX constructs show promising activity in vitro and in vivo.</p>
-        </div>
-        <div class="timeline-step">
-          <div class="step-title">IND-Enabling Studies</div>
-          <p class="step-desc">Toxicology and safety studies in progress; manufacturing scaling underway.</p>
-        </div>
-        <div class="timeline-step">
-          <div class="step-title">First-in-Human Trials</div>
-          <p class="step-desc">Phase I planned for 2025 in relapsed hematologic malignancies.</p>
-        </div>
-      </div>
+autoimmune disease by combining scientific rigor and deep compassion –
+bringing hope and healing to patients who need it most.</p>
     </section>
 
     <section class="team-teaser">
@@ -301,58 +293,24 @@
         <img class="team-avatar" src="Salim_Mujais.png" alt="Salim Mujais, CMO">
         <img class="team-avatar" src="Niki_Bili.png" alt="Niki Bili, VP, Clinical Development">
       </div>
-      <a class="team-teaser-link" href="team.html">Meet the Full Team</a>
+      <a class="team-link" href="about.html#team">
+        Meet the Full Team <span class="arrow">→</span>
+      </a>
     </section>
 
-  <section class="news-section">
-    <h2 class="section-title">Recent News</h2>
-    <div class="news-list">
-      <div class="news-item">
-        <div class="news-head">
-          <span class="news-date">ETPharma</span>
+    <section class="news-section">
+      <h2 class="section-title">Recent News</h2>
+      <div class="news-list">
+        <div class="news-item">
+          <span class="news-date">Date?</span>
           <span class="news-text">
-            <a class="news-link" href="https://pharma.economictimes.indiatimes.com/news/mergers-and-acquisitions/prolium-acquires-bispecific-rights-from-chinese-joint-venture-for-520-mn/117459420" target="_blank" rel="noopener">
+            <a class="news-link" href="https://pharma.economictimes.indiatimes.com/news/industry/prolium-acquires-bispecific-rights-from-chinese-joint-venture-for-520-mn/117459420" target="_blank" rel="noopener">
               Prolium acquires bispecific rights from Chinese joint venture for $520 Mn
             </a>
           </span>
         </div>
       </div>
-
-      <div class="news-item">
-        <div class="news-head">
-          <span class="news-date">BioSpace</span>
-          <span class="news-text">
-            <a class="news-link" href="https://www.biospace.com/press-releases/innocare-and-keymed-jointly-announce-the-license-agreement-with-prolium-for-cd20xcd3-bispecific-antibody-icp-b02" target="_blank" rel="noopener">
-              InnoCare and KeyMed Jointly Announce the License Agreement with Prolium for CD20xCD3 Bispecific Antibody ICP-B02
-            </a>
-          </span>
-        </div>
-      </div>
-
-      <div class="news-item">
-        <div class="news-head">
-          <span class="news-date">FirstWord Pharma</span>
-          <span class="news-text">
-            <a class="news-link" href="https://firstwordpharma.com/story/5929057" target="_blank" rel="noopener">
-              RTW-backed Prolium latest to tap China biotech pipeline in $520M deal
-            </a>
-          </span>
-        </div>
-      </div>
-
-      <div class="news-item">
-        <div class="news-head">
-          <span class="news-date">Pharmaceutical Technology</span>
-          <span class="news-text">
-            <a class="news-link" href="https://www.pharmaceutical-technology.com/news/keymed-partners-with-us-based-biotech-prolium-in-bispecific-antibody-deal/" target="_blank" rel="noopener">
-              KeyMed partners with US-based biotech Prolium in bispecific antibody deal
-            </a>
-          </span>
-        </div>
-      </div>
-    </div>
-  </section>
-
+    </section>
 
     <div class="cta">
       <a class="cta-link" href="contact.html">Contact Prolium</a>
@@ -360,40 +318,59 @@
   </main>
 
   <script>
-    const toggle = document.querySelector('.menu-toggle');
-    const drawer = document.getElementById('mobile-drawer');
-
-    function closeDrawer(){
-      drawer.classList.remove('open');
-      toggle.setAttribute('aria-expanded','false');
-      document.body.style.overflow='';
-    }
-    function trapFocus(e){
-      if(!drawer.classList.contains('open')) return;
-      const f = drawer.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
-      if(!f.length) return;
-      const first=f[0], last=f[f.length-1];
-      if(e.key==='Tab'){
-        if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
-        else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
-      }
-    }
-    toggle?.addEventListener('click', ()=>{
-      const isOpen = drawer.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-      if(isOpen){ drawer.querySelector('.drawer-links a, .drawer-links button')?.focus(); }
+    // Desktop dropdowns: click-to-toggle + outside-click/Escape close
+    const desktopSubmenus = document.querySelectorAll('.nav .submenu > button');
+    desktopSubmenus.forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        const parent = btn.parentElement;
+        const isOpen = parent.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(isOpen));
+        document.querySelectorAll('.nav .submenu.open').forEach(s=>{
+          if(s!==parent){ s.classList.remove('open'); s.querySelector('button').setAttribute('aria-expanded','false'); }
+        });
+        e.stopPropagation();
+      });
     });
-    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); trapFocus(e); });
-    document.addEventListener('click', (e)=>{ if(!drawer.contains(e.target) && !toggle.contains(e.target)) { closeDrawer(); } });
+    document.addEventListener('click', ()=>{
+      document.querySelectorAll('.nav .submenu.open').forEach(s=>{
+        s.classList.remove('open');
+        s.querySelector('button').setAttribute('aria-expanded','false');
+      });
+    });
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='Escape'){
+        document.querySelectorAll('.nav .submenu.open').forEach(s=>{
+          s.classList.remove('open');
+          s.querySelector('button').setAttribute('aria-expanded','false');
+          s.querySelector('button').focus();
+        });
+      }
+    });
 
-    // Desktop dropdown ARIA
-    const aboutBtn = document.querySelectorAll('.nav-item > .linklike')[1];
-    aboutBtn?.addEventListener('focus', ()=> aboutBtn.setAttribute('aria-expanded','true'));
-    aboutBtn?.addEventListener('blur',  ()=> aboutBtn.setAttribute('aria-expanded','false'));
-    const spBtn = document.querySelectorAll('.nav-item > .linklike')[0];
-    spBtn?.addEventListener('focus', ()=> spBtn.setAttribute('aria-expanded','true'));
-    spBtn?.addEventListener('blur',  ()=> spBtn.setAttribute('aria-expanded','false'));
+    // Mobile drawer
+    const toggle=document.querySelector('.nav-toggle');
+    const drawer=document.getElementById('drawer');
+    toggle?.addEventListener('click', ()=>{
+      const open = !drawer.classList.contains('open');
+      drawer.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+
+    const sciToggle=document.getElementById('scienceToggle');
+    const sciMenu=document.getElementById('scienceMenu');
+    sciToggle?.addEventListener('click',()=>{
+      const open = sciMenu.classList.toggle('open');
+      sciToggle.textContent = open ? "Science ▾" : "Science ▸";
+      sciToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    const aboutToggle=document.getElementById('aboutToggle');
+    const aboutMenu=document.getElementById('aboutMenu');
+    aboutToggle?.addEventListener('click',()=>{
+      const open = aboutMenu.classList.toggle('open');
+      aboutToggle.textContent = open ? "About ▾" : "About ▸";
+      aboutToggle.setAttribute('aria-expanded', String(open));
+    });
   </script>
 </body>
 </html>
