@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root{
+      --prolium-violet:#7c3aed;
       --prolium-blue:#63c5ed;
       --prolium-green:#21c036;
       --text-main:#123e47;
@@ -40,15 +41,14 @@
       background-attachment:fixed;
     }
 
-    /* NAV — identical to other pages */
+    /* NAV — sticky, blurred, larger logo (same sizing as About) */
     .nav{
       display:flex;justify-content:space-between;align-items:center;
-      padding:10px 20px;background:#ffffffb3;backdrop-filter:blur(6px);
+      padding:10px 20px;background:rgba(255, 255, 255, 0.47);backdrop-filter:blur(6px);
       position:sticky;top:0;z-index:10000;box-shadow:0 4px 16px #00000010
     }
     .nav-brand{display:flex;align-items:center;gap:14px}
     .nav-logo{height:72px;width:auto}
-
     .nav-links{display:flex;align-items:center;gap:1.1rem;position:relative}
     .nav-links a,
     .nav-links button{
@@ -58,7 +58,7 @@
     }
     .nav-links a:hover,
     .nav-links button:hover,
-    .nav-links a.active{background:rgba(0,0,0,.05)}
+    .nav-links a.active{background:var(--prolium-violet); color:#fff}
 
     /* Desktop dropdowns (hover, focus-within, and click-open) */
     .submenu{position:relative}
@@ -96,31 +96,31 @@
       .nav-toggle{display:block}
     }
 
-    /* HERO — solid background (no gradient behind text); waves below */
+    /* HERO — solid bg behind text, waves below (matches About vibe) */
     .hero{
       position:relative;isolation:isolate;
-      min-height:92svh;
+      min-height:120svh;
       display:flex;align-items:center;justify-content:center;
-      padding:12svh 6vw 10svh;
-      overflow:hidden;border-radius:0 0 36px 36px;text-align:center;
-      background:#f6fbf8;
-      box-shadow:0 16px 60px rgba(0,0,0,.08)
+      padding:0 6vw 12svh;
+      text-align:center;background:white;
+      margin-top: -25svh;
+    }
+    .hero-content{position:relative;z-index:4;max-width:1100px;transform:translateY(-56px);}
+    .hero-title{
+      font-size:clamp(2.25rem,6.6vw,5.4rem);
+      line-height:1.75;font-weight:900;letter-spacing:-0.025em;
+      margin:0 0 14px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25)
+    }
+    .hero-title .accent{color:var(--prolium-green);}
+    .hero-desc{
+      font-size:clamp(1.08rem,1.2vw + .85rem,1.35rem);
+      color:#21525d;font-weight:700;max-width:980px;margin:0 auto;line-height:1.55
     }
     .hero-content{position:relative;z-index:4;max-width:1100px}
     .hero-kicker{
       display:inline-block;font-weight:800;font-size:.92rem;letter-spacing:.12em;
       text-transform:uppercase;color:#0a3f14;background:rgba(255,255,255,.6);
       padding:6px 12px;border-radius:999px;margin-bottom:12px
-    }
-    .hero-title{
-      font-size:clamp(2.2rem,6.2vw,5rem);
-      line-height:1.15;font-weight:900;letter-spacing:-0.02em;
-      margin:0 0 12px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25)
-    }
-    .hero-desc{
-      font-size:clamp(1.04rem,2.1vw,1.35rem);
-      font-weight:700;color:#154e59;margin:0 auto;max-width:900px;line-height:1.6;
-      text-shadow:0 1px 0 rgba(255,255,255,.2)
     }
 
     /* WAVES — same shapes/“breathing” animation as other pages */
@@ -164,6 +164,7 @@
     /* Trials grid (kept) */
     .trials{margin:40px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
     @media (max-width:860px){ .trials{grid-template-columns:1fr} }
+    .lead-note{display:inline-block;margin:0 auto 12px;font-weight:800;color:#0a3f14;background:rgba(255,255,255,.6);border-radius:999px;padding:7px 12px;font-size:.87rem;text-transform:uppercase;letter-spacing:.08em}
 
     .trial-card{
       background:#fff;border-radius:18px;box-shadow:0 8px 28px rgba(0,0,0,.10);
@@ -221,25 +222,9 @@
 
     <div class="nav-links" aria-label="Primary links">
       <a href="index.html">Home</a>
-
-      <div class="submenu">
-        <button type="button" aria-haspopup="true" aria-expanded="false">Science ▾</button>
-        <div class="sublist" role="menu" aria-label="Science submenu">
-          <a href="science.html" role="menuitem">Science Overview</a>
-          <a href="pipeline.html" role="menuitem">Pipeline</a>
-        </div>
-      </div>
-
-      <a href="trials.html" class="active" aria-current="page">Clinical Trials</a>
-
-      <div class="submenu">
-        <button type="button" aria-haspopup="true" aria-expanded="false">About ▾</button>
-        <div class="sublist" role="menu" aria-label="About submenu">
-          <a href="about.html#about" role="menuitem">About</a>
-          <a href="about.html#team" role="menuitem">Meet the Team</a>
-        </div>
-      </div>
-
+      <a href="science.html">Science & Pipeline</a>
+      <a href="trials.html" class="active">Clinical Trials</a>
+      <a href="about.html#about">About</a>
       <a href="contact.html">Contact</a>
     </div>
 
@@ -248,24 +233,11 @@
 
   <!-- Mobile drawer -->
   <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
-    <a href="index.html">Home</a>
-
-    <div class="submenu">
-      <button id="scienceToggle" type="button" aria-expanded="false">Science ▸</button>
-      <div class="sublist" id="scienceMenu">
-        <a href="science.html">Science Overview</a>
-        <a href="pipeline.html">Pipeline</a>
-      </div>
-    </div>
-
-    <a href="trials.html" aria-current="page">Clinical Trials</a>
-
-    <div class="submenu">
-      <button id="aboutToggle" type="button" aria-expanded="false">About ▸</button>
-      <div class="sublist" id="aboutMenu">
-        <a href="about.html#about">About</a>
-        <a href="about.html#team">Meet the Team</a>
-      </div>
+      <a href="index.html">Home</a>
+      <a href="science.html">Science & Pipeline</a>
+      <a href="trials.html" class="active">Clinical Trials</a>
+      <a href="about.html#about">About</a>
+      <a href="contact.html">Contact</a>
     </div>
 
     <a href="contact.html">Contact</a>
@@ -324,7 +296,7 @@
 
   <!-- TRIALS -->
   <main class="wrap" id="all">
-    <!-- content preserved from your current page -->
+    <div class="lead-note">ALL TRIALS ARE PLACEHOLDERS NOT TO BE USED IN FINAL SITE</div>
     <section class="trials" id="active" aria-label="Active trials">
       <!-- CARD 1 -->
       <article class="trial-card" data-status="recruiting" data-phase="2" data-tags="autoimmune, b-cell" data-nct="NCT00000001">

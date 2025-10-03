@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Science — Prolium Bio</title>
+  <title>Science & Pipeline — Prolium Bio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root{
       --prolium-blue:#63c5ed;
       --prolium-green:#21c036;
       --text-main:#123e47;
+      --prolium-white:white;
+      --prolium-orange:#FF991C;
+      --prolium-dark:#0e2f36;
+    
 
       /* Page background greens — match index/about */
       --bg-green-0:#d8efe3;
@@ -34,15 +38,14 @@
       background-attachment:fixed;
     }
 
-    /* NAV — identical to index/about */
+    /* NAV — sticky, blurred, larger logo (same sizing as About) */
     .nav{
       display:flex;justify-content:space-between;align-items:center;
-      padding:10px 20px;background:#ffffffb3;backdrop-filter:blur(6px);
+      padding:10px 20px;background:rgba(255, 255, 255, 0.47);backdrop-filter:blur(6px);
       position:sticky;top:0;z-index:10000;box-shadow:0 4px 16px #00000010
     }
     .nav-brand{display:flex;align-items:center;gap:14px}
     .nav-logo{height:72px;width:auto}
-
     .nav-links{display:flex;align-items:center;gap:1.1rem;position:relative}
     .nav-links a,
     .nav-links button{
@@ -52,7 +55,7 @@
     }
     .nav-links a:hover,
     .nav-links button:hover,
-    .nav-links a.active{background:rgba(0,0,0,.05)}
+    .nav-links a.active{background:var(--prolium-green)}
 
     /* Desktop dropdowns (hover, focus-within, and click-open) */
     .submenu{position:relative}
@@ -90,37 +93,35 @@
       .nav-toggle{display:block}
     }
 
-    /* HERO — solid background, waves below (no gradient behind text) */
+    /* HERO — solid bg behind text, waves below (matches About vibe) */
     .hero{
       position:relative;isolation:isolate;
-      min-height:92svh;
+      min-height:120svh;
       display:flex;align-items:center;justify-content:center;
-      padding:12svh 6vw 10svh;
-      overflow:hidden;border-radius:0 0 36px 36px;text-align:center;
-      background:#f6fbf8;
-      box-shadow:0 16px 60px rgba(0,0,0,.08)
+      padding:0 6vw 12svh;
+      text-align:center;background:white;
+      margin-top: -25svh;
     }
-    .hero-content{position:relative;z-index:4;max-width:1100px}
+    .hero-content{position:relative;z-index:4;max-width:1100px;transform:translateY(-56px);}
     .hero-title{
-      font-size:clamp(2.2rem,6.2vw,5rem);
-      line-height:1.22;font-weight:900;letter-spacing:-0.02em;
-      margin:0 0 12px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25)
+      font-size:clamp(2.25rem,6.6vw,5.4rem);
+      line-height:1.75;font-weight:900;letter-spacing:-0.025em;
+      margin:0 0 14px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25)
     }
+    .hero-title .accent{color:var(--prolium-green);}
     .hero-desc{
-      font-size:clamp(1.04rem,2.1vw,1.35rem);
-      font-weight:700;color:#154e59;margin:0 auto;max-width:900px;line-height:1.6;
-      text-shadow:0 1px 0 rgba(255,255,255,.2)
+      font-size:clamp(1.08rem,1.2vw + .85rem,1.35rem);
+      color:#21525d;font-weight:700;max-width:980px;margin:0 auto;line-height:1.55
     }
 
-    /* WAVES — match about/index shapes, with gentle breathing */
+
+    /* WAVES */
     .wave-wrap{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
     .wave{position:absolute;inset:auto 0 0 0;height:68svh;min-height:420px}
     .wave svg{width:100%;height:100%;transform-origin:50% 100%}
     @keyframes pulseA{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.03)}}
     @keyframes pulseB{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.06)}}
     .wave--back svg{animation:pulseA 12s ease-in-out infinite}
-
-    /* Green clipped wave uses the fixed page gradient for a perfect blend */
     .wave-clip{
       position:absolute;left:0;right:0;bottom:0;
       height:720px;min-height:720px;z-index:2;
@@ -139,12 +140,12 @@
     /* CONTENT WRAPPER */
     .wrap{max-width:1120px;margin:0 auto;padding:0 5vw}
 
-    /* On-page jump nav (kept as-is) */
+    /* On-page nav */
     .page-nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:-24px auto 10px;position:relative;z-index:3}
     .page-chip{font-weight:700;color:#0a3f14;background:rgba(255,255,255,.7);border-radius:999px;padding:8px 14px;font-size:.95rem;text-transform:uppercase;letter-spacing:.06em;text-decoration:none}
     .page-chip:hover,.page-chip:focus{outline:none;filter:brightness(1.05)}
 
-    /* Sections (unchanged content; light polish for consistency) */
+    /* Sections (Science styles) */
     .lead-section{margin:54px auto 0}
     .lead-title{font-size:clamp(1.5rem,4.6vw,2.4rem);color:#0b2f39;font-weight:800;margin:0 0 12px;letter-spacing:-0.01em;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.28)}
     .lead-note{display:inline-block;margin:0 auto 12px;font-weight:800;color:#0a3f14;background:rgba(255,255,255,.6);border-radius:999px;padding:7px 12px;font-size:.87rem;text-transform:uppercase;letter-spacing:.08em}
@@ -179,6 +180,20 @@
     @media (max-width:940px){ .why-list{grid-template-columns:1fr 1fr} }
     @media (max-width:600px){ .why-list{grid-template-columns:1fr} }
 
+    /* Pipeline (brought in from pipeline.html, namespaced) */
+    .pipeline{margin:80px auto 0}
+    .pipeline .section-kicker{
+      display:inline-block;margin:0 auto 12px;font-weight:800;color:#0a3f14;background:rgba(255,255,255,.6);border-radius:999px;padding:7px 12px;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em
+    }
+    .pipeline .section-title{font-size:clamp(1.4rem,4.4vw,2.1rem);color:#0b2f39;font-weight:800;margin:0 0 14px;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.25)}
+    .pipeline .lead-blurb{margin-bottom:10px}
+    .pipeline .checks{max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .pipeline .check{display:flex;gap:10px;align-items:flex-start}
+    .pipeline .tick{flex:0 0 28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.75);box-shadow:0 4px 16px rgba(0,0,0,.12)}
+    .pipeline .tick svg{width:16px;height:16px}
+    .pipeline .check p{margin:0;font-weight:600;color:#0e3a27;line-height:1.6}
+    @media (max-width:800px){ .pipeline .checks{grid-template-columns:1fr} }
+
     .cta{text-align:center;margin:72px 0 36px}
     .cta-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);border:none;border-radius:14px;font-weight:800;padding:14px 30px;font-size:1.06rem;cursor:pointer;box-shadow:0 10px 22px rgba(0,0,0,.14);text-decoration:none;display:inline-block}
     .cta-link:hover,.cta-link:focus{filter:brightness(1.06)}
@@ -190,7 +205,7 @@
   </style>
 </head>
 <body>
-  <!-- NAV (same structure as index/about) -->
+  <!-- NAV -->
   <nav class="nav" role="navigation" aria-label="Primary">
     <div class="nav-brand">
       <a href="index.html" style="display:flex;align-items:center;gap:14px;text-decoration:none">
@@ -200,25 +215,9 @@
 
     <div class="nav-links" aria-label="Primary links">
       <a href="index.html">Home</a>
-
-      <div class="submenu">
-        <button type="button" aria-haspopup="true" aria-expanded="false">Science ▾</button>
-        <div class="sublist" role="menu" aria-label="Science submenu">
-          <a href="science.html" role="menuitem" class="active" aria-current="page">Science Overview</a>
-          <a href="pipeline.html" role="menuitem">Pipeline</a>
-        </div>
-      </div>
-
+      <a href="science.html" class="active">Science & Pipeline</a>
       <a href="trials.html">Clinical Trials</a>
-
-      <div class="submenu">
-        <button type="button" aria-haspopup="true" aria-expanded="false">About ▾</button>
-        <div class="sublist" role="menu" aria-label="About submenu">
-          <a href="about.html#about" role="menuitem">About</a>
-          <a href="about.html#team" role="menuitem">Meet the Team</a>
-        </div>
-      </div>
-
+      <a href="about.html#about">About</a>
       <a href="contact.html">Contact</a>
     </div>
 
@@ -228,38 +227,20 @@
   <!-- Mobile drawer -->
   <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
     <a href="index.html">Home</a>
-
-    <div class="submenu">
-      <button id="scienceToggle" type="button" aria-expanded="false">Science ▸</button>
-      <div class="sublist" id="scienceMenu">
-        <a href="science.html">Science Overview</a>
-        <a href="pipeline.html">Pipeline</a>
-      </div>
-    </div>
-
+    <a href="science.html" class="active">Science & Pipeline</a>
     <a href="trials.html">Clinical Trials</a>
-
-    <div class="submenu">
-      <button id="aboutToggle" type="button" aria-expanded="false">About ▸</button>
-      <div class="sublist" id="aboutMenu">
-        <a href="about.html#about">About</a>
-        <a href="about.html#team">Meet the Team</a>
-      </div>
-    </div>
-
+    <a href="about.html#about">About</a>
     <a href="contact.html">Contact</a>
   </div>
 
-  <!-- HERO -->
+  <!-- HERO (single) -->
   <header class="hero" aria-label="Science overview">
     <div class="hero-content">
       <h1 class="hero-title">Primer on T-Cell Engagers</h1>
       <p class="hero-desc">A modern modality aiming for deeper B-cell depletion and more durable control in autoimmune disease.</p>
     </div>
 
-    <!-- Waves -->
     <div class="wave-wrap" aria-hidden="true">
-      <!-- Blue back SVG (identical shape/gradient to index/about) -->
       <div class="wave wave--back">
         <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
           <defs>
@@ -271,17 +252,16 @@
           <path fill="url(#bgBlue)" d="M0,260 C180,210 320,150 540,240 C760,330 870,320 1040,210 C1210,100 1350,80 1440,130 L1440,720 L0,720 Z"/>
         </svg>
       </div>
-
-      <!-- Green front wave: clipped page gradient for seamless blend -->
       <div class="wave-clip"></div>
     </div>
   </header>
 
-  <!-- On-page quick nav (unchanged) -->
+  <!-- On-page nav -->
   <nav class="page-nav" aria-label="On this page">
     <a class="page-chip" href="#primer">Primer</a>
     <a class="page-chip" href="#how">How it works</a>
     <a class="page-chip" href="#why">Why it matters</a>
+    <a class="page-chip" href="#pipeline">Pipeline</a>
   </nav>
 
   <!-- CONTENT -->
@@ -351,31 +331,72 @@
     <!-- WHY IT MATTERS -->
     <section class="why" id="why" aria-label="Why this matters">
       <h2 class="why-title">Why it matters</h2>
+      <div class="lead-note">PLACEHOLDER NOT TO BE USED IN FINAL SITE</div>
       <div class="why-list">
         <div class="why-item">
           <div class="tick" aria-hidden="true">
             <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <p>Potential for **deeper B-cell depletion** than traditional antibodies.</p>
+          <p>Potential for <strong>deeper B-cell depletion</strong> than traditional antibodies.</p>
         </div>
         <div class="why-item">
           <div class="tick" aria-hidden="true">
             <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <p>Aim for **durable disease control** without the burdens of cell therapy.</p>
+          <p>Aim for <strong>durable disease control</strong> without the burdens of cell therapy.</p>
         </div>
         <div class="why-item">
           <div class="tick" aria-hidden="true">
             <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <p>**Scalable biologic** manufacturing vs. bespoke autologous processes.</p>
+          <p><strong>Scalable biologic</strong> manufacturing vs. bespoke autologous processes.</p>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta" aria-label="Contact Prolium">
-      <a class="cta-link" href="contact.html">Contact Prolium</a>
+    <!-- PIPELINE (merged under Science) -->
+    <section class="pipeline" id="pipeline" aria-label="Pipeline">
+      <div class="section-kicker">Pipeline</div>
+      <h2 class="section-title">PRO-203 — CD20×CD3 Bispecific</h2>
+      <p class="lead-blurb">
+        <strong>Prolium’s first asset is PRO-203, a CD20×CD3 bispecific antibody.</strong> Originally developed by InnoCare and Keymed, PRO-203 was first studied in relapsed / refractory Non-Hodgkin’s lymphoma (NHL). The Phase I/II clinical trial in China to assess the safety, tolerability, PK and the preliminary anti-tumor activity of ICP-B02 has shown promising early results in both intravenous (IV) and subcutaneous (SC) formulations, particularly in patients with follicular lymphoma (FL) and diffuse large B-cell lymphoma (DLBCL). Prolium will initiate development of PRO-203 in autoimmune indications.
+      </p>
+
+      <div class="evidence" aria-label="Phase I/II (China) snapshot">
+        <div class="lead-note">PLACEHOLDER NOT TO BE USED IN FINAL SITE</div>
+        <h3 class="section-title" style="margin-top:24px">Phase I/II snapshot (ICP-B02, China)</h3>
+        <div class="checks">
+          <div class="check">
+            <div class="tick" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p>Assessed <strong>safety</strong>, <strong>tolerability</strong>, and <strong>PK</strong> with preliminary anti-tumor activity readouts.</p>
+          </div>
+          <div class="check">
+            <div class="tick" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p>Both <strong>IV</strong> and <strong>SC</strong> formulations evaluated.</p>
+          </div>
+          <div class="check">
+            <div class="tick" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p><strong>Promising early results</strong> reported, particularly in <strong>FL</strong> and <strong>DLBCL</strong>.</p>
+          </div>
+        </div>
+      </div>
+      
+    <section class="pipeline-visual">
+      <div class="lead-note">PLACEHOLDER NOT TO BE USED IN FINAL SITE</div>
+      <figure>
+        <img src="pipeline_vis.png" style="display:block;max-width:100%;height:auto;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,.14)">
+      </figure>
+    </section>
+
+      <div class="cta" aria-label="Contact Prolium">
+        <a class="cta-link" href="contact.html">Contact Prolium</a>
+      </div>
     </section>
   </main>
 
@@ -387,7 +408,6 @@
         const parent = btn.parentElement;
         const isOpen = parent.classList.toggle('open');
         btn.setAttribute('aria-expanded', String(isOpen));
-        // close other open submenus
         document.querySelectorAll('.nav .submenu.open').forEach(s=>{
           if(s!==parent){ s.classList.remove('open'); s.querySelector('button').setAttribute('aria-expanded','false'); }
         });

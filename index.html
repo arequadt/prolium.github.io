@@ -10,8 +10,8 @@
       --prolium-blue:#63c5ed;
       --prolium-green:#21c036;
       --text-main:#123e47;
-
-      /* Body gradient stops (match About) */
+      --prolium-orange:#FF991C;
+      --prolium-dark:#0e2f36;
       --bg-green-0:#d8efe3;
       --bg-green-1:#c4e9d4;
       --bg-green-2:#9fe0bb;
@@ -24,62 +24,56 @@
       color:var(--text-main);
       font-family:'Inter',Arial,sans-serif;
       background:linear-gradient(180deg,
-        var(--bg-green-0) 0%,
-        var(--bg-green-1) 28%,
-        var(--bg-green-2) 55%,
+        var(--bg-green-4) 0%,
+        var(--bg-green-4) 50%,
         var(--bg-green-3) 78%,
-        var(--bg-green-4) 100%);
-      background-attachment:fixed;
+        var(--bg-green-2) 100%);
+      background-attachment:local;
     }
 
+    
     /* NAV — sticky, blurred, larger logo (same sizing as About) */
     .nav{
       display:flex;justify-content:space-between;align-items:center;
-      padding:10px 20px;background:#ffffffb3;backdrop-filter:blur(6px);
-      position:sticky;top:0;z-index:10000;box-shadow:0 4px 16px #00000010
-    }
-    .nav-brand{display:flex;align-items:center;gap:14px}
+      padding:10px 20px;background:rgba(255, 255, 255, 0.47);backdrop-filter:blur(6px);
+      position:sticky;top:0;z-index:10000;align-items:center;gap:14px}
     .nav-logo{height:72px;width:auto}
-
     .nav-links{display:flex;align-items:center;gap:1.1rem;position:relative}
     .nav-links a,
     .nav-links button{
       font-size:1.02rem;font-weight:800;letter-spacing:.005em;line-height:1;
-      color:#0b2f39;text-decoration:none;padding:10px 12px;border-radius:10px;
-      background:none;border:none;cursor:pointer;transition:background .16s,color .16s;
+      color:#0b2f39;text-decoration:none;padding:10px 12px;
+      background:none;cursor:pointer;transition:background .16s,color .16s;
     }
     .nav-links a:hover,
     .nav-links button:hover,
-    .nav-links a.active{background:rgba(0,0,0,.05)}
+    .nav-links a.active{background:var(--prolium-blue)}
 
     /* Desktop dropdowns (hover, focus-within, and click-open) */
     .submenu{position:relative}
     .submenu > button[aria-expanded]{user-select:none}
     .sublist{
       position:absolute;top:calc(100% + 6px);left:0;
-      background:#fff;border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,.18);
+      background:#fff;
       padding:6px;min-width:220px;z-index:10001;display:none;
     }
     .submenu:hover .sublist,
     .submenu:focus-within .sublist,
     .submenu.open .sublist{display:block}
-    .sublist a{display:block;padding:12px 14px;border-radius:10px;font-weight:800;color:#0b2f39;font-size:1.02rem}
+    .sublist a{display:block;padding:12px 14px;font-weight:800;color:#0b2f39;font-size:1.02rem}
     .sublist a:hover{background:#f3f7fb}
 
     /* Mobile drawer */
-    .nav-toggle{display:none;background:none;border:none;font-size:2rem;cursor:pointer}
+    .nav-toggle{display:none;background:none;font-size:2rem;cursor:pointer}
     .drawer{
       position:fixed;top:0;right:-100%;height:100%;width:min(86vw,340px);
-      background:white;box-shadow:-2px 0 24px rgba(0,0,0,.18);transition:right .28s ease;
+      background:white;transition:right .28s ease;
       z-index:20000;padding:20px;display:flex;flex-direction:column;gap:.5rem
     }
     .drawer.open{right:0}
     .drawer a,.drawer button{
-      color:#0b2f39;text-decoration:none;font-weight:800;background:none;border:none;
-      text-align:left;font-size:1.05rem;padding:10px 8px;border-radius:10px
-    }
-    .drawer a:hover,.drawer button:hover{background:#eef6ff}
-    .drawer .submenu{display:flex;flex-direction:column}
+      color:#0b2f39;text-decoration:none;font-weight:800;background:none;
+      text-align:left;font-size:1.05rem;padding:10px 8px;flex-direction:column}
     .drawer .sublist{display:none;flex-direction:column;padding-left:10px}
     .drawer .sublist.open{display:flex}
 
@@ -94,16 +88,17 @@
       min-height:120svh;
       display:flex;align-items:center;justify-content:center;
       padding:0 6vw 12svh;
-      text-align:center;background:#f6fbf8;
-      box-shadow:0 16px 60px var(--bg-green-2)
+      text-align:center;background:white;
+      margin-top: -25svh;
+      margin-bottom: -2.5svh;
     }
     .hero-content{position:relative;z-index:4;max-width:1100px;transform:translateY(-56px);}
     .hero-title{
       font-size:clamp(2.25rem,6.6vw,5.4rem);
-      line-height:1.5;font-weight:900;letter-spacing:-0.025em;
+      line-height:1.75;font-weight:900;letter-spacing:-0.025em;
       margin:0 0 14px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25)
     }
-    .hero-title .accent{color:var(--bg-green-4);}
+    .hero-title .accent{color:var(--prolium-green);}
     .hero-desc{
       font-size:clamp(1.08rem,1.2vw + .85rem,1.35rem);
       color:#21525d;font-weight:700;max-width:980px;margin:0 auto;line-height:1.55
@@ -119,65 +114,39 @@
     @keyframes waveBreathFront{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.06)}}
     .wave--back svg{animation:waveBreathBack 12s ease-in-out infinite}
 
-    /* FRONT green wave: use same body-gradient continuation + same clip-path as About */
-    .wave-clip{
-      position:absolute;left:0;right:0;bottom:0;height:720px;min-height:720px;
-      background:
-        linear-gradient(180deg,
-          var(--bg-green-0) 0%,
-          var(--bg-green-1) 28%,
-          var(--bg-green-2) 55%,
-          var(--bg-green-3) 78%,
-          var(--bg-green-2) 100%);
-      background-attachment:fixed;background-repeat:no-repeat;
-      clip-path: path("M0,460 C260,520 420,520 680,470 C940,420 1110,460 1300,560 C1370,600 1410,640 1440,680 L1440,720 L0,720 Z");
-      animation:waveBreathFront 16s ease-in-out infinite;transform-origin:50% 100%;
-    }
+    .wave--front svg{animation:waveBreathFront 16s ease-in-out infinite; transform-origin:50% 100%;}
 
     /* CONTENT (spacing consistent with About’s rhythm) */
-    main{max-width:1200px;margin:0 auto;padding:0 5vw}
-    .section{margin:68px 0;text-align:center}
-    .section-title{font-size:280%;margin:0 0 18px;color:#0b2f39}
+    .section{margin:68px 0;text-align:center; margin-top: 3svh;}
+    .section-title{font-size:350%;margin:0 0 18px;color:var(--prolium-dark)}
+    .section-desc{
+      font-size:200%;
+      color:var(--prolium-dark);font-weight:700;max-width:980px;margin:0 auto;line-height:1.55
+    }
 
     /* TEAM TEASER (hover ring style kept) */
-    .team-teaser{margin:72px auto 0;text-align:center}
+    .team-teaser{margin:72px auto 0;text-align:center; margin-top: 30svh;}
     .team-avatars{display:flex;gap:18px;justify-content:center;margin:22px 0 16px;flex-wrap:wrap}
     .team-avatar{
-      --ring:#6ec3ff;--ring-hover:#2983ff;
-      width:108px;height:108px;border-radius:999px;object-fit:cover;
-      border:5px solid var(--ring);
-      box-shadow:0 10px 24px rgba(0,0,0,.14);
-      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-      background:#fff;
+      width:108px;height:108px;object-fit:cover;
     }
-    .team-avatars .team-avatar:nth-child(1){--ring:#6ec3ff;--ring-hover:#2a90ff}
-    .team-avatars .team-avatar:nth-child(2){--ring:#45d36a;--ring-hover:#1cab45}
-    .team-avatars .team-avatar:nth-child(3){--ring:#ffb257;--ring-hover:#ff8a00}
-    .team-avatar:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.18);border-color:var(--ring-hover)}
-    .team-link{
-      display:inline-flex;align-items:center;gap:10px;
-      text-decoration:none;font-weight:900;color:#073445;padding:12px 16px;border-radius:14px;
-      background:linear-gradient(#fff,#fff) padding-box, linear-gradient(90deg,#0ea5e9,#22c55e) border-box;
-      border:2px solid transparent; box-shadow:0 10px 24px rgba(0,0,0,.10);
-      transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;
-    }
-    .team-link:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(0,0,0,.14);filter:brightness(1.02)}
+    .team-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);padding:14px 18px;text-decoration:none;display:inline-block;font-weight:800; margin-top: 50px;}
+    .team-link:hover{transform:translateY(-2px);filter:brightness(1.02)}
     .team-link .arrow{font-weight:900}
     .mission-desc{font-weight:500; font-size: 175%}
 
     /* NEWS */
-    .news-section{margin:68px auto 0;text-align:center}
+    .news-section{margin:68px auto 0;text-align:center; margin-top: 30svh;}
     .news-list{display:flex;flex-direction:column;gap:14px;align-items:center}
     .news-item{max-width:820px;text-align:left}
-    .news-date{font-size:.92rem;font-weight:900;color:#10303a;background:rgba(255,255,255,.4);padding:6px 10px;border-radius:999px}
-    .news-text{font-size:1.12rem;font-weight:900;color:#0b2f39}
+    .news-date{font-size:.92rem;font-weight:900;color:#10303a;background:rgba(255,255,255,.4);padding:6px 10px;font-weight:900;color:#0b2f39}
     .news-link{color:#062c7a;text-decoration:underline;font-weight:900}
     .cta{text-align:center;margin:72px 0 36px}
-    .cta-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);padding:14px 18px;border-radius:14px;text-decoration:none;display:inline-block;font-weight:800}
-
+    .cta-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);padding:14px 18px;text-decoration:none;display:inline-block;font-weight:800}
+    .cta-link:hover{transform:translateY(-2px);filter:brightness(1.02)}
     /* Responsive tweaks */
     @media (max-width:560px){
-      .hero{min-height:100svh;padding-bottom:10svh}
+      .hero{min-height:100svh}
       .nav-logo{height:60px}
       .team-avatar{width:96px;height:96px}
     }
@@ -194,25 +163,9 @@
 
     <div class="nav-links" aria-label="Primary links">
       <a href="index.html" class="active">Home</a>
-
-      <div class="submenu">
-        <button type="button" aria-haspopup="true" aria-expanded="false">Science ▾</button>
-        <div class="sublist" role="menu" aria-label="Science submenu">
-          <a href="science.html" role="menuitem">Science Overview</a>
-          <a href="pipeline.html" role="menuitem">Pipeline</a>
-        </div>
-      </div>
-
+      <a href="science.html">Science & Pipeline</a>
       <a href="trials.html">Clinical Trials</a>
-
-      <div class="submenu">
-        <button type="button" aria-haspopup="true" aria-expanded="false">About ▾</button>
-        <div class="sublist" role="menu" aria-label="About submenu">
-          <a href="about.html#about" role="menuitem">About</a>
-          <a href="about.html#team" role="menuitem">Meet the Team</a>
-        </div>
-      </div>
-
+      <a href="about.html#about">About</a>
       <a href="contact.html">Contact</a>
     </div>
 
@@ -222,23 +175,11 @@
   <!-- Mobile drawer -->
   <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
     <a href="index.html">Home</a>
-
-    <div class="submenu">
-      <button id="scienceToggle" type="button" aria-expanded="false">Science ▸</button>
-      <div class="sublist" id="scienceMenu">
-        <a href="science.html">Science Overview</a>
-        <a href="pipeline.html">Pipeline</a>
-      </div>
-    </div>
-
+    <a href="index.html" class="active">Home</a>
+    <a href="science.html">Science & Pipeline</a>
     <a href="trials.html">Clinical Trials</a>
-
-    <div class="submenu">
-      <button id="aboutToggle" type="button" aria-expanded="false">About ▸</button>
-      <div class="sublist" id="aboutMenu">
-        <a href="about.html#about">About</a>
-        <a href="about.html#team">Meet the Team</a>
-      </div>
+    <a href="about.html#about">About</a>
+    <a href="contact.html">Contact</a>
     </div>
 
     <a href="contact.html">Contact</a>
@@ -250,10 +191,6 @@
         Depleting Disease, <span class="accent">Empowering Health</span><br>
         <span>Next-Gen Immunotherapy</span>
       </h1>
-      <p class="hero-desc">
-        Prolium is a small, but dedicated team focused on developing next-generation immunotherapies to deplete pathological B cells.
-        We use cutting-edge bispecific antibody engineering and immunology science to better the lives of people with autoimmune disorders.
-      </p>
     </div>
 
     <!-- Waves (identical palette & shape to About) -->
@@ -263,8 +200,8 @@
         <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
           <defs>
             <linearGradient id="bgBlue" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#9ed4ef"/>
-              <stop offset="1" stop-color="#e3f2fb"/>
+              <stop offset="0" stop-color="#63c5ed"/>
+              <stop offset="1" stop-color="#9ed4ef"/>
             </linearGradient>
           </defs>
           <path
@@ -273,15 +210,22 @@
         </svg>
       </div>
 
-      <!-- GREEN FRONT WAVE: clipped body gradient (same stops/shape as About) -->
-      <div class="wave-clip"></div>
+
+<!-- GREEN FRONT WAVE (geometry matches about.html, responsive, solid color) -->
+<div class="wave wave--front">
+  <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
+    <path
+      d="M0,460 C260,620 420,520 680,470 C940,420 1110,460 1300,560 C1370,600 1410,640 1440,680 L1440,720 L0,920 Z"
+      fill="#21c036"/>
+  </svg>
+</div>
     </div>
   </header>
 
   <main>
     <section class="section" id="mission">
       <h2 class="section-title">Our Mission</h2>
-      <p class="mission-desc">We are committed to delivering breakthrough therapies for
+      <p class="section-desc">We are committed to delivering breakthrough therapies for
 autoimmune disease by combining scientific rigor and deep compassion –
 bringing hope and healing to patients who need it most.</p>
     </section>
@@ -292,7 +236,12 @@ bringing hope and healing to patients who need it most.</p>
         <img class="team-avatar" src="Scott_Requadt.png" alt="Scott Requadt, CEO">
         <img class="team-avatar" src="Salim_Mujais.png" alt="Salim Mujais, CMO">
         <img class="team-avatar" src="Niki_Bili.png" alt="Niki Bili, VP, Clinical Development">
+        <img class="team-avatar" src="Bob_Huang.png" alt="Bob Huang, VP, CMC & Manufacturing">
       </div>
+      <p class="section-desc">
+        Prolium is a small, but dedicated team focused on developing next-generation immunotherapies to deplete pathological B cells.
+        We use cutting-edge bispecific antibody engineering and immunology science to better the lives of people with autoimmune disorders.
+      </p>
       <a class="team-link" href="about.html#team">
         Meet the Full Team <span class="arrow">→</span>
       </a>
