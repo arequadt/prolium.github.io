@@ -12,10 +12,10 @@
       --text-main:#123e47;
       --prolium-orange:#FF991C;
       --prolium-dark:#0e2f36;
-      --bg-green-0:#d8efe3;
-      --bg-green-1:#c4e9d4;
-      --bg-green-2:#9fe0bb;
-      --bg-green-3:#63d48e;
+      --bg-green-0:#e9f8f0;
+      --bg-green-1:#dbf6e6;
+      --bg-green-2:#b6efce;
+      --bg-green-3:#6ce49a;
       --bg-green-4:#21c036;
     }
 
@@ -47,7 +47,7 @@
     }
     .nav-links a:hover,
     .nav-links button:hover,
-    .nav-links a.active{background:var(--prolium-blue)}
+    .nav-links a.active{background:var(--prolium-green);color:white}
 
     /* Desktop dropdowns (hover, focus-within, and click-open) */
     .submenu{position:relative}
@@ -87,7 +87,6 @@
       position:relative;isolation:isolate;
       min-height:120svh;
       display:flex;align-items:center;justify-content:center;
-      padding:0 6vw 12svh;
       text-align:center;background:white;
       margin-top: -25svh;
       margin-bottom: -2.5svh;
@@ -125,23 +124,21 @@
     }
 
     /* TEAM TEASER (hover ring style kept) */
-    .team-teaser{margin:72px auto 0;text-align:center; margin-top: 30svh;}
+    .team-teaser{margin:72px auto 0;text-align:center; margin-top: 15svh;}
     .team-avatars{display:flex;gap:18px;justify-content:center;margin:22px 0 16px;flex-wrap:wrap}
-    .team-avatar{
-      width:108px;height:108px;object-fit:cover;
-    }
+    .team-avatar{width:108px;height:108px;object-fit:cover}
     .team-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);padding:14px 18px;text-decoration:none;display:inline-block;font-weight:800; margin-top: 50px;}
     .team-link:hover{transform:translateY(-2px);filter:brightness(1.02)}
     .team-link .arrow{font-weight:900}
     .mission-desc{font-weight:500; font-size: 175%}
 
     /* NEWS */
-    .news-section{margin:68px auto 0;text-align:center; margin-top: 30svh;}
+    .news-section{margin:68px auto 0;text-align:center; margin-top: 15svh;}
     .news-list{display:flex;flex-direction:column;gap:14px;align-items:center}
     .news-item{max-width:820px;text-align:left}
     .news-date{font-size:.92rem;font-weight:900;color:#10303a;background:rgba(255,255,255,.4);padding:6px 10px;font-weight:900;color:#0b2f39}
-    .news-link{color:#062c7a;text-decoration:underline;font-weight:900}
-    .cta{text-align:center;margin:72px 0 36px}
+    .news-link{color:#062c7a;text-decoration:underline;font-weight:900;font-size:120%}
+    .cta{text-align:center;margin:72px 0 36px;}
     .cta-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);padding:14px 18px;text-decoration:none;display:inline-block;font-weight:800}
     .cta-link:hover{transform:translateY(-2px);filter:brightness(1.02)}
     /* Responsive tweaks */
@@ -153,7 +150,53 @@
     @media (prefers-reduced-motion:reduce){
       *{animation:none!important;transition:none!important}
     }
-  </style>
+  
+    /* === UI tweaks: pill buttons & avatar outline === */
+    /* Pill/rounded buttons across the site (nav, drawer, CTAs, generic buttons) */
+    .nav-links a,
+    .nav-links button,
+    .drawer a,
+    .drawer button,
+    .team-link,
+    .cta-link,
+    .nav-toggle,
+    .news-date,
+    button {
+      border-radius: 9999px;
+    }
+
+    /* A little extra visual affordance on hover/focus */
+    .nav-links a:hover,
+    .nav-links button:hover,
+    .drawer a:hover,
+    .drawer button:hover,
+    .team-link:hover,
+    .cta-link:hover,
+    .nav-toggle:hover,
+    button:hover {
+      filter: brightness(1.03);
+    }
+
+    .nav-links a:focus-visible,
+    .nav-links button:focus-visible,
+    .drawer a:focus-visible,
+    .drawer button:focus-visible,
+    .team-link:focus-visible,
+    .cta-link:focus-visible,
+    .nav-toggle:focus-visible,
+    button:focus-visible {
+      outline: 3px solid rgba(99,197,237,.65);
+      outline-offset: 2px;
+    }
+
+    /* Team avatars: circular with subtle outline & soft shadow */
+    .team-avatar{
+      border-radius: 100%;
+      border: 2px solid rgb(188, 188, 188);
+      box-shadow: 0 2px 8px var(--prolium-dark);
+    }
+
+</style>
 </head>
 <body>
   <nav class="nav" role="navigation" aria-label="Primary">
@@ -189,7 +232,6 @@
     <div class="hero-content">
       <h1 class="hero-title">
         Depleting Disease, <span class="accent">Empowering Health</span><br>
-        <span>Next-Gen Immunotherapy</span>
       </h1>
     </div>
 
@@ -205,17 +247,17 @@
             </linearGradient>
           </defs>
           <path
-            d="M0,260 C180,210 320,150 540,240 C760,330 870,320 1040,210 C1210,100 1350,80 1440,130 L1440,720 L0,720 Z"
+            d="M0,260 C180,210 320,150 540,240 C760,330 870,320 1040,210 C1210,100 1350,80 1440,130 L1440,710 L0,710 Z"
             fill="url(#bgBlue)"/>
         </svg>
       </div>
 
 
 <!-- GREEN FRONT WAVE (geometry matches about.html, responsive, solid color) -->
-<div class="wave wave--front">
+<div class="wave wave--front" >
   <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
     <path
-      d="M0,460 C260,620 420,520 680,470 C940,420 1110,460 1300,560 C1370,600 1410,640 1440,680 L1440,720 L0,920 Z"
+      d="M0,460 C260,620 420,520 680,470 C940,420 1110,460 1300,560 C1370,600 1410,640 1440,680 L1440,720 L0,720 Z"
       fill="#21c036"/>
   </svg>
 </div>
@@ -251,7 +293,7 @@ bringing hope and healing to patients who need it most.</p>
       <h2 class="section-title">Recent News</h2>
       <div class="news-list">
         <div class="news-item">
-          <span class="news-date">Date?</span>
+          <span class="news-date">Jan 22, 2025</span>
           <span class="news-text">
             <a class="news-link" href="https://pharma.economictimes.indiatimes.com/news/industry/prolium-acquires-bispecific-rights-from-chinese-joint-venture-for-520-mn/117459420" target="_blank" rel="noopener">
               Prolium acquires bispecific rights from Chinese joint venture for $520 Mn

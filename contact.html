@@ -7,39 +7,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root{
-      --prolium-dark:#0e2f36;
       --prolium-blue:#63c5ed;
       --prolium-green:#21c036;
       --text-main:#123e47;
+      --prolium-dark:#0e2f36;
+      --prolium-orange:#FF991C;
 
-      /* Site-wide background greens (match index/about/science/pipeline/trials) */
-      --bg-green-0:#d8efe3;
-      --bg-green-1:#c4e9d4;
-      --bg-green-2:#9fe0bb;
-      --bg-green-3:#63d48e;
+      /* Match index.html exactly */
+      --bg-green-0:#e9f8f0;
+      --bg-green-1:#dbf6e6;
+      --bg-green-2:#b6efce;
+      --bg-green-3:#6ce49a;
       --bg-green-4:#21c036;
     }
 
-    /* PAGE BACKGROUND */
+    /* PAGE BACKGROUND — same gradient & attachment as homepage */
     html,body{
       margin:0;padding:0;min-height:100%;
       color:var(--text-main);
       font-family:'Inter',Arial,sans-serif;
       scroll-behavior:smooth;
       background:linear-gradient(180deg,
-        var(--bg-green-0) 0%,
-        var(--bg-green-1) 28%,
-        var(--bg-green-2) 55%,
+        var(--bg-green-4) 0%,
+        var(--bg-green-4) 50%,
         var(--bg-green-3) 78%,
-        var(--bg-green-4) 100%);
-      background-attachment:fixed;
+        var(--bg-green-2) 100%);
+      background-attachment:local;
     }
 
-    /* NAV — sticky, blurred, larger logo (same sizing as About) */
+    /* NAV — sticky, blurred, pill links; hover = green (match index) */
     .nav{
       display:flex;justify-content:space-between;align-items:center;
       padding:10px 20px;background:rgba(255, 255, 255, 0.47);backdrop-filter:blur(6px);
-      position:sticky;top:0;z-index:10000;box-shadow:0 4px 16px #00000010
+      position:sticky;top:0;z-index:10000;gap:14px
     }
     .nav-brand{display:flex;align-items:center;gap:14px}
     .nav-logo{height:72px;width:auto}
@@ -47,14 +47,15 @@
     .nav-links a,
     .nav-links button{
       font-size:1.02rem;font-weight:800;letter-spacing:.005em;line-height:1;
-      color:#0b2f39;text-decoration:none;padding:10px 12px;border-radius:10px;
+      color:#0b2f39;text-decoration:none;padding:10px 12px;
       background:none;border:none;cursor:pointer;transition:background .16s,color .16s;
+      border-radius:9999px;
     }
     .nav-links a:hover,
     .nav-links button:hover,
-    .nav-links a.active{background:var(--prolium-dark); color:#fff}
+    .nav-links a.active{background:var(--prolium-green); color:#fff}
 
-    /* Desktop dropdowns (hover, focus-within, and click-open) */
+    /* Desktop dropdowns */
     .submenu{position:relative}
     .submenu > button[aria-expanded]{user-select:none}
     .sublist{
@@ -69,7 +70,7 @@
     .sublist a:hover{background:#f3f7fb}
 
     /* Mobile drawer */
-    .nav-toggle{display:none;background:none;border:none;font-size:2rem;cursor:pointer}
+    .nav-toggle{display:none;background:none;border:none;font-size:2rem;cursor:pointer;border-radius:9999px}
     .drawer{
       position:fixed;top:0;right:-100%;height:100%;width:min(86vw,340px);
       background:white;box-shadow:-2px 0 24px rgba(0,0,0,.18);transition:right .28s ease;
@@ -78,7 +79,7 @@
     .drawer.open{right:0}
     .drawer a,.drawer button{
       color:#0b2f39;text-decoration:none;font-weight:800;background:none;border:none;
-      text-align:left;font-size:1.05rem;padding:10px 8px;border-radius:10px
+      text-align:left;font-size:1.05rem;padding:10px 8px;border-radius:9999px
     }
     .drawer a:hover,.drawer button:hover{background:#eef6ff}
     .drawer .submenu{display:flex;flex-direction:column}
@@ -90,14 +91,13 @@
       .nav-toggle{display:block}
     }
 
-      /* HERO — solid bg behind text, waves below (matches About vibe) */
+    /* HERO — white panel + identical waves stack to index */
     .hero{
       position:relative;isolation:isolate;
       min-height:120svh;
       display:flex;align-items:center;justify-content:center;
-      padding:0 6vw 12svh;
       text-align:center;background:white;
-      margin-top: -25svh;
+      margin-top:-25svh;
     }
     .hero-content{position:relative;z-index:4;max-width:1100px;transform:translateY(-56px);}
     .hero-title{
@@ -110,46 +110,21 @@
       font-size:clamp(1.08rem,1.2vw + .85rem,1.35rem);
       color:#21525d;font-weight:700;max-width:980px;margin:0 auto;line-height:1.55
     }
-    .hero-content{position:relative;z-index:4;max-width:1100px}
-    .hero-kicker{
-      display:inline-block;font-weight:800;font-size:.92rem;letter-spacing:.12em;
-      text-transform:uppercase;color:#0a3f14;background:rgba(255,255,255,.6);
-      padding:6px 12px;border-radius:999px;margin-bottom:12px
-    }
 
-
-    /* WAVES — same shapes/animation as other pages */
+    /* WAVES — copy geometry & animation from index */
     .wave-wrap{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
-    .wave{position:absolute;inset:auto 0 0 0;height:68svh;min-height:420px}
-    .wave svg{width:100%;height:100%;transform-origin:50% 100%}
-    @keyframes pulseA{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.03)}}
-    @keyframes pulseB{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.06)}}
-    .wave--back svg{animation:pulseA 12s ease-in-out infinite}
-
-    /* Green clipped wave uses the fixed page gradient for a perfect blend */
-    .wave-clip{
-      position:absolute;left:0;right:0;bottom:0;
-      height:720px;min-height:720px;z-index:2;
-      background:linear-gradient(180deg,
-        var(--bg-green-4) 75%,
-        var(--bg-green-3) 85%,
-        var(--bg-green-2) 95%,
-        var(--bg-green-1) 98%,
-        var(--bg-green-0) 100%);
-      background-attachment:fixed;background-repeat:no-repeat;
-      clip-path: path("M0,460 C260,520 420,520 680,470 C940,420 1110,460 1300,560 C1370,600 1410,640 1440,680 L1440,720 L0,720 Z");
-      animation:pulseB 16s ease-in-out infinite;
-      transform-origin:50% 100%;
-    }
+    .wave{position:absolute;left:0;right:0;bottom:0;height:70svh;min-height:420px}
+    .wave svg{width:100%;height:100%}
+    @keyframes waveBreathBack{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.03)}}
+    @keyframes waveBreathFront{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.06)}}
+    .wave--back svg{animation:waveBreathBack 12s ease-in-out infinite}
+    .wave--front svg{animation:waveBreathFront 16s ease-in-out infinite; transform-origin:50% 100%;}
 
     /* WRAPPER */
     .wrap{max-width:1120px;margin:0 auto;padding:0 5vw}
 
-    /* CONTACT PANEL */
-    .contact-panel{
-      margin:40px auto 80px;
-      display:grid;grid-template-columns:1fr;gap:14px;
-    }
+    /* CONTACT PANEL (content unchanged) */
+    .contact-panel{margin:40px auto 80px;display:grid;grid-template-columns:1fr;gap:14px}
     .panel{
       background:rgba(255,255,255,.9);
       border-radius:20px;
@@ -162,17 +137,37 @@
       font-size:1.28rem;font-weight:900;color:#0b2f39;text-align:center;
       text-shadow:0 1px 0 rgba(255,255,255,.25)
     }
-    .info{display:grid;gap:10px}
+    .info{display:grid;gap:10px;justify-content:center}
     .row{display:flex;gap:10px;align-items:flex-start}
     .label{min-width:110px;font-weight:800;color:#0a3f14}
     .value a{color:#064d8b;font-weight:800;text-decoration:underline}
 
     .cta{text-align:center;margin:10px 0 0}
     .cta-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);border:none;border-radius:14px;font-weight:800;padding:12px 24px;font-size:1.02rem;cursor:pointer;box-shadow:0 8px 18px rgba(0,0,0,.14);text-decoration:none;display:inline-block}
-    .cta-link:hover,.cta-link:focus{filter:brightness(1.06)}
+
+    /* Global UI affordances (match index) */
+    .nav-links a:hover,
+    .nav-links button:hover,
+    .drawer a:hover,
+    .drawer button:hover,
+    .cta-link:hover,
+    .nav-toggle:hover,
+    button:hover { filter:brightness(1.03); }
+
+    .nav-links a:focus-visible,
+    .nav-links button:focus-visible,
+    .drawer a:focus-visible,
+    .drawer button:focus-visible,
+    .cta-link:focus-visible,
+    .nav-toggle:focus-visible,
+    button:focus-visible {
+      outline:3px solid rgba(99,197,237,.65);
+      outline-offset:2px;
+      border-radius:9999px;
+    }
 
     /* Responsive */
-    @media (max-width:560px){.hero{min-height:78svh;padding:14svh 5vw 10svh}.nav-logo{height:60px}}
+    @media (max-width:560px){.hero{min-height:100svh;padding:14svh 5vw 10svh}.nav-logo{height:60px}}
     @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
     img{max-width:100%;height:auto}
   </style>
@@ -191,13 +186,13 @@
       <a href="science.html">Science & Pipeline</a>
       <a href="trials.html">Clinical Trials</a>
       <a href="about.html#about">About</a>
-      <a href="contact.html" class="active active">Contact</a>
+      <a href="contact.html" class="active">Contact</a>
     </div>
 
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
   </nav>
 
-  <!-- Mobile drawer -->
+  <!-- Mobile drawer (content unchanged) -->
   <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
     <a href="index.html">Home</a>
     <a href="index.html">Home</a>
@@ -214,22 +209,30 @@
       <p class="hero-desc">Our New York office details. For general inquiries, email us anytime.</p>
     </div>
 
-    <!-- Waves -->
+    <!-- Waves (identical palette & shape to index.html) -->
     <div class="wave-wrap" aria-hidden="true">
-      <!-- Blue back SVG -->
+      <!-- BLUE BACK WAVE -->
       <div class="wave wave--back">
         <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
           <defs>
             <linearGradient id="bgBlue" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#9ed4ef"/>
-              <stop offset="1" stop-color="#e3f2fb"/>
+              <stop offset="0" stop-color="#63c5ed"/>
+              <stop offset="1" stop-color="#9ed4ef"/>
             </linearGradient>
           </defs>
-          <path fill="url(#bgBlue)" d="M0,260 C180,210 320,150 540,240 C760,330 870,320 1040,210 C1210,100 1350,80 1440,130 L1440,720 L0,720 Z"/>
+          <path
+            d="M0,260 C180,210 320,150 540,240 C760,330 870,320 1040,210 C1210,100 1350,80 1440,130 L1440,710 L0,710 Z"
+            fill="url(#bgBlue)"/>
         </svg>
       </div>
-      <!-- Green front: clipped body gradient (seamless blend) -->
-      <div class="wave-clip"></div>
+      <!-- GREEN FRONT WAVE -->
+      <div class="wave wave--front">
+        <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
+          <path
+            d="M0,460 C260,620 420,520 680,470 C940,420 1110,460 1300,560 C1370,600 1410,640 1440,680 L1440,720 L0,720 Z"
+            fill="#21c036"/>
+        </svg>
+      </div>
     </div>
   </header>
 
@@ -237,13 +240,7 @@
   <main class="wrap">
     <section class="contact-panel" aria-labelledby="contact-title">
       <article class="panel">
-        <!-- Team photo moved from About -->
-    <section class="team-photo" aria-label="Our team">
-      <figure>
-        <img src="TeamPic.jpg" alt="Prolium team group photo with skyline" style="display:block;max-width:100%;height:auto;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,.14)">
-      </figure>
-    </section>
-<h2 id="contact-title">Contact Information</h2>
+        <h2 id="contact-title">Contact Information</h2>
         <div class="info">
           <div class="row">
             <div class="label">Address</div>
@@ -253,23 +250,30 @@
               New York, NY 10014
             </div>
           </div>
-          <div class="row"><div class="label">Phone</div><div class="value"><a href="tel:+16465976980">(646) 597-6980</a></div></div>
-          <div class="row"><div class="label">Email</div><div class="value"><a href="mailto:info@proliumbio.com">info@proliumbio.com</a></div></div>
+          <div class="row">
+            <div class="label">Email</div>
+            <div class="value"><a href="mailto:info@proliumbio.com">info@proliumbio.com</a></div>
+          </div>
         </div>
-        <div class="cta"><a class="cta-link" href="mailto:info@proliumbio.com">Email Prolium</a></div>
       </article>
     </section>
   </main>
 
+  <!-- TEAM PHOTO (content unchanged) -->
+  <section class="team-photo" aria-label="Our team">
+    <figure>
+      <img src="TeamPic.jpg" alt="Prolium team group photo with skyline" style="display:block;max-width:100%;height:auto;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,.14)">
+    </figure>
+  </section>
+
   <script>
-    // ===== Desktop dropdowns: click-to-toggle + outside-click/Escape close =====
+    // Desktop dropdowns: click-to-toggle + outside-click/Escape close
     const desktopSubmenus = document.querySelectorAll('.nav .submenu > button');
     desktopSubmenus.forEach(btn=>{
       btn.addEventListener('click', (e)=>{
         const parent = btn.parentElement;
         const isOpen = parent.classList.toggle('open');
         btn.setAttribute('aria-expanded', String(isOpen));
-        // close other open submenus
         document.querySelectorAll('.nav .submenu.open').forEach(s=>{
           if(s!==parent){ s.classList.remove('open'); s.querySelector('button').setAttribute('aria-expanded','false'); }
         });
@@ -292,7 +296,7 @@
       }
     });
 
-    // ===== Mobile drawer =====
+    // Mobile drawer
     const toggle=document.querySelector('.nav-toggle');
     const drawer=document.getElementById('drawer');
     toggle?.addEventListener('click', ()=>{
