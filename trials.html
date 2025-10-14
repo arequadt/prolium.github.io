@@ -100,7 +100,7 @@
       position:relative;isolation:isolate;
       min-height:120svh;
       display:flex;align-items:center;justify-content:center;
-      padding:0 6vw;
+      padding-bottom:-5%;
       text-align:center;background:white;
       margin-top: -25svh;
     }
@@ -216,7 +216,25 @@
       outline:3px solid rgba(99,197,237,.65);
       outline-offset:2px;
     }
+    /* Kill the sub-pixel seam between hero and the page bg */
+    .wave { bottom: -3px; }          /* overlap the hero edge slightly */
+    .wave svg { display: block; }    /* avoid inline SVG baseline gap */
 
+    /* Remove the negative bottom margin that can expose a sliver */
+    .hero { margin-bottom: 0; }
+
+    /* Optional: belt-and-suspenders—paint 2px of green under the waves */
+    .hero::after{
+      content:"";
+      position:absolute;
+      left:0; right:0; bottom:-2px;
+      height:4px;
+      background:#21c036; /* same as --bg-green-4 */
+      z-index:2;
+    }
+
+/* (Nice-to-have) Prevent tiny horizontal overflow that can reveal edges */
+html, body { overflow-x: hidden; }
     /* Responsive tweaks */
     @media (max-width:560px){
       .hero{min-height:100svh}
@@ -255,9 +273,6 @@
       <a href="trials.html" class="active">Clinical Trials</a>
       <a href="about.html#about">About</a>
       <a href="contact.html">Contact</a>
-    </div>
-
-    <a href="contact.html">Contact</a>
   </div>
 
   <!-- HERO -->
