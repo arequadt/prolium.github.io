@@ -13,117 +13,120 @@
       --prolium-dark:#0e2f36;
       --prolium-orange:#FF991C;
 
-      /* Match index.html exactly */
+      /* Site background palette */
       --bg-green-0:#e9f8f0;
       --bg-green-1:#dbf6e6;
       --bg-green-2:#b6efce;
       --bg-green-3:#6ce49a;
       --bg-green-4:#21c036;
+
+      /* Fixed waves (consistent everywhere) */
+      --wave-width:1920px;
+      --wave-height:540px;
+
+      /* Fluid type scale */
+      --step--1: clamp(0.9rem, 0.7rem + 0.6vw, 1.05rem);
+      --step-0:  clamp(1rem, 0.85rem + 0.8vw, 1.25rem);
+      --step-1:  clamp(1.15rem, 0.95rem + 1.1vw, 1.5rem);
+      --step-2:  clamp(1.75rem, 1.2rem + 2.4vw, 2.5rem);
+      --step-3:  clamp(2.5rem, 1.6rem + 4.8vw, 3.6rem);
     }
 
-    /* PAGE BACKGROUND — same gradient & attachment as homepage */
-    html,body{
-      margin:0;padding:0;min-height:100%;
+    html{ font-size:16px; overflow-x:hidden; scroll-padding-top:80px; }
+    body{
+      margin:0;min-height:100%;
       color:var(--text-main);
       font-family:'Inter',Arial,sans-serif;
-      scroll-behavior:smooth;
+      font-size: var(--step-0);
+      line-height:1.6;
       background:linear-gradient(180deg,
         var(--bg-green-4) 0%,
         var(--bg-green-4) 50%,
         var(--bg-green-3) 78%,
         var(--bg-green-2) 100%);
       background-attachment:local;
+      overflow-x:hidden;
+      scroll-behavior:smooth;
+      padding-top:80px; /* offset for fixed navbar */
     }
 
-    /* NAV — sticky, blurred, pill links; hover = green (match index) */
+    /* NAV — fixed to match other pages */
     .nav{
       display:flex;justify-content:space-between;align-items:center;
-      padding:10px 20px;background:rgba(255, 255, 255, 0.47);backdrop-filter:blur(6px);
-      position:sticky;top:0;z-index:10000;gap:14px
+      padding:10px 20px;background:rgba(255,255,255,0.47);backdrop-filter:blur(6px);
+      position:fixed; top:0; left:0; right:0; z-index:10000; gap:14px;
+      transition: box-shadow .2s ease, background-color .2s ease;
     }
+    .nav.scrolled{ box-shadow:0 6px 18px rgba(0,0,0,.12); background:rgba(255,255,255,0.86); }
     .nav-brand{display:flex;align-items:center;gap:14px}
-    .nav-logo{height:72px;width:auto}
-    .nav-links{display:flex;align-items:center;gap:1.1rem;position:relative}
-    .nav-links a,
-    .nav-links button{
-      font-size:1.02rem;font-weight:800;letter-spacing:.005em;line-height:1;
-      color:#0b2f39;text-decoration:none;padding:10px 12px;
-      background:none;border:none;cursor:pointer;transition:background .16s,color .16s;
-      border-radius:9999px;
+    .nav-logo{height:clamp(44px, 34px + 2.5vw, 72px);width:auto}
+    .nav-links{display:flex;align-items:center;gap:clamp(0.5rem, 0.3rem + 1vw, 1.1rem)}
+    .nav-links a{
+      font-size:var(--step--1);
+      font-weight:800;letter-spacing:.005em;line-height:1;
+      color:#0b2f39;text-decoration:none;
+      padding:clamp(6px, 4px + .6vw, 10px) clamp(8px, 6px + .7vw, 12px);
+      background:none;border:none;cursor:pointer;border-radius:9999px;
+      transition:background .16s,color .16s;
     }
-    .nav-links a:hover,
-    .nav-links button:hover,
-    .nav-links a.active{background:var(--prolium-green); color:#fff}
+    .nav-links a:hover, .nav-links a.active{background:var(--prolium-green);color:#fff}
 
-    /* Desktop dropdowns */
-    .submenu{position:relative}
-    .submenu > button[aria-expanded]{user-select:none}
-    .sublist{
-      position:absolute;top:calc(100% + 6px);left:0;
-      background:#fff;border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,.18);
-      padding:6px;min-width:220px;z-index:10001;display:none;
-    }
-    .submenu:hover .sublist,
-    .submenu:focus-within .sublist,
-    .submenu.open .sublist{display:block}
-    .sublist a{display:block;padding:12px 14px;border-radius:10px;font-weight:800;color:#0b2f39;font-size:1.02rem}
-    .sublist a:hover{background:#f3f7fb}
-
-    /* Mobile drawer */
-    .nav-toggle{display:none;background:none;border:none;font-size:2rem;cursor:pointer;border-radius:9999px}
+    /* Drawer — narrow + blurred */
+    .nav-toggle{display:none;background:none;border:none;font-size:clamp(1.6rem, 1.2rem + 2.2vw, 2rem);cursor:pointer;border-radius:9999px;}
     .drawer{
-      position:fixed;top:0;right:-100%;height:100%;width:min(86vw,340px);
-      background:white;box-shadow:-2px 0 24px rgba(0,0,0,.18);transition:right .28s ease;
-      z-index:20000;padding:20px;display:flex;flex-direction:column;gap:.5rem
+      position:fixed;top:0;right:-100%;height:100%;
+      width:min(55vw,260px);
+      background:rgba(255,255,255,0.47);
+      backdrop-filter:blur(6px);
+      transition:right .28s ease;
+      z-index:20000;padding:20px;
+      display:flex;flex-direction:column;gap:.5rem;
+      box-shadow:-4px 0 10px rgba(0,0,0,0.08);
     }
     .drawer.open{right:0}
-    .drawer a,.drawer button{
-      color:#0b2f39;text-decoration:none;font-weight:800;background:none;border:none;
-      text-align:left;font-size:1.05rem;padding:10px 8px;border-radius:9999px
+    .drawer a{
+      color:#0b2f39;text-decoration:none;font-weight:800;
+      text-align:left;font-size:var(--step--1);padding:10px 8px;border-radius:12px
     }
-    .drawer a:hover,.drawer button:hover{background:#eef6ff}
-    .drawer .submenu{display:flex;flex-direction:column}
-    .drawer .sublist{display:none;flex-direction:column;padding-left:10px}
-    .drawer .sublist.open{display:flex}
+    .drawer a:hover{background:#f3f7fb}
+    @media(max-width:900px){.nav-links{display:none}.nav-toggle{display:block}}
 
-    @media(max-width:900px){
-      .nav-links{display:none}
-      .nav-toggle{display:block}
-    }
-
-    /* HERO — white panel + identical waves stack to index */
+    /* HERO — white panel + fixed-size waves */
     .hero{
       position:relative;isolation:isolate;
       min-height:120svh;
       display:flex;align-items:center;justify-content:center;
       text-align:center;background:white;
-      margin-top:-25svh;
+      margin-top:-30svh;margin-bottom:0;
+      overflow:hidden; /* clip waves; avoid horizontal spill */
     }
-    .hero-content{position:relative;z-index:4;max-width:1100px;transform:translateY(-56px);}
+    .hero-content{position:relative;z-index:4;max-width:min(1100px,92vw);transform:translateY(-56px);}
     .hero-title{
-      font-size:clamp(2.25rem,6.6vw,5.4rem);
-      line-height:1.75;font-weight:900;letter-spacing:-0.025em;
-      margin:0 0 14px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25)
+      font-size: clamp(2.8rem, 2rem + 5vw, 4.2rem);
+      line-height:1.2;font-weight:900;letter-spacing:-0.02em;
+      margin:0 0 14px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25);
     }
-    .hero-title .accent{color:var(--prolium-green);}
-    .hero-desc{
-      font-size:clamp(1.08rem,1.2vw + .85rem,1.35rem);
-      color:#21525d;font-weight:700;max-width:980px;margin:0 auto;line-height:1.55
-    }
+    .hero-desc{font-size:var(--step-1);color:#21525d;font-weight:700;max-width:min(980px,90vw);margin:0 auto;line-height:1.55}
 
-    /* WAVES — copy geometry & animation from index */
-    .wave-wrap{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
-    .wave{position:absolute;left:0;right:0;bottom:0;height:70svh;min-height:420px}
-    .wave svg{width:100%;height:100%}
+    /* WAVES — fixed 1920×540 centered */
+    .wave-wrap{
+      position:absolute;left:50%;bottom:0;
+      width:var(--wave-width);height:var(--wave-height);
+      transform:translateX(-50%);
+      z-index:1;pointer-events:none;overflow:hidden;
+    }
+    .wave{position:absolute;left:0;bottom:0;width:var(--wave-width);height:var(--wave-height);}
+    .wave svg{display:block;width:var(--wave-width);height:var(--wave-height);}
     @keyframes waveBreathBack{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.03)}}
     @keyframes waveBreathFront{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.06)}}
     .wave--back svg{animation:waveBreathBack 12s ease-in-out infinite}
     .wave--front svg{animation:waveBreathFront 16s ease-in-out infinite; transform-origin:50% 100%;}
+    .hero::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:4px;background:#21c036;z-index:2;}
 
     /* WRAPPER */
     .wrap{max-width:1120px;margin:0 auto;padding:0 5vw}
 
-    /* CONTACT PANEL (content unchanged) */
+    /* CONTACT PANEL */
     .contact-panel{margin:40px auto 80px;display:grid;grid-template-columns:1fr;gap:14px}
     .panel{
       background:rgba(255,255,255,.9);
@@ -131,8 +134,9 @@
       box-shadow:0 8px 26px rgba(0,0,0,.10);
       border-left:6px solid var(--prolium-green);
       padding:20px 20px 18px;
-      margin-left: 28%;
-      margin-right: 28%;      
+      margin-left: 25%;
+      margin-right: 25%;
+      justify-content: center;
     }
     .panel h2{
       margin:0 0 10px;
@@ -147,46 +151,47 @@
     .cta{text-align:center;margin:10px 0 0}
     .cta-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);border:none;border-radius:14px;font-weight:800;padding:12px 24px;font-size:1.02rem;cursor:pointer;box-shadow:0 8px 18px rgba(0,0,0,.14);text-decoration:none;display:inline-block}
 
-    /* Global UI affordances (match index) */
-    .nav-links a:hover,
-    .nav-links button:hover,
-    .drawer a:hover,
-    .drawer button:hover,
-    .cta-link:hover,
-    .nav-toggle:hover,
-    button:hover { filter:brightness(1.03); }
+    /* TEAM PHOTO (on contact page) — scale to ~67% and center */
+    .team-photo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin: 0 auto 60px;
+      text-align: center;
+    }
 
+    .team-photo img {
+      width: 67%;
+      max-width: 1000px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 16px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+    }
+
+
+    /* Focus styles */
     .nav-links a:focus-visible,
-    .nav-links button:focus-visible,
     .drawer a:focus-visible,
-    .drawer button:focus-visible,
     .cta-link:focus-visible,
     .nav-toggle:focus-visible,
     button:focus-visible {
       outline:3px solid rgba(99,197,237,.65);
       outline-offset:2px;
-      border-radius:9999px;
-    }
-    /* Kill the sub-pixel seam between hero and the page bg */
-    .wave { bottom: -3px; }          /* overlap the hero edge slightly */
-    .wave svg { display: block; }    /* avoid inline SVG baseline gap */
-
-    /* Remove the negative bottom margin that can expose a sliver */
-    .hero { margin-bottom: 0; }
-
-    /* Optional: belt-and-suspenders—paint 2px of green under the waves */
-    .hero::after{
-      content:"";
-      position:absolute;
-      left:0; right:0; bottom:-2px;
-      height:4px;
-      background:#21c036; /* same as --bg-green-4 */
-      z-index:2;
     }
 
     /* Responsive */
-    @media (max-width:560px){.hero{min-height:100svh;padding:14svh 5vw 10svh}.nav-logo{height:60px}}
-    @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+    @media (max-width:560px){
+      .hero{min-height:100svh}
+      .nav-logo{height:60px}
+      .panel{margin-left:0;margin-right:0}
+      .team-photo img{width:90%}
+    }
+    @media (prefers-reduced-motion:reduce){
+      *{transition:none!important;animation:none!important}
+    }
     img{max-width:100%;height:auto}
   </style>
 </head>
@@ -210,14 +215,13 @@
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
   </nav>
 
-  <!-- Mobile drawer (content unchanged) -->
+  <!-- Mobile drawer -->
   <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
-    <a href="index.html">Home</a>
     <a href="index.html">Home</a>
     <a href="science.html">Science & Pipeline</a>
     <a href="trials.html">Clinical Trials</a>
     <a href="about.html#about">About</a>
-    <a href="contact.html" class="active">Contact </a>
+    <a href="contact.html" class="active">Contact</a>
   </div>
 
   <!-- HERO -->
@@ -227,34 +231,30 @@
       <p class="hero-desc">Our New York office details. For general inquiries, email us anytime.</p>
     </div>
 
-    <!-- Waves (identical palette & shape to index.html) -->
+    <!-- Fixed-size waves (1920×540) -->
     <div class="wave-wrap" aria-hidden="true">
       <!-- BLUE BACK WAVE -->
       <div class="wave wave--back">
-        <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
+        <svg preserveAspectRatio="none" viewBox="0 0 1440 540">
           <defs>
             <linearGradient id="bgBlue" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0" stop-color="#63c5ed"/>
               <stop offset="1" stop-color="#9ed4ef"/>
             </linearGradient>
           </defs>
-          <path
-            d="M0,260 C180,210 320,150 540,240 C760,330 870,320 1040,210 C1210,100 1350,80 1440,130 L1440,710 L0,710 Z"
-            fill="url(#bgBlue)"/>
+          <path d="M0,200 C180,160 320,110 540,180 C760,250 870,245 1040,160 C1210,80 1350,60 1440,100 L1440,540 L0,540 Z" fill="url(#bgBlue)"/>
         </svg>
       </div>
       <!-- GREEN FRONT WAVE -->
       <div class="wave wave--front">
-        <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
-          <path
-            d="M0,460 C260,620 420,520 680,470 C940,420 1110,460 1300,560 C1370,600 1410,640 1440,680 L1440,720 L0,720 Z"
-            fill="#21c036"/>
+        <svg preserveAspectRatio="none" viewBox="0 0 1440 540">
+          <path d="M0,360 C260,480 420,410 680,370 C940,330 1110,360 1300,440 C1370,470 1410,500 1440,520 L1440,540 L0,540 Z" fill="#21c036"/>
         </svg>
       </div>
     </div>
   </header>
 
-  <!-- CONTACT -->
+  <!-- CONTACT INFO -->
   <main class="wrap">
     <section class="contact-panel" aria-labelledby="contact-title">
       <article class="panel">
@@ -277,43 +277,14 @@
     </section>
   </main>
 
-  <!-- TEAM PHOTO (content unchanged) -->
+  <!-- TEAM PHOTO (67% width) -->
   <section class="team-photo" aria-label="Our team">
     <figure>
-      <img src="TeamPic.jpg" alt="Prolium team group photo with skyline" style="display:block;max-width:100%;height:auto;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,.14)">
+      <img src="TeamPic.jpg" alt="Prolium team group photo with skyline">
     </figure>
   </section>
 
   <script>
-    // Desktop dropdowns: click-to-toggle + outside-click/Escape close
-    const desktopSubmenus = document.querySelectorAll('.nav .submenu > button');
-    desktopSubmenus.forEach(btn=>{
-      btn.addEventListener('click', (e)=>{
-        const parent = btn.parentElement;
-        const isOpen = parent.classList.toggle('open');
-        btn.setAttribute('aria-expanded', String(isOpen));
-        document.querySelectorAll('.nav .submenu.open').forEach(s=>{
-          if(s!==parent){ s.classList.remove('open'); s.querySelector('button').setAttribute('aria-expanded','false'); }
-        });
-        e.stopPropagation();
-      });
-    });
-    document.addEventListener('click', ()=>{
-      document.querySelectorAll('.nav .submenu.open').forEach(s=>{
-        s.classList.remove('open');
-        s.querySelector('button').setAttribute('aria-expanded','false');
-      });
-    });
-    document.addEventListener('keydown', (e)=>{
-      if(e.key==='Escape'){
-        document.querySelectorAll('.nav .submenu.open').forEach(s=>{
-          s.classList.remove('open');
-          s.querySelector('button').setAttribute('aria-expanded','false');
-          s.querySelector('button').focus();
-        });
-      }
-    });
-
     // Mobile drawer
     const toggle=document.querySelector('.nav-toggle');
     const drawer=document.getElementById('drawer');
@@ -323,21 +294,14 @@
       toggle.setAttribute('aria-expanded', String(open));
     });
 
-    const sciToggle=document.getElementById('scienceToggle');
-    const sciMenu=document.getElementById('scienceMenu');
-    sciToggle?.addEventListener('click',()=>{
-      const open = sciMenu.classList.toggle('open');
-      sciToggle.textContent = open ? "Science ▾" : "Science ▸";
-      sciToggle.setAttribute('aria-expanded', String(open));
-    });
-
-    const aboutToggle=document.getElementById('aboutToggle');
-    const aboutMenu=document.getElementById('aboutMenu');
-    aboutToggle?.addEventListener('click',()=>{
-      const open = aboutMenu.classList.toggle('open');
-      aboutToggle.textContent = open ? "About ▾" : "About ▸";
-      aboutToggle.setAttribute('aria-expanded', String(open));
-    });
+    // Fixed-nav shadow on scroll
+    const nav = document.querySelector('.nav');
+    const setShadow = () => {
+      if (window.scrollY > 4) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    };
+    setShadow();
+    window.addEventListener('scroll', setShadow, { passive: true });
   </script>
 </body>
 </html>

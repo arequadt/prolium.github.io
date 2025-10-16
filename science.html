@@ -4,245 +4,222 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Science & Pipeline — Prolium Bio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     :root{
       --prolium-blue:#63c5ed;
       --prolium-green:#21c036;
       --text-main:#123e47;
-      --prolium-white:#ffffff;
       --prolium-orange:#FF991C;
       --prolium-dark:#0e2f36;
-
-      /* Match index.html background greens */
       --bg-green-0:#e9f8f0;
       --bg-green-1:#dbf6e6;
       --bg-green-2:#b6efce;
       --bg-green-3:#6ce49a;
       --bg-green-4:#21c036;
+
+      --wave-width: 1920px;
+      --wave-height: 540px;
+
+      --step--1: clamp(0.9rem, 0.7rem + 0.6vw, 1.05rem);
+      --step-0:  clamp(1rem, 0.85rem + 0.8vw, 1.25rem);
+      --step-1:  clamp(1.15rem, 0.95rem + 1.1vw, 1.5rem);
+      --step-2:  clamp(1.75rem, 1.2rem + 2.4vw, 2.5rem);
+      --step-3:  clamp(2.5rem, 1.6rem + 4.8vw, 3.6rem);
     }
 
-    /* PAGE BACKGROUND — match index.html */
-    html,body{
-      margin:0;padding:0;min-height:100%;
+    html{ font-size:16px; overflow-x:hidden; scroll-padding-top:80px; }
+    body{
+      margin:0;min-height:100%;
       color:var(--text-main);
       font-family:'Inter',Arial,sans-serif;
+      font-size: var(--step-0);
+      line-height:1.6;
       background:linear-gradient(180deg,
         var(--bg-green-4) 0%,
         var(--bg-green-4) 50%,
         var(--bg-green-3) 78%,
         var(--bg-green-2) 100%);
       background-attachment:local;
+      overflow-x:hidden;
       scroll-behavior:smooth;
+      padding-top:80px; /* offset for fixed nav */
     }
 
-    /* NAV — sticky, translucent, blurred */
+    /* NAV — now fixed */
     .nav{
       display:flex;justify-content:space-between;align-items:center;
       padding:10px 20px;background:rgba(255,255,255,0.47);backdrop-filter:blur(6px);
-      position:sticky;top:0;z-index:10000;gap:14px
+      position:fixed; top:0; left:0; right:0; z-index:10000; gap:14px;
+      transition: box-shadow .2s ease, background-color .2s ease;
     }
+    .nav.scrolled{ box-shadow:0 6px 18px rgba(0,0,0,.12); background:rgba(255,255,255,0.86); }
     .nav-brand{display:flex;align-items:center;gap:14px}
-    .nav-logo{height:72px;width:auto}
-    .nav-links{display:flex;align-items:center;gap:1.1rem;position:relative}
-    .nav-links a,
-    .nav-links button{
-      font-size:1.02rem;font-weight:800;letter-spacing:.005em;line-height:1;
-      color:#0b2f39;text-decoration:none;padding:10px 12px;
-      background:none;border:none;cursor:pointer;transition:background .16s,color .16s;
+    .nav-logo{height:clamp(44px, 34px + 2.5vw, 72px);width:auto}
+    .nav-links{display:flex;align-items:center;gap:clamp(0.5rem, 0.3rem + 1vw, 1.1rem)}
+    .nav-links a{
+      font-size:var(--step--1);
+      font-weight:800;letter-spacing:.005em;line-height:1;
+      color:#0b2f39;text-decoration:none;
+      padding:clamp(6px, 4px + .6vw, 10px) clamp(8px, 6px + .7vw, 12px);
+      background:none;border:none;cursor:pointer;border-radius:9999px;
+      transition:background .16s,color .16s;
     }
-    .nav-links a:hover,
-    .nav-links button:hover,
-    .nav-links a.active{background:var(--prolium-green);color:#fff}
+    .nav-links a:hover, .nav-links a.active{background:var(--prolium-green);color:#fff}
 
-    /* Desktop dropdowns */
-    .submenu{position:relative}
-    .submenu > button[aria-expanded]{user-select:none}
-    .sublist{
-      position:absolute;top:calc(100% + 6px);left:0;
-      background:#fff;
-      padding:6px;min-width:220px;z-index:10001;display:none;
+    .nav-toggle{
+      display:none;background:none;border:none;
+      font-size:clamp(1.6rem, 1.2rem + 2.2vw, 2rem);
+      cursor:pointer;border-radius:9999px;
     }
-    .submenu:hover .sublist,
-    .submenu:focus-within .sublist,
-    .submenu.open .sublist{display:block}
-    .sublist a{display:block;padding:12px 14px;font-weight:800;color:#0b2f39;font-size:1.02rem}
-    .sublist a:hover{background:#f3f7fb}
-
-    /* Mobile drawer */
-    .nav-toggle{display:none;background:none;border:none;font-size:2rem;cursor:pointer}
     .drawer{
-      position:fixed;top:0;right:-100%;height:100%;width:min(86vw,340px);
-      background:#fff;transition:right .28s ease;
-      z-index:20000;padding:20px;display:flex;flex-direction:column;gap:.5rem
+      position:fixed;top:0;right:-100%;height:100%;
+      width:min(55vw,260px);
+      background:rgba(255,255,255,0.47);
+      backdrop-filter:blur(6px);
+      transition:right .28s ease;
+      z-index:20000;padding:20px;
+      display:flex;flex-direction:column;gap:.5rem;
+      box-shadow:-4px 0 10px rgba(0,0,0,0.08);
     }
     .drawer.open{right:0}
-    .drawer a,.drawer button{
-      color:#0b2f39;text-decoration:none;font-weight:800;background:none;border:none;
-      text-align:left;font-size:1.05rem;padding:10px 8px
+    .drawer a{
+      color:#0b2f39;text-decoration:none;font-weight:800;
+      text-align:left;font-size:var(--step--1);padding:10px 8px;border-radius:12px
     }
-    .drawer .sublist{display:none;flex-direction:column;padding-left:10px}
-    .drawer .sublist.open{display:flex}
+    .drawer a:hover{background:#f3f7fb}
+    @media(max-width:900px){.nav-links{display:none}.nav-toggle{display:block}}
 
-    @media(max-width:900px){
-      .nav-links{display:none}
-      .nav-toggle{display:block}
-    }
-
-    /* HERO — match index: white panel + waves */
     .hero{
       position:relative;isolation:isolate;
       min-height:120svh;
       display:flex;align-items:center;justify-content:center;
-      padding:0 6vw;
       text-align:center;background:#fff;
-      margin-top:-25svh;
-      margin-bottom:-2.5svh;
+      margin-top:-30svh;margin-bottom:0;
+      overflow:hidden;
     }
-    .hero-content{position:relative;z-index:4;max-width:1100px;transform:translateY(-56px);}
+    .hero-content{position:relative;z-index:4;max-width:min(1100px,92vw);transform:translateY(-56px);}
     .hero-title{
-      font-size:clamp(2.25rem,6.6vw,5.4rem);
-      line-height:1.75;font-weight:900;letter-spacing:-0.025em;
-      margin:0 0 14px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25)
-    }
-    .hero-title .accent{color:var(--prolium-green);}
-    .hero-desc{
-      font-size:clamp(1.08rem,1.2vw + .85rem,1.35rem);
-      color:#21525d;font-weight:700;max-width:980px;margin:0 auto;line-height:1.55
+      font-size: clamp(2.8rem, 2rem + 5vw, 4.2rem);
+      line-height:1.2;font-weight:900;letter-spacing:-0.02em;
+      margin:0 0 14px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25);
     }
 
-    /* WAVES — identical geometry & animation to index */
-    .wave-wrap{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
-    .wave{position:absolute;left:0;right:0;bottom:0;height:70svh;min-height:420px}
-    .wave svg{width:100%;height:100%}
-
+    .wave-wrap{
+      position:absolute;left:50%;bottom:0;
+      width:var(--wave-width);height:var(--wave-height);
+      transform:translateX(-50%);
+      z-index:1;pointer-events:none;overflow:hidden;
+    }
+    .wave{position:absolute;left:0;bottom:0;width:var(--wave-width);height:var(--wave-height);}
+    .wave svg{display:block;width:var(--wave-width);height:var(--wave-height);}
     @keyframes waveBreathBack{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.03)}}
     @keyframes waveBreathFront{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.06)}}
     .wave--back svg{animation:waveBreathBack 12s ease-in-out infinite}
     .wave--front svg{animation:waveBreathFront 16s ease-in-out infinite; transform-origin:50% 100%;}
+    .hero::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:4px;background:#21c036;z-index:2;}
 
-    /* CONTENT WRAPPER */
     .wrap{max-width:1120px;margin:0 auto;padding:0 5vw}
 
-    /* On-page nav chips */
     .page-nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:-24px auto 10px;position:relative;z-index:3}
-    .page-chip{font-weight:700;color:#0a3f14;background:rgba(255,255,255,.7);padding:8px 14px;font-size:.95rem;text-transform:uppercase;letter-spacing:.06em;text-decoration:none}
+    .page-chip{font-weight:700;color:#0a3f14;background:rgba(255,255,255,.7);padding:8px 14px;font-size:calc(var(--step--1)*0.95);text-transform:uppercase;letter-spacing:.06em;text-decoration:none;border-radius:9999px}
 
-    /* Sections */
-    .lead-section{margin:54px auto 0;margin-top:10%}
-    .lead-title{font-size:clamp(1.5rem,4.6vw,2.4rem);color:#0b2f39;font-weight:800;margin:0 0 12px;letter-spacing:-0.01em;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.28)}
-    .lead-note{display:inline-block;margin:0 auto 12px;font-weight:800;color:#0a3f14;background:rgba(255,255,255,.6);padding:7px 12px;font-size:.87rem;text-transform:uppercase;letter-spacing:.08em;border:0}
-    .lead-blurb{font-size:clamp(1.02rem,2.1vw,1.2rem);line-height:1.7;font-weight:600;color:#0e3a27;margin:0 auto 16px;max-width:980px;text-shadow:0 1px 0 rgba(255,255,255,.22)}
+    .section-title{
+      font-size:var(--step-2);
+      margin:0 auto clamp(8px, 1vh, 18px);
+      color:var(--prolium-dark);font-weight:900;letter-spacing:-0.01em;
+      text-align:center;width:fit-content;
+    }
+    .section-desc,.lead-blurb{font-size:var(--step-1);color:var(--prolium-dark);font-weight:700;max-width:min(980px,90vw);margin:0 auto;line-height:1.55;text-align: left;}
 
-    .how{margin:64px auto 0;margin-top:10%}
-    .how-title{font-size:clamp(1.4rem,4.4vw,2.1rem);color:#0b2f39;font-weight:800;margin:0 0 16px;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.25)}
+    .lead-section{margin:clamp(54px,8vh,96px) auto 0;text-align:center}
+    .lead-title{font-size:var(--step-2);color:#0b2f39;font-weight:800;margin:0 0 12px;letter-spacing:-0.01em;text-shadow:0 1px 0 rgba(255,255,255,.28)}
+    .lead-note{display:inline-block;margin:0 auto 12px;font-weight:800;color:#0a3f14;background:rgba(255,255,255,.6);padding:7px 12px;font-size:calc(var(--step--1)*0.85);text-transform:uppercase;letter-spacing:.08em;border-radius:9999px}
+
+    .how{margin:clamp(64px,8vh,96px) auto 0;text-align:center}
+    .how-title{font-size:var(--step-2);color:#0b2f39;font-weight:800;margin:0 0 16px;text-shadow:0 1px 0 rgba(255,255,255,.25)}
     .steps{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;position:relative}
     .step{flex:1 1 240px;max-width:300px;min-width:220px;text-align:center}
-    .ico{
-      width:78px;height:78px;border-radius:50%;
-      background:radial-gradient(closest-side, #ffffff 0%, #ffffffcc 60%, #ffffff00 100%);
-      display:grid;place-items:center;margin:0 auto 10px;box-shadow:0 8px 26px rgba(0,0,0,.12);
-    }
+    .ico{width:78px;height:78px;border-radius:50%;background:radial-gradient(closest-side,#ffffff 0%,#ffffffcc 60%,#ffffff00 100%);display:grid;place-items:center;margin:0 auto 10px;box-shadow:0 8px 26px rgba(0,0,0,.12)}
     .ico svg{width:40px;height:40px}
-    .step h3{font-size:1.05rem;font-weight:800;color:#0a3f14;margin:8px 0 6px;letter-spacing:.01em}
-    .step p{font-size:1rem;font-weight:500;color:#0f3b3f;margin:0}
-    .steps::before{
-      content:"";position:absolute;top:39px;left:6%;right:6%;height:3px;
-      background:linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.7), rgba(255,255,255,.0));
-      border-radius:3px;pointer-events:none;
-    }
+    .step h3{font-size:calc(var(--step--1)*1.05);font-weight:800;color:#0a3f14;margin:8px 0 6px;letter-spacing:.01em}
+    .step p{font-size:var(--step--1);font-weight:600;color:#0f3b3f;margin:0}
+    .steps::before{content:"";position:absolute;top:39px;left:6%;right:6%;height:3px;background:linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.7), rgba(255,255,255,.0));border-radius:3px;pointer-events:none}
     @media (max-width:760px){ .steps::before{display:none} }
 
-    .why{margin:64px auto 0;margin-top:10%}
-    .why-title{font-size:clamp(1.4rem,4.4vw,2.1rem);color:#0b2f39;font-weight:800;margin:0 0 14px;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.25)}
+    .why{margin:clamp(64px,8vh,96px) auto 0}
+    .why-title{font-size:var(--step-2);color:#0b2f39;font-weight:800;margin:0 0 14px;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.25)}
     .why-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
     .why-item{display:flex;gap:10px;align-items:flex-start}
-    .tick{flex:0 0 28px;height:28px;display:grid;place-items:center;background:rgba(255,255,255,.75);box-shadow:0 4px 16px rgba(0,0,0,.12)}
+    .tick{flex:0 0 28px;height:28px;display:grid;place-items:center;background:rgba(255,255,255,.75);box-shadow:0 4px 16px rgba(0,0,0,.12);border-radius:9999px}
     .tick svg{width:16px;height:16px}
-    .why-item p{margin:0;font-weight:600;color:#0e3a27;line-height:1.6}
+    .why-item p{margin:0;font-weight:700;color:#0e3a27;line-height:1.6}
     @media (max-width:940px){ .why-list{grid-template-columns:1fr 1fr} }
     @media (max-width:600px){ .why-list{grid-template-columns:1fr} }
 
-    /* Pipeline */
-    .pipeline{margin:80px auto 0;margin-top:10%;}
-    .pipeline .section-kicker{
-      display:inline-block;margin:0 auto 12px;font-weight:800;color:#0a3f14;background:rgba(255,255,255,.6);padding:7px 12px;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em
-    }
-    .pipeline .section-title{font-size:clamp(1.4rem,4.4vw,2.1rem);color:#0b2f39;font-weight:800;margin:0 0 14px;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.25)}
-    .pipeline .lead-blurb{margin-bottom:10px}
-    .pipeline .checks{max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .pipeline{margin:clamp(80px,9vh,110px) auto 0;text-align:center}
+    .pipeline .section-kicker{display:inline-block;margin:0 auto 12px;font-weight:800;color:#0a3f14;background:rgba(255,255,255,.6);padding:7px 12px;font-size:calc(var(--step--1)*0.82);text-transform:uppercase;letter-spacing:.08em;border-radius:9999px}
+    .pipeline .checks{max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:left}
     .pipeline .check{display:flex;gap:10px;align-items:flex-start}
-    .pipeline .tick{flex:0 0 28px;height:28px;display:grid;place-items:center;background:rgba(255,255,255,.75);box-shadow:0 4px 16px rgba(0,0,0,.12)}
+    .pipeline .tick{flex:0 0 28px;height:28px;display:grid;place-items:center;background:rgba(255,255,255,.75);box-shadow:0 4px 16px rgba(0,0,0,.12);border-radius:9999px}
     .pipeline .tick svg{width:16px;height:16px}
-    .pipeline .check p{margin:0;font-weight:600;color:#0e3a27;line-height:1.6}
-    .evidence{margin-top:10%}
-    .pipeline-visual{margin-top:10%}
+    .pipeline .check p{margin:0;font-weight:700;color:#0e3a27;line-height:1.6}
     @media (max-width:800px){ .pipeline .checks{grid-template-columns:1fr} }
 
     .cta{text-align:center;margin:72px 0 36px}
-    .cta-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);font-weight:800;padding:14px 30px;font-size:1.06rem;text-decoration:none;display:inline-block}
-
-    /* UI tweaks to match index: pill shapes, hover brightness, focus ring */
-    .nav-links a,
-    .nav-links button,
-    .drawer a,
-    .drawer button,
-    .cta-link,
-    .nav-toggle,
-    .page-chip,
-    .lead-note,
-    .pipeline .section-kicker,
-    .tick,
-    .ico,
-    .cta .cta-link,
-    button { border-radius:9999px; }
-
-    .nav-links a:hover,
-    .nav-links button:hover,
-    .drawer a:hover,
-    .drawer button:hover,
-    .cta-link:hover,
-    .nav-toggle:hover,
-    .page-chip:hover,
-    button:hover { filter:brightness(1.03); }
+    .cta-link{
+      color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);
+      font-weight:800;padding:14px 30px;font-size:var(--step--1);
+      text-decoration:none;display:inline-block;border-radius:9999px;
+    }
 
     .nav-links a:focus-visible,
-    .nav-links button:focus-visible,
     .drawer a:focus-visible,
-    .drawer button:focus-visible,
     .cta-link:focus-visible,
     .nav-toggle:focus-visible,
-    .page-chip:focus-visible,
-    button:focus-visible {
-      outline:3px solid rgba(99,197,237,.65);
-      outline-offset:2px;
-    }
-    /* Kill the sub-pixel seam between hero and the page bg */
-    .wave { bottom: -3px; }          /* overlap the hero edge slightly */
-    .wave svg { display: block; }    /* avoid inline SVG baseline gap */
-
-    /* Remove the negative bottom margin that can expose a sliver */
-    .hero { margin-bottom: 0; }
-
-    /* Optional: belt-and-suspenders—paint 2px of green under the waves */
-    .hero::after{
-      content:"";
-      position:absolute;
-      left:0; right:0; bottom:-2px;
-      height:4px;
-      background:#21c036; /* same as --bg-green-4 */
-      z-index:2;
+    .page-chip:focus-visible{
+      outline: 3px solid rgba(99,197,237,.65);
+      outline-offset: 2px;
     }
 
-    /* Responsive */
     @media (max-width:560px){
       .hero{min-height:100svh}
       .nav-logo{height:60px}
     }
     @media (prefers-reduced-motion:reduce){
-      *{transition:none!important;animation:none!important}
+      *{animation:none!important;transition:none!important}
     }
-    img{max-width:100%;height:auto}
+    img{max-width:100%;height:auto;align-self: center;}
+
+    /* --- TCE section styling (mirrors requested layout) --- */
+    .tce{margin:clamp(64px,8vh,96px) auto 0}
+    .tce-header{max-width:min(980px,90vw);margin:0 auto 14px;text-align:left}
+    .tce-title{
+      font-size:var(--step-2);
+      font-weight:900;
+      letter-spacing:-0.01em;
+      color:var(--prolium-dark);
+      margin:0 0 10px;
+      text-align:left;
+    }
+    .tce-intro, .tce-body{font-size:var(--step-1);color:var(--prolium-dark);font-weight:700;line-height:1.6;margin:0 auto 12px;max-width:min(980px,90vw)}
+    .tce-list-wrap{max-width:min(980px,90vw);margin:8px auto 12px}
+    .tce-list{
+      margin:0 0 0 1.1rem;
+      padding:0;
+      display:block;
+      list-style:disc;
+      font-size:var(--step-1);
+      color:var(--prolium-dark);
+      font-weight:700;
+      line-height:1.6;
+    }
+    .tce-list li{margin:6px 0}
+    .tce-hr{
+      border:0;height:1px;
+      background:linear-gradient(90deg,rgba(255,255,255,0),rgba(0,0,0,.12),rgba(255,255,255,0));
+      margin:18px auto;max-width:min(980px,90vw)
+    }
   </style>
 </head>
 <body>
@@ -253,7 +230,6 @@
         <img class="nav-logo" src="Prolium_color_transparent (1) (1).png" alt="Prolium Logo">
       </a>
     </div>
-
     <div class="nav-links" aria-label="Primary links">
       <a href="index.html">Home</a>
       <a href="science.html" class="active">Science & Pipeline</a>
@@ -261,11 +237,10 @@
       <a href="about.html#about">About</a>
       <a href="contact.html">Contact</a>
     </div>
-
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
   </nav>
 
-  <!-- Mobile drawer -->
+  <!-- Drawer -->
   <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
     <a href="index.html">Home</a>
     <a href="science.html" class="active">Science & Pipeline</a>
@@ -278,108 +253,109 @@
   <header class="hero" aria-label="Science overview">
     <div class="hero-content">
       <h1 class="hero-title">Science and Pipeline</h1>
-        <nav class="page-nav" aria-label="On this page">
-          <a class="page-chip" href="#pipeline">Pipeline</a>
-          <a class="page-chip" href="#phase12">Phase I/II Results</a>
-          <a class="page-chip" href="#TCE">TCE Overview</a>
-        </nav>
+      <nav class="page-nav" aria-label="On this page">
+        <a class="page-chip" href="#pipeline">Pipeline</a>
+        <a class="page-chip" href="#phase12">Phase I/II Results</a>
+        <a class="page-chip" href="#TCE">TCE Overview</a>
+      </nav>
     </div>
 
-    <!-- Waves (identical palette & shape to index.html) -->
     <div class="wave-wrap" aria-hidden="true">
-      <!-- BLUE BACK WAVE -->
       <div class="wave wave--back">
-        <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
+        <svg preserveAspectRatio="none" viewBox="0 0 1440 540">
           <defs>
             <linearGradient id="bgBlue" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0" stop-color="#63c5ed"/>
               <stop offset="1" stop-color="#9ed4ef"/>
             </linearGradient>
           </defs>
-          <path
-            d="M0,260 C180,210 320,150 540,240 C760,330 870,320 1040,210 C1210,100 1350,80 1440,130 L1440,710 L0,710 Z"
-            fill="url(#bgBlue)"/>
+          <path d="M0,200 C180,160 320,110 540,180 C760,250 870,245 1040,160 C1210,80 1350,60 1440,100 L1440,540 L0,540 Z" fill="url(#bgBlue)"/>
         </svg>
       </div>
-
-      <!-- GREEN FRONT WAVE -->
       <div class="wave wave--front">
-        <svg preserveAspectRatio="none" viewBox="0 0 1440 720">
-          <path
-            d="M0,460 C260,620 420,520 680,470 C940,420 1110,460 1300,560 C1370,600 1410,640 1440,680 L1440,720 L0,720 Z"
-            fill="#21c036"/>
+        <svg preserveAspectRatio="none" viewBox="0 0 1440 540">
+          <path d="M0,360 C260,480 420,410 680,370 C940,330 1110,360 1300,440 C1370,470 1410,500 1440,520 L1440,540 L0,540 Z" fill="#21c036"/>
         </svg>
       </div>
     </div>
   </header>
 
-  <!-- On-page nav -->
-  <nav class="page-nav" aria-label="On this page">
-    <a class="page-chip" href="#pipeline">Pipeline</a>
-    <a class="page-chip" href="#phase12">Phase I/II Results</a>
-    <a class="page-chip" href="#TCE">TCE Overview</a>
-  </nav>
-
   <!-- CONTENT -->
   <main class="wrap">
-
     <!-- PIPELINE -->
     <section class="pipeline" id="pipeline" aria-label="Pipeline">
-      <div class="lead-note">PLACEHOLDER NOT TO BE USED IN FINAL SITE</div>
+      <div class="section-kicker">PLACEHOLDER NOT TO BE USED IN FINAL SITE</div>
       <h2 class="section-title">Pipeline</h2>
       <p class="lead-blurb">
         <strong>Prolium’s first asset is PRO-203, a CD20×CD3 bispecific antibody.</strong> Originally developed by InnoCare and Keymed, PRO-203 was first studied in relapsed / refractory Non-Hodgkin’s lymphoma (NHL). The Phase I/II clinical trial in China to assess the safety, tolerability, PK and the preliminary anti-tumor activity of ICP-B02 has shown promising early results in both intravenous (IV) and subcutaneous (SC) formulations, particularly in patients with follicular lymphoma (FL) and diffuse large B-cell lymphoma (DLBCL). Prolium will initiate development of PRO-203 in autoimmune indications.
       </p>
 
-      <div class="evidence" id="phase12" aria-label="Phase I/II (China) snapshot">
-        <div class="lead-note">PLACEHOLDER NOT TO BE USED IN FINAL SITE</div>
+      <section class="pipeline-visual" style="margin-top:10%">
+        <div class="section-kicker">Placeholder not to be published in initial site launch: To be added once trials are announced</div>
+        <figure>
+          <img src="pipeline_vis.png" alt="Pipeline visualization" style="display:block;max-width:100%;height:auto;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,.14)">
+        </figure>
+      </section>
+
+      <div class="evidence" id="phase12" aria-label="Phase I/II (China) snapshot" style="margin-top:10%">
+        <div class="section-kicker">PLACEHOLDER NOT TO BE USED IN FINAL SITE</div>
         <h3 class="section-title" style="margin-top:24px">Phase I/II snapshot (ICP-B02, China)</h3>
         <div class="checks">
           <div class="check">
             <div class="tick" aria-hidden="true">
               <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <p>Assessed <strong>safety</strong>, <strong>tolerability</strong>, and <strong>PK</strong> with preliminary anti-tumor activity readouts.</p>
+            <p>Phase I/II clinical trial in Relapsed and Refractory Non-Hodgkin’s lymphoma(NHL); conducted by InnoCare and Keymed (ICP-B02/CM355)</p>
           </div>
           <div class="check">
             <div class="tick" aria-hidden="true">
               <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <p>Both <strong>IV</strong> and <strong>SC</strong> formulations evaluated.</p>
+            <p>Promising early results, particularly in follicular lymphoma (FL) and diffuse large B-cell lymphoma (DLBCL)</p>
           </div>
           <div class="check">
             <div class="tick" aria-hidden="true">
               <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <p><strong>Promising early results</strong> reported, particularly in <strong>FL</strong> and <strong>DLBCL</strong>.</p>
+            <p>Assessed safety, tolerability, PK, and preliminary anti-tumor activity</p>
+          </div>
+          <div class="check">
+            <div class="tick" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#168a2b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p>Evaluated both IV and SC formulations</p>
           </div>
         </div>
       </div>
-
-      <section class="pipeline-visual">
-        <div class="lead-note">PLACEHOLDER NOT TO BE USED IN FINAL SITE</div>
-        <figure>
-          <img src="pipeline_vis.png" style="display:block;max-width:100%;height:auto;border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,.14)" alt="Pipeline visualization">
-        </figure>
-      </section>
     </section>
 
-    <!-- PRIMER -->
-    <section class="lead-section" id="TCE">
-      <h2 class="lead-title">Primer on T-Cell Engagers</h2>
-      <div class="lead-note">PLACEHOLDER NOT TO BE USED IN FINAL SITE</div>
-      <p class="lead-blurb">
-        Approved B-cell therapies such as Rituxan® have demonstrated significant clinical benefit in a broad range of autoimmune
-        diseases but efficacy is potentially limited by depth of B-cell depletion. Cell therapy approaches have demonstrated initial
-        compelling proof of concept efficacy on the benefits of deeper depletion of B-cells; however, the burdensome process of a cell
-        therapy approach, involving lymphodepletion and high cost of manufacturing is likely to limit cell therapy’s usage to only a
-        selected set of patients.
+    <!-- T-Cell Engagers (reformatted per request) -->
+    <section class="tce" id="TCE" aria-label="T-Cell Engagers">
+      <header class="tce-header">
+        <h2 class="tce-title">The Potential of T-Cell Engagers as a Therapeutic Approach</h2>
+      </header>
+
+      <p class="tce-intro">
+        T-cell engagers (TCEs) are engineered, bispecific antibodies that redirect T-cells to eliminate cells expressing a specific antigen. While initially pioneered in oncology to destroy tumor cells, TCEs are now being explored for autoimmune diseases, where the goal is to selectively deplete pathogenic immune cells.
       </p>
-      <p class="lead-blurb">
-        T-cell engagers have the potential to overcome traditional hurdles of antibody and cellular therapy approaches and become highly
-        effective and viable therapies for various autoimmune diseases. By additionally engaging T-cells, a deeper depletion of B-cells and
-        more durable therapeutic could be realized. T-cell engagers have the potential to change the treatment paradigm in various
-        autoimmune diseases and establish a new standard of care.
+
+      <p class="tce-body">
+        TCEs are typically bispecific antibodies or antibody fragments designed with:
+      </p>
+
+      <div class="tce-list-wrap">
+        <ul class="tce-list">
+          <li><strong>One arm binding CD3</strong>: a component of the T-cell receptor (TCR) complex on all T-cells.</li>
+          <li><strong>One arm binding a disease-relevant target antigen</strong>, such as CD20 or CD19, expressed on B-cells.</li>
+        </ul>
+      </div>
+
+      <p class="tce-body">
+        When both arms engage their targets simultaneously, the TCE forms an immune synapse between the T-cell and the target cell, triggering T-cell activation, release of cytotoxic granules, and targeted killing of the bound cell — independent of MHC or traditional antigen recognition.
+      </p>
+
+      <p class="tce-body">
+        T-cell engagers offer a transformative approach for autoimmunity by enabling precision depletion of disease-driving cells. By targeting well-validated antigens, TCEs may combine the potency of cellular immunotherapy with the precision of biologics — ushering in a new class of therapies for patients unresponsive to conventional immunosuppressants.
       </p>
     </section>
 
@@ -390,7 +366,6 @@
       <div class="steps">
         <div class="step">
           <div class="ico" aria-hidden="true">
-            <!-- target icon -->
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <circle cx="12" cy="12" r="9" stroke="#21c036" stroke-width="2"/>
               <circle cx="12" cy="12" r="4" stroke="#21c036" stroke-width="2"/>
@@ -403,7 +378,6 @@
 
         <div class="step">
           <div class="ico" aria-hidden="true">
-            <!-- connect icon -->
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M7 12a5 5 0 0 1 5-5M12 17a5 5 0 0 1-5-5" stroke="#21c036" stroke-width="2" stroke-linecap="round"/>
               <circle cx="12" cy="12" r="3" stroke="#21c036" stroke-width="2"/>
@@ -415,7 +389,6 @@
 
         <div class="step">
           <div class="ico" aria-hidden="true">
-            <!-- shield/check icon -->
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" stroke="#21c036" stroke-width="2"/>
               <path d="M9 12l2 2 4-4" stroke="#21c036" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -459,36 +432,6 @@
   </main>
 
   <script>
-    // Desktop dropdowns: click-to-toggle + outside-click/Escape close
-    const desktopSubmenus = document.querySelectorAll('.nav .submenu > button');
-    desktopSubmenus.forEach(btn=>{
-      btn.addEventListener('click', (e)=>{
-        const parent = btn.parentElement;
-        const isOpen = parent.classList.toggle('open');
-        btn.setAttribute('aria-expanded', String(isOpen));
-        document.querySelectorAll('.nav .submenu.open').forEach(s=>{
-          if(s!==parent){ s.classList.remove('open'); s.querySelector('button').setAttribute('aria-expanded','false'); }
-        });
-        e.stopPropagation();
-      });
-    });
-    document.addEventListener('click', ()=>{
-      document.querySelectorAll('.nav .submenu.open').forEach(s=>{
-        s.classList.remove('open');
-        s.querySelector('button').setAttribute('aria-expanded','false');
-      });
-    });
-    document.addEventListener('keydown', (e)=>{
-      if(e.key==='Escape'){
-        document.querySelectorAll('.nav .submenu.open').forEach(s=>{
-          s.classList.remove('open');
-          s.querySelector('button').setAttribute('aria-expanded','false');
-          s.querySelector('button').focus();
-        });
-      }
-    });
-
-    // Mobile drawer
     const toggle=document.querySelector('.nav-toggle');
     const drawer=document.getElementById('drawer');
     toggle?.addEventListener('click', ()=>{
@@ -497,21 +440,14 @@
       toggle.setAttribute('aria-expanded', String(open));
     });
 
-    const sciToggle=document.getElementById('scienceToggle');
-    const sciMenu=document.getElementById('scienceMenu');
-    sciToggle?.addEventListener('click',()=>{
-      const open = sciMenu.classList.toggle('open');
-      sciToggle.textContent = open ? "Science ▾" : "Science ▸";
-      sciToggle.setAttribute('aria-expanded', String(open));
-    });
-
-    const aboutToggle=document.getElementById('aboutToggle');
-    const aboutMenu=document.getElementById('aboutMenu');
-    aboutToggle?.addEventListener('click',()=>{
-      const open = aboutMenu.classList.toggle('open');
-      aboutToggle.textContent = open ? "About ▾" : "About ▸";
-      aboutToggle.setAttribute('aria-expanded', String(open));
-    });
+    // Fixed nav shadow on scroll
+    const nav = document.querySelector('.nav');
+    const setShadow = () => {
+      if (window.scrollY > 4) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    };
+    setShadow();
+    window.addEventListener('scroll', setShadow, { passive: true });
   </script>
 </body>
 </html>
