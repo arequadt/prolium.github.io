@@ -39,10 +39,9 @@
       font-family:'Inter',Arial,sans-serif;
       font-size: var(--step-0);
       line-height:1.6;
-      /* ✅ same gradient behavior as index/science */
       background:linear-gradient(180deg,
         var(--bg-green-4) 0%,
-        var(--bg-green-4) 45%,
+        var(--bg-green-4) 55%,
         var(--bg-green-3) 70%,
         var(--bg-green-2) 100%);
       background-attachment:local;
@@ -102,7 +101,7 @@
       overflow:hidden; 
       margin-bottom:-5svh;
     }
-    .hero-content{position:relative;z-index:4;max-width:min(1100px,92vw);transform:translateY(-56px);}
+    .hero-content{position:relative;z-index:4;transform:translateY(-56px);}
     .hero-title{
       font-size: clamp(2.8rem, 2rem + 5vw, 4.2rem);
       line-height:1.2;font-weight:900;letter-spacing:-0.02em;
@@ -126,7 +125,7 @@
     .hero::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:4px;background:#21c036;z-index:2;}
 
     /* PAGE CONTENT */
-    .wrap{max-width:1120px;margin:0 auto;padding:0 5vw}
+    .wrap{max-width:1920px;margin:0 auto;padding:0 5vw}
 
     /* Filter chips + search */
     .page-nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:16px auto 10px;position:relative;z-index:3}
@@ -199,10 +198,7 @@
     }
 
     /* Responsive tweaks */
-    @media (max-width:560px){
-      .hero{min-height:100svh}
-      .nav-logo{height:60px}
-    }
+
     @media (prefers-reduced-motion:reduce){
       *{transition:none!important;animation:none!important}
     }
