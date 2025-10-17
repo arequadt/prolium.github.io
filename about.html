@@ -91,7 +91,7 @@
       min-height:120svh;
       display:flex;align-items:center;justify-content:center;
       text-align:center;background:white;
-      margin-top:-30svh;margin-bottom:0;
+      margin-top:-30svh;margin-bottom:-5svh;
       overflow:hidden;
     }
     .hero-content{position:relative;z-index:4;max-width:min(1100px,92vw);transform:translateY(-56px);}
@@ -120,7 +120,7 @@
     /* WRAPPER + page chips */
     .wrap{max-width:1120px;margin:0 auto;padding:0 5vw}
     .page-nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:-24px auto 10px;position:relative;z-index:3}
-    .page-chip{font-weight:700;color:#0a3f14;background:rgba(255,255,255,.7);padding:8px 14px;font-size:.95rem;text-transform:uppercase;letter-spacing:.06em;text-decoration:none;border-radius:9999px}
+    .page-chip{font-weight:700;color:#0a3f14;background:rgba(255,255,255,.7);padding:8px 14px;font-size:.95rem;text-transform:uppercase;letter-spacing:.06em;text-decoration:none;border-radius:9999px;margin-top: 5%;}
     .page-chip:hover{filter:brightness(1.03)}
     .page-chip:focus-visible{outline:3px solid rgba(99,197,237,.65);outline-offset:2px}
 
@@ -141,8 +141,16 @@
 
     /* Section titles & copy */
     .section-title{font-size:clamp(1.5rem,4.6vw,2.4rem);color:#0b2f39;font-weight:800;margin:0 0 12px;letter-spacing:-0.01em;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,.28);padding-top: 8%;}
-    .lead{font-size:clamp(1.02rem,2.1vw,1.2rem);line-height:1.7;font-weight:600;color:#0e3a27;margin:0 auto 18px;max-width:980px;text-shadow:0 1px 0 rgba(255,255,255,.22);text-align:center;}
-
+    .lead{
+      font-size:var(--step-1);
+      color:var(--prolium-dark);font-weight:700;
+      max-width:min(980px, 90vw);margin:0 auto;line-height:1.55;text-align: center;
+    }
+    .section-desc{
+      font-size:var(--step-1);
+      color:var(--prolium-dark);font-weight:700;
+      max-width:min(980px, 90vw);margin:0 auto;line-height:1.55;text-align: left;
+    }
     /* Values grid */
     .values-kicker{text-align:center;color:#0f3b3f;font-weight:700;margin:26px 0 14px}
     .values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
@@ -153,7 +161,7 @@
 
     /* Team/Board tabs + cards */
     .tabs-bar{display:flex;justify-content:center;align-items:center;gap:10px;margin:8px auto 6px;position:relative;z-index:3}
-    .tab{cursor:pointer;background:rgba(255,255,255,.7);border-radius:9999px;padding:10px 16px;font-size:.98rem;font-weight:800;color:#0a3f14;text-transform:uppercase;letter-spacing:.06em}
+    .tab{cursor:pointer;background:rgba(119, 214, 246, 0.7);border: none;border-radius:9999px;padding:10px 16px;font-size:.98rem;font-weight:800;color:#0a3f14;text-transform:uppercase;letter-spacing:.06em}
     .tab.active,.tab:focus{background:var(--prolium-blue);color:#fff;outline:none}
     .team-grid,.board-grid{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:28px 24px;margin:16px auto 44px;max-width:1140px;position:relative;z-index:1}
     .member-card{background:#fff;border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,.10);width:290px;min-height:230px;transition:box-shadow .24s, transform .18s;display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:18px 14px;border-left:6px solid var(--prolium-green)}
@@ -167,14 +175,14 @@
     /* Expander overlay */
     .expander{position:fixed; inset:0; z-index:30000; display:grid; place-items:center; background:rgba(0,0,0,.35); opacity:0; pointer-events:none; transition:opacity .28s ease;}
     .expander.active{opacity:1; pointer-events:auto}
-    .expander-card{position:relative; width:min(980px,92vw); max-height:88vh; background:#fff; border-radius:24px; box-shadow:0 22px 70px rgba(0,0,0,.28); overflow:hidden; transform-origin: top left;}
+    .expander-card{position:relative; width:min(980px,92vw); max-height:88vh; background:#fff; border-radius:24px; overflow:hidden; transform-origin: top left;}
     .expander-inner{position:relative; transform-style:preserve-3d; transition:transform .6s ease; min-height:560px;}
     .expander-inner.flipped{ transform:rotateY(180deg) }
     .face{position:absolute; inset:0; backface-visibility:hidden; display:grid; place-items:center; padding:28px;}
     .face.front{background:radial-gradient(circle at 30% 20%, #f7fbff, #eef7ff); gap:16px; text-align:center;}
     .face.back{ transform:rotateY(180deg); overflow:auto; }
-    .expanded-head{display:flex; gap:24px; align-items:center; padding:22px 28px; position:sticky; top:0; background:#fff; z-index:2; border-bottom:1px solid #eef2f6;}
-    .expanded-avatar{width:180px; height:180px; border-radius:50%; object-fit:cover; box-shadow:0 12px 28px rgba(0,0,0,.18); border:6px solid #e8f6fd; background:#fff;}
+    .expanded-head{display:flex; align-items:center; padding:22px 28px; position:sticky; top:0; background:white; z-index:2; position:relative;}
+    .expanded-avatar{width:180px; height:180px; border-radius:50%; object-fit:cover; border:6px solid #e8f6fd; background:#fff;}
     .expanded-meta{display:flex; flex-direction:column}
     .expanded-name{font-size:1.6rem; font-weight:900; color:#0b2f39; line-height:1.15}
     .expanded-title{font-size:1.08rem; font-weight:800; color:#0a3f14}
@@ -256,7 +264,7 @@
   <!-- about -->
   <section id="about" class="wrap" aria-labelledby="about-title">
     <h2 id="about-title" class="section-title">About us</h2>
-    <p class="lead">
+    <p class="section-desc">
       Prolium is a clinical-stage biotechnology company focused on bringing breakthrough therapy to patients with autoimmune diseases.
       Established in 2025 and backed by RTW Investments in New York City, we are led by seasoned entrepreneurs and clinicians with
       deep experience in drug development.
@@ -279,14 +287,12 @@
   <!-- VALUES -->
   <main class="wrap about-sections">
     <section id="values" aria-labelledby="values-title">
-      <h2 id="values-title" class="section-title">Our ARCH Values</h2>
+      <h2 id="values-title" class="section-title">Our Values (ARCH)</h2>
       <p class="lead">At Prolium, we embody our values in everything we do.</p>
-      <p class="values-kicker">Accountability • Resourcefulness • Collaboration • Humility</p>
 
       <div class="values-grid">
         <article class="value">
           <span class="pill">A — Accountability</span>
-          <h3>Own outcomes</h3>
           <p>We take ownership of our actions, decisions and outcomes.
             We honor our commitments, hold ourselves and others to high standards,
             and continuously strive to earn trust through transparency, integrity, and
@@ -295,7 +301,6 @@
 
         <article class="value">
           <span class="pill">R — Resourcefulness</span>
-          <h3>Turn constraints into velocity</h3>
           <p>We approach challenges with creativity, agility, and determination. We find smart, effective
             solutions with the tools at hand, adapt quickly to change, and turn obstacles into opportunities
             through innovation and initiative.</p>
@@ -303,7 +308,6 @@
 
         <article class="value">
           <span class="pill">C — Collaboration</span>
-          <h3>Decide better, together</h3>
           <p>We believe that honest conversations, strong teamwork, and genuine connection fuel our success.
             We speak openly and respectfully, work together across boundaries, and foster a culture of
             camaraderie where every voice is heard, and every person feels valued.</p>
@@ -311,7 +315,6 @@
 
         <article class="value">
           <span class="pill">H — Humility</span>
-          <h3>Let data lead</h3>
           <p>We value diverse perspectives, listen with curiosity, and treat every interaction as a chance
             to learn and grow. Respect and humility guide our actions, no matter our experience or title.</p>
         </article>
@@ -349,11 +352,10 @@
     /* ===== Team/Board data (kept from your original) ===== */
     const team = [
       { name:"Scott Requadt", title:"CEO", long_bio:`Scott has over 24 years of operating and investing experience in biotech and pharmaceuticals. Most recently, he was CEO of Talaris Therapeutics, which was developing a novel cell therapy to induce or restore immune tolerance in organ transplant and severe auto-immune disease settings. In support of Talaris' late-clinical stage pipeline, he grew Talaris from 10 to 135 FTEs and raised over $330M, including a successful IPO in 2021.<br><br>He previously spent 14 years at Clarus Ventures (acquired by Blackstone Life Sciences), where he led and managed numerous investments spanning therapeutics, medtech and diagnostics. His original training is in finance and law, and he holds an MBA from Harvard, a JD/LL.B from University of Toronto and a B.Com from McGill.`, img:"Scott_Requadt.png" },
-      { name:"Salim Mujais, MD", title:"CMO", long_bio:`Dr. Salim Mujais is an experienced pharmaceutical physician executive with more than three decades of leadership in clinical development, medical affairs, and academic medicine. He has contributed to the registration of six new chemical entities and authored over 180 scientific publications advancing patient care
-            and therapeutic innovation. He has served as Senior Vice President of Clinical Development at Generate:Biomedicines, Sumitomo Pharma America, and Urovant. During his 14-year tenure at Astellas Pharma, Dr. Mujais held senior leadership roles, culminating as Senior Vice President and Global Therapeutic Area Head. Earlier, as Vice President of Medical Affairs at Baxter Healthcare, he shaped clinical strategies in renal care and established the first dedicated medical affairs organizations in the renal division. Before entering industry, Dr. Mujais was Associate Professor of Medicine in Nephrology at Northwestern University and held academic appointments at the University of Illinois at Chicago. He trained in nephrology at the University of Chicago and completed a fellowship in cardiovascular research at the Cleveland Clinic Foundation.`, img:"Salim_Mujais.png" },
-      { name:"Niki Bili, MD, MPH", title:"VP, Clinical Development", long_bio:`Androniki “Niki” Bili is a board-certified rheumatologist, and brings over 25 years of experience spanning clinical practice, academic medicine, and medical education across a range of health systems. For the past decade, she has held key roles in drug development at Janssen, Merck, Bristol Myers Squibb, and most recently, Celldex. Her expertise encompasses the development of monoclonal and bispecific antibodies, and small molecules targeting immunological diseases, as well as vaccines.`, img:"Niki_Bili.png" },
-      { name:"Bob Huang", title:"VP, CMC & Manufacturing", long_bio:`Bob brings more than 20 years of experience in manufacturing across modalities, from bispecifics to cell and gene therapy. Most recently, Bob was the VP of Technical Operations at CARsgen Therapeutics. Prior to that, Bob held roles at Frontera Therapeutics, Kiniksa, Tesaro, Shire, Amgen and Baxter.`, img:"Bob_Huang.png" },
-      { name:"Carrie Bell", title:"Director, Program Management", long_bio:`Carrie is passionate about turning scientific ideas into real treatments that improve lives. She spent 16 years in CMC at a leading global pharmaceutical company, mastering the art and science of bringing complex therapies to life. For the past 5 years, she’s applied that expertise in clinical program management at small, agile biotech companies – helping guide promising programs through the challenges of early clinical development. Carrie thrives at the intersection of science, strategy, and teamwork, and is driven by the belief that every step forward brings patients closer to new hope.`, img:"Carrie_Bell.jpg" },
+      { name:"Salim Mujais, MD", title:"CMO", long_bio:`Dr. Salim Mujais is an experienced pharmaceutical physician executive with more than three decades of leadership in clinical development, medical affairs, and academic medicine. He has contributed to the registration of six new chemical entities and authored over 180 scientific publications advancing patient care and therapeutic innovation.<br><br> He has served as Senior Vice President of Clinical Development at Generate:Biomedicines, Sumitomo Pharma America, and Urovant. During his 14-year tenure at Astellas Pharma, Dr. Mujais held senior leadership roles, culminating as Senior Vice President and Global Therapeutic Area Head. Earlier, as Vice President of Medical Affairs at Baxter Healthcare, he shaped clinical strategies in renal care and established the first dedicated medical affairs organizations in the renal division. <br><br> Before entering industry, Dr. Mujais was Associate Professor of Medicine in Nephrology at Northwestern University and held academic appointments at the University of Illinois at Chicago. He trained in nephrology at the University of Chicago and completed a fellowship in cardiovascular research at the Cleveland Clinic Foundation.`, img:"Salim_Mujais.png" },
+      { name:"Niki Bili, MD, MPH", title:"VP, Clinical Development", long_bio:`Androniki “Niki” Bili is a board-certified rheumatologist, and brings over 25 years of experience spanning clinical practice, academic medicine, and medical education across a range of health systems.<br><br> For the past decade, she has held key roles in drug development at Janssen, Merck, Bristol Myers Squibb, and most recently, Celldex. Her expertise encompasses the development of monoclonal and bispecific antibodies, and small molecules targeting immunological diseases, as well as vaccines.`, img:"Niki_Bili.png" },
+      { name:"Bob Huang", title:"VP, CMC & Manufacturing", long_bio:`Bob brings 24 years of experience in process development, cGMP manufacturing, tech transfers, and supply chain across multiple modalities, including monoclonal and bispecific antibodies, enzyme, and cell and gene therapy. His expertise spans from early phase IND development to commercial launches. <br><br> Prior to joining Prolium, Bob was the Vice President of Technical Operations at CARsgen Therapeutics. Before that, Bob held various roles of increasing responsibilities at Amgen, Shire, Tesaro, Kiniksa and Frontera Therapeutics.`, img:"Bob_Huang.png" },
+      { name:"Carrie Bell", title:"Director, Program Management", long_bio:`Carrie is passionate about turning scientific ideas into real treatments that improve lives. She spent 16 years in Process Development at Amgen, mastering the art and science of bringing complex therapies to life. <br><br> Since 2020, she’s applied that expertise in clinical program management at small, agile biotech companies – helping guide promising programs through the challenges of early clinical development. Carrie thrives at the intersection of science, strategy, and teamwork, and is driven by the belief that every step forward brings patients closer to new hope.`, img:"Carrie_Bell.jpg" },
       { name:"Sergio Rodriguez", title:"Director, Clinical Operations", long_bio:`Sergio Rodriguez is a Director of Clinical Operations at Prolium Bioscence, where he oversees the planning and execution of the company’s global clinical trials. He brins over 20 years of experience in clinical research across biotech, pharmaceutical and CRO environments, with expertise spanning oncology, autoimmune, infectious disease, and cardiovascular indications. Before joining Prolium, Sergio served in Director roles at IGM Biosciences and Arch Oncology, where he managed clinical programs and supported study execution. Earlier in his career, he worked at Pfizer and Medivation (acquired by Pfizer), contributing to large global oncology trials and gaining valuable experience in complex, early and late-stage development.`, img:"Sergio_Rodriguez.png" },
       { name:"James Sims, PhD", title:"Director, Alliance Management", long_bio:`James has over a decade of experience in the biotech industry, primarily in alliance management, supporting collaboration programs from preclinical development through commercialization. Most recently, James was with Voyager Therapeutics, managing a portfolio of gene therapy programs under the partnership with Neurocrine Biosciences.<br><br>Prior to Voyager, James spent five years with Akebia Therapeutics, overseeing several key global alliances, including Otsuka Pharmaceuticals, Mitsubishi Tanabe Pharma, and Vifor Pharma (now part of CSL), as well as supporting business development and strategic planning initiatives. Additionally, James has several years of strategic consulting experience and holds a PhD in Chemical Engineering.`, img:"James_Sims.png" },
     ];
