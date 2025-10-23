@@ -13,47 +13,44 @@
       --prolium-orange:#FF991C;
       --prolium-dark:#0e2f36;
 
-      /* Background palette — consistent sitewide */
       --bg-green-0:#e9f8f0;
       --bg-green-1:#dbf6e6;
       --bg-green-2:#b6efce;
       --bg-green-3:#6ce49a;
       --bg-green-4:#21c036;
 
-      /* Fixed wave canvas (match index/science) */
-      --wave-width:1920px;
-      --wave-height:540px;
+      /* Match index/science */
+      --wave-h: clamp(260px, 22vw, 820px);
 
-      /* Fluid type scale (match index/science) */
-      --step--1: clamp(0.9rem, 0.7rem + 0.6vw, 1.05rem);
-      --step-0:  clamp(1rem, 0.85rem + 0.8vw, 1.25rem);
-      --step-1:  clamp(1.15rem, 0.95rem + 1.1vw, 1.5rem);
-      --step-2:  clamp(1.75rem, 1.2rem + 2.4vw, 2.5rem);
-      --step-3:  clamp(2.5rem, 1.6rem + 4.8vw, 3.6rem);
+      /* Fluid type scale (same as index/science) */
+      --step--1: clamp(0.90rem, 0.55rem + 1.0vw, 1.35rem);
+      --step-0:  clamp(1.00rem, 0.60rem + 1.3vw, 1.75rem);
+      --step-1:  clamp(1.40rem, 0.70rem + 2.0vw, 2.40rem);
+      --step-2:  clamp(2.00rem, 0.90rem + 3.1vw, 3.20rem);
+      --step-3:  clamp(2.60rem, 1.00rem + 4.5vw, 5.20rem);
     }
 
-    html{ font-size:16px; overflow-x:hidden; scroll-padding-top:80px; }
+    html{ font-size: clamp(12px, 1.1vw + 0.2vh, 22px); overflow-x:hidden; scroll-padding-top:80px; }
     body{
       margin:0;min-height:100%;
       color:var(--text-main);
       font-family:'Inter',Arial,sans-serif;
       font-size: var(--step-0);
       line-height:1.6;
-      background:linear-gradient(180deg,
-        var(--bg-green-4) 0%,
-        var(--bg-green-4) 55%,
-        var(--bg-green-3) 70%,
-        var(--bg-green-2) 100%);
+      /* Consistent white top like index/science */
+      background:linear-gradient(180deg, #ffffff 0 120px, var(--bg-green-4) 120px 55%, var(--bg-green-3) 70%, var(--bg-green-2) 100%);
       background-attachment:local;
-      overflow-x:hidden; /* no sideways scroll */
+      overflow-x:hidden;
       scroll-behavior:smooth;
-      padding-top:80px; /* offset for fixed navbar */
+      padding-top:80px; /* fixed nav offset */
     }
 
-    /* NAV — now fixed to match other pages */
+    /* NAV — translucent + blur; shadow on scroll (match index/science) */
     .nav{
       display:flex;justify-content:space-between;align-items:center;
-      padding:10px 20px;background:rgba(255,255,255,0.47);backdrop-filter:blur(6px);
+      padding:10px clamp(16px, 3vw, 28px);
+      background:rgba(255,255,255,0.47);
+      backdrop-filter:blur(6px);
       position:fixed; top:0; left:0; right:0; z-index:10000; gap:14px;
       transition: box-shadow .2s ease, background-color .2s ease;
     }
@@ -61,8 +58,9 @@
     .nav-brand{display:flex;align-items:center;gap:14px}
     .nav-logo{height:clamp(44px, 34px + 2.5vw, 72px);width:auto}
     .nav-links{display:flex;align-items:center;gap:clamp(0.5rem, 0.3rem + 1vw, 1.1rem)}
+    /* Smidge smaller nav text like index/science */
     .nav-links a{
-      font-size:var(--step--1);
+      font-size: calc(var(--step--1) * 0.92);
       font-weight:800;letter-spacing:.005em;line-height:1;
       color:#0b2f39;text-decoration:none;
       padding:clamp(6px, 4px + .6vw, 10px) clamp(8px, 6px + .7vw, 12px);
@@ -71,7 +69,7 @@
     }
     .nav-links a:hover, .nav-links a.active{background:var(--prolium-green);color:#fff}
 
-    /* Drawer — narrow + blurred like index */
+    /* Drawer — same as index/science */
     .nav-toggle{display:none;background:none;border:none;font-size:clamp(1.6rem, 1.2rem + 2.2vw, 2rem);cursor:pointer;border-radius:9999px;}
     .drawer{
       position:fixed;top:0;right:-100%;height:100%;
@@ -86,46 +84,40 @@
     .drawer.open{right:0}
     .drawer a{
       color:#0b2f39;text-decoration:none;font-weight:800;
-      text-align:left;font-size:var(--step--1);padding:10px 8px;border-radius:12px
+      text-align:left;font-size:calc(var(--step--1) * 0.92);
+      padding:10px 8px;border-radius:12px
     }
     .drawer a:hover{background:#f3f7fb}
     @media(max-width:900px){.nav-links{display:none}.nav-toggle{display:block}}
 
-    /* HERO — white panel + fixed-size waves */
+    /* HERO — white hero with full-bleed waves (match index/science) */
     .hero{
       position:relative;isolation:isolate;
-      min-height:120svh;
+      min-height:100svh;
       display:flex;align-items:center;justify-content:center;
       text-align:center;background:white;
-      margin-top:-30svh;margin-bottom:0;
-      overflow:hidden; 
-      margin-bottom:-5svh;
+      margin:0;overflow:hidden;
+      margin-top: -15svh;
     }
-    .hero-content{position:relative;z-index:4;transform:translateY(-56px);}
+    .hero-content{position:relative;z-index:4;max-width:min(1100px,92vw);padding:0 clamp(12px,3vw,24px)}
     .hero-title{
-      font-size: clamp(2.8rem, 2rem + 5vw, 4.2rem);
+      font-size: clamp(2.4rem, 1.0rem + 4.5vw, 5.0rem);
       line-height:1.2;font-weight:900;letter-spacing:-0.02em;
-      margin:0 0 14px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25);
+      margin:0 0 10px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25);
     }
     .hero-desc{font-size:var(--step-1);color:#21525d;font-weight:700;max-width:min(980px,90vw);margin:0 auto;line-height:1.55}
 
-    /* WAVES — fixed 1920×540 centered (identical code) */
-    .wave-wrap{
-      position:absolute;left:50%;bottom:0;
-      width:var(--wave-width);height:var(--wave-height);
-      transform:translateX(-50%);
-      z-index:1;pointer-events:none;overflow:hidden;
-    }
-    .wave{position:absolute;left:0;bottom:0;width:var(--wave-width);height:var(--wave-height);}
-    .wave svg{display:block;width:var(--wave-width);height:var(--wave-height);}
+    /* WAVES — exact same shapes/animation as index/science */
+    .wave-wrap{position:absolute;left:0;bottom:0;width:100%;height:var(--wave-h);z-index:1;pointer-events:none;overflow:hidden;transform:translateZ(0);} 
+    .wave{position:absolute;left:0;bottom:0;width:100%;height:100%;margin-bottom: -1svh;}
+    .wave svg{display:block;width:100%;height:100%;transform:translateZ(0);}    
     @keyframes waveBreathBack{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.03)}}
     @keyframes waveBreathFront{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.06)}}
     .wave--back svg{animation:waveBreathBack 12s ease-in-out infinite}
     .wave--front svg{animation:waveBreathFront 16s ease-in-out infinite; transform-origin:50% 100%;}
-    .hero::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:4px;background:#21c036;z-index:2;}
 
-    /* PAGE CONTENT */
-    .wrap{max-width:1920px;margin:0 auto;padding:0 5vw}
+    /* CONTENT WRAPPER */
+    .wrap{max-width:1120px;margin:0 auto;padding:0 5vw}
 
     /* Filter chips + search */
     .page-nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:16px auto 10px;position:relative;z-index:3}
@@ -135,8 +127,8 @@
       cursor:pointer;background:rgba(255,255,255,.7);color:#0a3f14;
     }
     .filter-chip[aria-pressed="true"]{outline:2px solid #fff;box-shadow:0 0 0 2px rgba(10,63,20,.2) inset}
-    .search{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.7);border-radius:9999px;padding:6px 12px;margin-left:25%;margin-right:25%}
-    .search input{border:none;background:transparent;outline:none;font-size:1rem;min-width:220px;color:#0b2f39}
+    .search{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.7);border-radius:9999px;padding:6px 12px;margin:0 auto;max-width:680px}
+    .search input{border:none;background:transparent;outline:none;font-size:1rem;min-width:220px;color:#0b2f39;width:100%}
 
     /* Trials grid */
     .trials{margin:40px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -185,7 +177,7 @@
     .cta{text-align:center;margin:72px 0 36px}
     .cta-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);border:none;border-radius:9999px;font-weight:800;padding:14px 30px;font-size:var(--step--1);cursor:pointer;box-shadow:0 10px 22px rgba(0,0,0,.14);text-decoration:none;display:inline-block}
 
-    /* Global focus ring */
+    /* Focus ring */
     .nav-links a:focus-visible,
     .drawer a:focus-visible,
     .cta-link:focus-visible,
@@ -196,8 +188,6 @@
       outline:3px solid rgba(99,197,237,.65);
       outline-offset:2px;
     }
-
-    /* Responsive tweaks */
 
     @media (prefers-reduced-motion:reduce){
       *{transition:none!important;animation:none!important}
@@ -216,7 +206,7 @@
 
     <div class="nav-links" aria-label="Primary links">
       <a href="index.html">Home</a>
-      <a href="science.html">Science & Pipeline</a>
+      <a href="science.html">Science &amp; Pipeline</a>
       <a href="trials.html" class="active">Clinical Trials</a>
       <a href="about.html#about">About</a>
       <a href="contact.html">Contact</a>
@@ -228,7 +218,7 @@
   <!-- Mobile drawer -->
   <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
       <a href="index.html">Home</a>
-      <a href="science.html">Science & Pipeline</a>
+      <a href="science.html">Science &amp; Pipeline</a>
       <a href="trials.html" class="active">Clinical Trials</a>
       <a href="about.html#about">About</a>
       <a href="contact.html">Contact</a>
@@ -241,9 +231,8 @@
       <p class="hero-desc">Learn about current and upcoming studies.</p>
     </div>
 
-    <!-- Fixed-size waves (1920×540) -->
+    <!-- Waves (EXACT shapes used on index/science) -->
     <div class="wave-wrap" aria-hidden="true">
-      <!-- BLUE BACK WAVE -->
       <div class="wave wave--back">
         <svg preserveAspectRatio="none" viewBox="0 0 1440 540">
           <defs>
@@ -255,16 +244,15 @@
           <path d="M0,200 C180,160 320,110 540,180 C760,250 870,245 1040,160 C1210,80 1350,60 1440,100 L1440,540 L0,540 Z" fill="url(#bgBlue)"/>
         </svg>
       </div>
-      <!-- GREEN FRONT WAVE -->
       <div class="wave wave--front">
-        <svg preserveAspectRatio="none" viewBox="0 0 1440 540">
+        <svg preserveAspectRatio="none" viewBox="0 0 1440 540" aria-hidden="true">
           <path d="M0,360 C260,480 420,410 680,370 C940,330 1110,360 1300,440 C1370,470 1410,500 1440,520 L1440,540 L0,540 Z" fill="#21c036"/>
         </svg>
       </div>
     </div>
   </header>
 
-  <!-- Filter chips -->
+  <!-- Filters -->
   <nav class="page-nav" aria-label="Filter trials">
       <button class="filter-chip" data-filter="all" aria-pressed="true">All</button>
       <button class="filter-chip" data-filter="recruiting">Recruiting</button>
@@ -278,7 +266,7 @@
           <circle cx="11" cy="11" r="7" stroke="#0a3f14" stroke-width="2"/>
           <path d="M20 20l-3.5-3.5" stroke="#0a3f14" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <label for="trialSearch" class="sr-only">Search trials</label>
+        <label for="trialSearch" class="sr-only">Search Trials</label>
         <input id="trialSearch" type="search" placeholder="Search by condition or NCT…" aria-label="Search trials">
       </div>
   </div>
@@ -433,7 +421,7 @@
   </main>
 
   <script>
-    // ===== Mobile drawer =====
+    // Mobile drawer
     const toggle=document.querySelector('.nav-toggle');
     const drawer=document.getElementById('drawer');
     toggle?.addEventListener('click', ()=>{
@@ -442,7 +430,7 @@
       toggle.setAttribute('aria-expanded', String(open));
     });
 
-    // ===== Fixed-nav shadow on scroll (match other pages) =====
+    // Fixed-nav shadow on scroll
     const nav = document.querySelector('.nav');
     const setShadow = () => {
       if (window.scrollY > 4) nav.classList.add('scrolled');
@@ -451,7 +439,7 @@
     setShadow();
     window.addEventListener('scroll', setShadow, { passive: true });
 
-    // ===== Details toggles =====
+    // Details toggles
     document.querySelectorAll('.toggle').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const id = btn.getAttribute('aria-controls');
@@ -465,7 +453,7 @@
       });
     });
 
-    // ===== Filters (affect cards only; never page/background) =====
+    // Filters + search
     const chips = document.querySelectorAll('.filter-chip');
     const cards = document.querySelectorAll('.trial-card');
     const search = document.getElementById('trialSearch');
@@ -486,7 +474,6 @@
 
         const textOk = !q || txt.includes(q) || nct.includes(q);
 
-        // Only affect cards, not the page/background
         card.style.display = (statusOk && textOk) ? '' : 'none';
       });
     }
