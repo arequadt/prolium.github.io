@@ -140,6 +140,10 @@
       text-align:left;
     }
 
+    .spacer{
+      height: 1svh;
+    }
+
     /* HOW / STEPS (kept interactivity/look) */
     .how{margin:clamp(64px,8vh,96px) auto 0;text-align:center}
     .how-title{font-size:var(--step-2);color:#0b2f39;font-weight:800;margin:0 0 16px;text-shadow:0 1px 0 rgba(255,255,255,.25)}
@@ -261,7 +265,8 @@
   <!-- CONTENT -->
   <main class="wrap">
     <!-- PIPELINE -->
-    <section class="pipeline" id="pipeline" aria-label="Pipeline">
+    <section class="spacer" id="pipeline"></section>
+    <section class="pipeline" aria-label="Pipeline">
       <h2 class="section-title">Pipeline</h2>
       <p class="lead-blurb">
         Prolium’s first asset is PRO-203, a CD20xCD3 bispecific antibody. It works by binding
@@ -278,7 +283,8 @@
         autoimmune disease.
       </p>
 
-      <div class="evidence" id="phase12" aria-label="Phase I/II (China) snapshot" style="margin-top:10%">
+      <section class="spacer" id="phase12"></section>
+      <div class="evidence" aria-label="Phase I/II (China) snapshot" style="margin-top:10%">
         <h3 class="section-title" style="margin-top:24px">Phase I/II snapshot (ICP-B02, China)</h3>
         <div class="checks">
           <div class="check">
@@ -310,7 +316,8 @@
     </section>
 
     <!-- T-Cell Engagers -->
-    <section class="tce" id="TCE" aria-label="T-Cell Engagers" style="margin:clamp(64px,8vh,96px) auto 0">
+    <section class="spacer" id="TCE"></section>
+    <section class="tce" aria-label="T-Cell Engagers" style="margin:clamp(64px,8vh,96px) auto 0">
       <header class="tce-header" style="max-width:min(980px,90vw);margin:0 auto 14px;text-align:left">
         <h2 class="section-title" style="text-align:left;margin:0">The Potential of T-Cell Engagers as a Therapeutic Approach</h2>
       </header>

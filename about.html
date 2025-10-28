@@ -106,6 +106,10 @@
 
     }
 
+    .spacer{
+      height: 1svh;
+    }
+
     /* Page chips under hero */
     .page-nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:-10px auto 10px;position:relative;z-index:3}
     .page-chip{
@@ -250,7 +254,7 @@
       </div>
     </div>
   </header>
-
+<main class="wrap">
   <!-- ABOUT -->
   <section class="wrap" aria-labelledby="about-title">
     <h2 id="about-title" class="section-title">About us</h2>
@@ -262,7 +266,8 @@
   </section>
 
   <!-- TEAM / BOARD -->
-  <section id="team" class="wrap" aria-labelledby="team-title">
+  <section class="spacer" id="team"></section>
+  <section class="wrap" aria-labelledby="team-title">
     <h2 id="team-title" class="section-title">Meet the Team</h2>
 
     <div class="tabs-bar">
@@ -275,7 +280,8 @@
   </section>
 
   <!-- VALUES -->
-  <main class="wrap about-sections" id="values">
+  <section class="spacer" id="values"></section>
+  <main class="wrap about-sections">
     <section aria-labelledby="values-title">
       <h2 id="values-title" class="section-title">Our Values (ARCH)</h2>
       <p class="lead">At Prolium, we embody our values in everything we do.</p>
@@ -303,6 +309,7 @@
       </div>
     </section>
   </main>
+</main>
 
   <!-- CTA -->
   <div class="cta" aria-label="Contact Prolium">
