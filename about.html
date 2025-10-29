@@ -21,12 +21,12 @@
       /* Match index/science */
       --wave-h: clamp(260px, 22vw, 820px);
 
-      /* Fluid type scale (same as index/science) */
-      --step--1: clamp(0.90rem, 0.55rem + 1.0vw, 1.35rem);
-      --step-0:  clamp(1.00rem, 0.60rem + 1.3vw, 1.75rem);
-      --step-1:  clamp(1.40rem, 0.70rem + 2.0vw, 2.40rem);
-      --step-2:  clamp(2.00rem, 0.90rem + 3.1vw, 3.20rem);
-      --step-3:  clamp(2.60rem, 1.00rem + 4.5vw, 5.20rem);
+      /* Fluid type scale (moderate-aggressive) */
+      --step--1: clamp(0.70rem, 0.35rem + 0.8vw, 1.15rem);
+      --step-0:  clamp(.80rem, 0.40rem + 1.1vw, 1.55rem);
+      --step-1:  clamp(1.20rem, 0.50rem + 1.8vw, 2.20rem);
+      --step-2:  clamp(1.80rem, 0.70rem + 2.90vw, 3.00rem);
+      --step-3:  clamp(2.40rem, 0.80rem + 4.30vw, 5.00rem);
     }
 
     html{ font-size: clamp(12px, 1.1vw + 0.2vh, 22px); overflow-x:hidden; scroll-padding-top:80px; }
@@ -146,7 +146,7 @@
 
     /* Values grid */
     .values-kicker{text-align:center;color:#0f3b3f;font-weight:700;margin:26px 0 14px}
-    .values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:25px;}
     .value{background:rgba(255,255,255,.8);border-radius:16px;padding:16px 16px 14px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
     .value h3{margin:0 0 6px;font-size:1.05rem;color:#0a3f14;font-weight:800;letter-spacing:.01em}
     .value p{margin:0;font-size:1rem;color:#0f3b3f;font-weight:500}
@@ -260,7 +260,7 @@
     <h2 id="about-title" class="section-title">About us</h2>
     <p class="section-desc">
       Prolium is a clinical-stage biotechnology company focused on bringing breakthrough therapy to patients with autoimmune diseases.
-      <br><br>Established in 2025 and backed by RTW Investments in New York City, we are led by seasoned entrepreneurs and clinicians with
+      Established in 2025 and backed by RTW Investments in New York City, we are led by seasoned entrepreneurs and clinicians with
       deep experience in drug development.
     </p>
   </section>
@@ -284,8 +284,7 @@
   <main class="wrap about-sections">
     <section aria-labelledby="values-title">
       <h2 id="values-title" class="section-title">Our Values (ARCH)</h2>
-      <p class="lead">At Prolium, we embody our values in everything we do.</p>
-
+      <p class="lead">At Prolium, we embody our values in everything we do.</p> 
       <div class="values-grid">
         <article class="value">
           <span class="pill">A — Accountability</span>
