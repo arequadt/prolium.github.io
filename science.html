@@ -19,15 +19,15 @@
       --bg-green-4:#21c036;
       --hero-nudge: -15svh;
 
-      /* Match index */
+      /* Match site wave height */
       --wave-h: clamp(260px, 22vw, 820px);
 
-      /* Fluid type scale (moderate-aggressive) */
-      --step--1: clamp(0.70rem, 0.35rem + 0.8vw, 1.15rem);
-      --step-0:  clamp(.80rem, 0.40rem + 1.1vw, 1.55rem);
-      --step-1:  clamp(1.20rem, 0.50rem + 1.8vw, 2.20rem);
-      --step-2:  clamp(1.80rem, 0.70rem + 2.90vw, 3.00rem);
-      --step-3:  clamp(2.40rem, 0.80rem + 4.30vw, 5.00rem);
+      /* ===== Gentle fluid type scale (matches index/about) ===== */
+      --step--1: clamp(0.85rem, 0.72rem + 0.20vw, 1.00rem);
+      --step-0:  clamp(0.95rem, 0.80rem + 0.35vw, 1.15rem);
+      --step-1:  clamp(1.10rem, 0.90rem + 0.60vw, 1.35rem);
+      --step-2:  clamp(1.35rem, 1.00rem + 1.00vw, 1.85rem);
+      --step-3:  clamp(1.80rem, 1.10rem + 1.60vw, 2.60rem);
     }
 
     html{ font-size: clamp(12px, 1.1vw + 0.2vh, 22px); overflow-x:hidden; scroll-padding-top:80px; }
@@ -59,7 +59,7 @@
     .nav-logo{height:clamp(44px, 34px + 2.5vw, 72px);width:auto}
     .nav-links{display:flex;align-items:center;gap:clamp(0.5rem, 0.3rem + 1vw, 1.1rem);position:relative}
     .nav-links a{
-      font-size: calc(var(--step--1) * 0.92); /* smidge smaller, like index */
+      font-size: calc(var(--step--1) * 1.15);
       font-weight:800;letter-spacing:.005em;line-height:1;
       color:#0b2f39;text-decoration:none;
       padding:clamp(6px, 4px + .6vw, 10px) clamp(8px, 6px + .7vw, 12px);
@@ -99,13 +99,14 @@
       margin-top: var(--hero-nudge);
     }
     .hero-content{position:relative;z-index:4;max-width:min(1400px,92vw);padding:0 clamp(12px,3vw,24px);}
+    /* Bigger hero title (matches About/index overrides) */
     .hero-title{
-      font-size: clamp(2.4rem, 1.0rem + 4.5vw, 5.4rem);
-      line-height:1.2;font-weight:900;letter-spacing:-0.02em;
+      font-size: clamp(2.8rem, 1.6rem + 3.5vw, 4.6rem);
+      line-height:1.12;font-weight:900;letter-spacing:-0.02em;
       margin:0 0 14px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25);
     }
 
-    /* Page chips under hero (kept, scaled to index) */
+    /* Page chips under hero */
     .page-nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:-10px auto 10px;position:relative;z-index:3}
     .page-chip{
       font-weight:800;color:#0a3f14;background:rgba(255,255,255,.7);
@@ -114,7 +115,7 @@
     }
     .page-chip:hover{filter:brightness(1.03);color:var(--prolium-green)}
 
-    /* WAVES — EXACTLY MATCH index waves (shapes, layering, animation) */
+    /* WAVES — match index */
     .wave-wrap{position:absolute;left:0;bottom:0;width:100%;height:var(--wave-h);z-index:1;pointer-events:none;overflow:hidden;transform:translateZ(0);} 
     .wave{position:absolute;left:0;bottom:0;width:100%;height:100%;margin-bottom:-1svh;}
     .wave svg{display:block;width:100%;height:100%;transform:translateZ(0);}    
@@ -126,23 +127,23 @@
     /* WRAPPER */
     .wrap{max-width:1420px;margin:0 auto;padding:0 5vw}
 
-    /* Sections — align to index scale/sizes */
+    /* ===== Sections — align to site scale ===== */
     .section-title{
-      font-size:var(--step-2);
+      /* matches your updated heading bump */
+      font-size: clamp(1.6rem, 1.1rem + 1.2vw, 2.2rem);
       margin:0 auto clamp(8px, 1vh, 18px);
       color:var(--prolium-dark);font-weight:900;letter-spacing:-0.01em;
       text-align:center;width:fit-content;
     }
     .section-desc,.lead-blurb{
-      font-size:calc(var(--step-1) * 0.85);
+      /* larger descriptions to match About/index */
+      font-size: clamp(1.05rem, 0.92rem + 0.70vw, 1.35rem);
       color:var(--prolium-dark);font-weight:700;
-      max-width:min(1200px,90vw);margin:0 auto;line-height:1.55;
+      max-width:min(1200px,90vw);margin:0 auto;line-height:1.6;
       text-align:left;
     }
 
-    .spacer{
-      height: 1svh;
-    }
+    .spacer{ height: 1svh; }
 
     /* HOW / STEPS (kept interactivity/look) */
     .how{margin:clamp(64px,8vh,96px) auto 0;text-align:center}
@@ -195,8 +196,6 @@
       outline-offset: 2px;
     }
 
-
-
     @media (prefers-reduced-motion:reduce){
       *{animation:none!important;transition:none!important}
     }
@@ -214,7 +213,7 @@
     <div class="nav-links" aria-label="Primary links">
       <a href="index.html">Home</a>
       <a href="science.html" class="active">Science &amp; Pipeline</a>
-      <a href="trials.html">Clinical Trials</a>
+      <!--<a href="trials.html">Clinical Trials</a>-->
       <a href="about.html#about">About</a>
       <a href="contact.html">Contact</a>
     </div>
@@ -225,7 +224,7 @@
   <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
     <a href="index.html">Home</a>
     <a href="science.html" class="active">Science &amp; Pipeline</a>
-    <a href="trials.html">Clinical Trials</a>
+    <!--<a href="trials.html">Clinical Trials</a>-->
     <a href="about.html#about">About</a>
     <a href="contact.html">Contact</a>
   </div>
@@ -241,7 +240,7 @@
       </nav>
     </div>
 
-    <!-- Waves (EXACT match to index shapes/stacking) -->
+    <!-- Waves -->
     <div class="wave-wrap" aria-hidden="true">
       <div class="wave wave--back">
         <svg preserveAspectRatio="none" viewBox="0 0 1440 540">
@@ -327,22 +326,22 @@
       </p>
 
       <p class="section-desc" style="text-align:left">
-        TCEs are typically bispecific antibodies or antibody fragments designed with:
+        <br>TCEs are typically bispecific antibodies or antibody fragments designed with:
       </p>
 
       <div class="tce-list-wrap" style="max-width:min(1200px,90vw);margin:8px auto 12px">
-        <ul class="tce-list" style="margin:0 0 0 1.1rem;padding:0;display:block;list-style:disc;font-size:calc(var(--step-1) * 0.85);color:var(--prolium-dark);font-weight:700;line-height:1.6;">
+        <ul class="tce-list" style="margin:0 0 0 1.1rem;padding:0;display:block;list-style:disc;font-size:clamp(1.05rem, 0.92rem + 0.70vw, 1.35rem);color:var(--prolium-dark);font-weight:700;line-height:1.6;">
           <li><strong>One arm binding CD3</strong>: a component of the T-cell receptor (TCR) complex on all T-cells.</li>
           <li><strong>One arm binding a disease-relevant target antigen</strong>, such as CD20 or CD19, expressed on B-cells.</li>
         </ul>
       </div>
 
       <p class="section-desc" style="text-align:left">
-        When both arms engage their targets simultaneously, the TCE forms an immune synapse between the T-cell and the target cell, triggering T-cell activation, release of cytotoxic granules, and targeted killing of the bound cell — independent of MHC or traditional antigen recognition.
+        <br>When both arms engage their targets simultaneously, the TCE forms an immune synapse between the T-cell and the target cell, triggering T-cell activation, release of cytotoxic granules, and targeted killing of the bound cell — independent of MHC or traditional antigen recognition.
       </p>
 
       <p class="section-desc" style="text-align:left">
-        T-cell engagers offer a transformative approach for autoimmunity by enabling precision depletion of disease-driving cells. By targeting well-validated antigens, TCEs may combine the potency of cellular immunotherapy with the precision of biologics — ushering in a new class of therapies for patients unresponsive to conventional immunosuppressants.
+        <br>T-cell engagers offer a transformative approach for autoimmunity by enabling precision depletion of disease-driving cells. By targeting well-validated antigens, TCEs may combine the potency of cellular immunotherapy with the precision of biologics — ushering in a new class of therapies for patients unresponsive to conventional immunosuppressants.
       </p>
     </section>
 

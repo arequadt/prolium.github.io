@@ -21,12 +21,12 @@
       /* Wave height */
       --wave-h: clamp(260px, 22vw, 820px);
 
-      /* Fluid type scale (moderate-aggressive) */
-      --step--1: clamp(0.70rem, 0.35rem + 0.8vw, 1.15rem);
-      --step-0:  clamp(.80rem, 0.40rem + 1.1vw, 1.55rem);
-      --step-1:  clamp(1.20rem, 0.50rem + 1.8vw, 2.20rem);
-      --step-2:  clamp(1.80rem, 0.70rem + 2.90vw, 3.00rem);
-      --step-3:  clamp(2.40rem, 0.80rem + 4.30vw, 5.00rem);
+      /* ===== Gentle fluid type scale (matches About page) ===== */
+      --step--1: clamp(0.85rem, 0.72rem + 0.20vw, 1.00rem);
+      --step-0:  clamp(0.95rem, 0.80rem + 0.35vw, 1.15rem);
+      --step-1:  clamp(1.10rem, 0.90rem + 0.60vw, 1.35rem);
+      --step-2:  clamp(1.35rem, 1.00rem + 1.00vw, 1.85rem);
+      --step-3:  clamp(1.80rem, 1.10rem + 1.60vw, 2.60rem);
     }
 
     html{ font-size: clamp(12px, 1.1vw + 0.2vh, 22px); overflow-x:hidden; scroll-padding-top:80px; }
@@ -44,7 +44,7 @@
       padding-top:80px; /* offset for fixed navbar */
     }
 
-    /* NAV — translucent + blur, solid-ish on scroll (mirrors science.html) */
+    /* NAV — translucent + blur, solid-ish on scroll */
     .nav{
       display:flex;justify-content:space-between;align-items:center;
       padding:10px clamp(16px, 3vw, 28px);
@@ -57,9 +57,8 @@
     .nav-brand{display:flex;align-items:center;gap:14px}
     .nav-logo{height:clamp(44px, 34px + 2.5vw, 72px);width:auto}
     .nav-links{display:flex;align-items:center;gap:clamp(0.5rem, 0.3rem + 1vw, 1.1rem);position:relative}
-    /* ↓ Smidge smaller nav text */
     .nav-links a{
-      font-size: calc(var(--step--1) * 0.92);
+      font-size: calc(var(--step--1) * 1.15);
       font-weight:800;letter-spacing:.005em;line-height:1;
       color:#0b2f39;text-decoration:none;
       padding:clamp(6px, 4px + .6vw, 10px) clamp(8px, 6px + .7vw, 12px);
@@ -68,13 +67,13 @@
     }
     .nav-links a:hover, .nav-links a.active{background:var(--prolium-green);color:#fff}
 
-    /* Mobile drawer — MATCHED TO science.html */
+    /* Mobile drawer */
     .nav-toggle{display:none;background:none;border:none;font-size:clamp(1.6rem, 1.2rem + 2.2vw, 2rem);cursor:pointer;border-radius:9999px;padding:2px 8px;}
     .drawer{
       position:fixed;top:0;right:-100%;height:100%;
-      width:min(55vw,260px);               /* ← from science.html */
-      background:rgba(255,255,255,0.47);   /* ← from science.html */
-      backdrop-filter:blur(6px);           /* ← from science.html */
+      width:min(55vw,260px);
+      background:rgba(255,255,255,0.47);
+      backdrop-filter:blur(6px);
       transition:right .28s ease;
       z-index:20000;padding:20px;
       display:flex;flex-direction:column;gap:.5rem;
@@ -83,25 +82,26 @@
     .drawer.open{right:0}
     .drawer a{
       color:#0b2f39;text-decoration:none;font-weight:800;
-      text-align:left;font-size:calc(var(--step--1) * 0.92); /* match smaller nav text */
+      text-align:left;font-size:calc(var(--step--1) * 0.92);
       padding:10px 8px;border-radius:12px
     }
     .drawer a:hover{background:#f3f7fb}
     @media(max-width:900px){.nav-links{display:none}.nav-toggle{display:block}}
 
-    /* HERO — (kept exactly as in your current index) */
+    /* HERO */
     .hero{
       position:relative;isolation:isolate;
       min-height:100svh;
       display:flex;align-items:center;justify-content:center;
       text-align:center;background:#ffffff;
       margin:0;overflow:hidden;
-      margin-top:-15svh; /* your current negative offset */
+      margin-top:-15svh;
     }
     .hero-content{position:relative;z-index:4;max-width:min(1400px,92vw);padding:0 clamp(12px,3vw,24px);}
+    /* Bigger hero title to match About page override */
     .hero-title{
-      font-size: clamp(2.4rem, 1.0rem + 4.5vw, 5.4rem);
-      line-height:1.2;font-weight:900;letter-spacing:-0.02em;
+      font-size: clamp(2.8rem, 1.6rem + 3.5vw, 4.6rem);
+      line-height:1.12;font-weight:900;letter-spacing:-0.02em;
       margin:0 0 14px;color:#0e2f36;text-shadow:0 1px 0 rgba(255,255,255,.25);
     }
     .hero-title .line{ display:block; }
@@ -118,8 +118,17 @@
 
     /* SECTIONS */
     .section{margin:clamp(32px, 3vh, 68px) 0;text-align:center;padding:0 clamp(12px,3vw,24px)}
-    .section-title{font-size:var(--step-2);margin:0 auto clamp(8px, 1vh, 18px);color:var(--prolium-dark);font-weight:900;letter-spacing:-0.01em;text-align:center;width:fit-content;}
-    .section-desc{font-size:calc(var(--step-1) * 0.85);color:var(--prolium-dark);font-weight:700;max-width:min(1200px, 90vw);margin:0 auto;line-height:1.55}
+    /* Section headings bump (matching About) */
+    .section-title{
+      font-size: clamp(1.6rem, 1.1rem + 1.2vw, 2.2rem);
+      margin:0 auto clamp(8px, 1vh, 18px);
+      color:var(--prolium-dark);font-weight:900;letter-spacing:-0.01em;text-align:center;width:fit-content;
+    }
+    /* Descriptions/lead bump (matching About) */
+    .section-desc{
+      font-size: clamp(1.05rem, 0.92rem + 0.70vw, 1.35rem);
+      color:var(--prolium-dark);font-weight:700;max-width:min(1200px, 90vw);margin:0 auto;line-height:1.6
+    }
 
     .team-teaser{margin:clamp(36px, 5vh, 72px) auto 0;text-align:center}
     .team-avatars{display:flex;gap:clamp(10px, 1.3vw, 18px);justify-content:center;margin:22px 0 16px;flex-wrap:wrap}
@@ -164,7 +173,7 @@
     <div class="nav-links" aria-label="Primary links">
       <a href="index.html" class="active">Home</a>
       <a href="science.html">Science &amp; Pipeline</a>
-      <a href="trials.html">Clinical Trials</a>
+      <!--<a href="trials.html">Clinical Trials</a>-->
       <a href="about.html#about">About</a>
       <a href="contact.html">Contact</a>
     </div>
@@ -176,7 +185,7 @@
   <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
     <a href="index.html" class="active">Home</a>
     <a href="science.html">Science &amp; Pipeline</a>
-    <a href="trials.html">Clinical Trials</a>
+    <!--<a href="trials.html">Clinical Trials</a>-->
     <a href="about.html#about">About</a>
     <a href="contact.html">Contact</a>
   </div>
