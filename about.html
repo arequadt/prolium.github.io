@@ -168,13 +168,14 @@
       .team-grid,.board-grid{ grid-template-columns: max-content; }
     }
 
-    /* --- Cards (compact) --- */
+    /* Replace current .member-card with this */
     .member-card{
       background:#fff;
       border-radius:18px;
       box-shadow:0 8px 24px rgba(0,0,0,.10);
-      width: clamp(240px, 30vw, 360px);
-      aspect-ratio: 6 / 5;               /* keep compact height */
+      width: clamp(270px, 42vw, 360px);
+      min-width: 270px;
+      height: auto;
       transition:box-shadow .24s, transform .18s;
       display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
       cursor:pointer;
@@ -185,13 +186,16 @@
     .member-card:hover{box-shadow:0 14px 46px rgba(0,0,0,.18);transform:translateY(-4px)}
 
     /* Avatar */
+/* Replace current .avatar-img with this */
     .avatar-img{
-      width: clamp(96px, 46%, 180px);
+      width: max(120px, 46%);
       aspect-ratio: 1 / 1;
-      object-fit:cover;border-radius:50%;
+      object-fit:cover;
+      border-radius:50%;
       box-shadow:0 4px 20px rgba(0,0,0,.12);
       margin-bottom: clamp(6px, 1vw, 10px);
-      border:6px solid var(--prolium-blue);background:#fff;
+      border:6px solid var(--prolium-blue);
+      background:#fff;
     }
 
     /* Name */
