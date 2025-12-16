@@ -133,7 +133,8 @@
 
     .team-teaser{margin:clamp(36px, 5vh, 72px) auto 0;text-align:center}
     .team-avatars{display:flex;gap:clamp(10px, 1.3vw, 18px);justify-content:center;margin:22px 0 16px;flex-wrap:wrap}
-    .team-avatar{width:clamp(72px, 9vw, 160px);height:clamp(72px, 9vw, 160px);object-fit:cover;border-radius:100%;border: 2px solid rgb(188,188,188);box-shadow: 0 2px 8px rgba(0,0,0,0.18);}   
+    .team-avatar{width:clamp(72px, 9vw, 160px);height:clamp(72px, 9vw, 160px);object-fit:cover;border-radius:100%;border: 2px solid rgb(188,188,188);box-shadow: 0 2px 8px rgba(0,0,0,0.18);cursor:pointer;transition: transform .18s, box-shadow .24s;}
+    .team-avatar:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.18);}
     .btn-row{ display:flex; justify-content:center; margin-top:clamp(18px, 3vh, 50px); }
     .team-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);padding:clamp(10px, 0.8vw, 14px) clamp(12px, 1vw, 18px);text-decoration:none;font-weight:800;font-size:var(--step--1);border-radius:9999px;display:inline-flex; align-items:center; justify-content:center;}
     .team-link:hover{transform:translateY(-2px);filter:brightness(1.02)}
@@ -147,6 +148,38 @@
 
     .cta{text-align:center;margin:clamp(32px, 5vh, 72px) 0 36px;padding:0 clamp(12px,3vw,24px)}
     .cta-link{color:#fff;background:linear-gradient(90deg,#1aa62f,#128d27);padding:clamp(10px, 0.8vw, 14px) clamp(12px, 1vw, 18px);text-decoration:none;display:inline-block;font-weight:800;font-size:var(--step--1);border-radius:9999px;}
+
+    /* ===== Card Expander (matches About page styling) ===== */
+    .expander{position:fixed; inset:0; z-index:30000; display:grid; place-items:center; background:rgba(0,0,0,.35); opacity:0; pointer-events:none; transition:opacity .28s ease;}
+    .expander.active{opacity:1; pointer-events:auto}
+    .expander-card{position:relative; width:min(980px,92vw); max-height:88vh; background:#fff; border-radius:24px; overflow:hidden; transform-origin: top left;}
+    .expander-inner{position:relative; transform-style:preserve-3d; transition:transform .6s ease; min-height:560px;}
+    .expander-inner.flipped{ transform:rotateY(180deg) }
+    .face{position:absolute; inset:0; backface-visibility:hidden; display:grid; place-items:center; padding:28px;}
+    .face.front{background:radial-gradient(circle at 30% 20%, #f7fbff, #eef7ff); gap:16px; text-align:center;}
+    .face.back{
+      transform:rotateY(180deg);
+      overflow:auto;
+      display:grid;
+      grid-template-rows:auto auto auto 1fr;
+      place-items:center;
+      text-align:center;
+      padding: clamp(20px, 2.5vw, 32px) clamp(16px, 2.2vw, 28px);
+    }
+    .expanded-avatar{
+      width: clamp(120px, 14vw, 200px);
+      aspect-ratio: 1/1; border-radius:50%; object-fit:cover;
+      border:6px solid #e8f6fd; background:#fff;
+    }
+    .expanded-name{font-size: clamp(1.2rem, .7rem + 1.4vw, 1.6rem); font-weight:900; color:#0b2f39; line-height:1.15; margin-top:16px}
+    .expanded-title{font-size: clamp(1rem, .6rem + 1vw, 1.15rem); font-weight:800; color:#0a3f14; margin-top:6px}
+    .expanded-body{
+      padding:18px 0 32px; line-height:1.75; color:#0f3b3f; font-weight:500;
+      max-width:1200px; width:min(100%, 80ch); margin:14px auto 0;
+    }
+    .close-btn{position:absolute; top:12px; right:12px; width:40px; height:40px; border-radius:999px; border:none; background:#0b2f39; color:#fff; font-size:24px; font-weight:900; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,.18);}
+    .close-btn:hover{filter:brightness(1.05)}
+    .close-btn:focus{outline:3px solid #21c03644}
 
     /* Accessibility focus */
     .nav-links a:focus-visible,
@@ -229,10 +262,10 @@
     <section class="team-teaser" id="leadership">
       <h2 class="section-title">Our Leadership</h2>
       <div class="team-avatars">
-        <img class="team-avatar" src="Scott_Requadt.png" alt="Scott Requadt, CEO">
-        <img class="team-avatar" src="Salim_Mujais.png" alt="Salim Mujais, CMO">
-        <img class="team-avatar" src="Niki_Bili.png" alt="Niki Bili, VP, Clinical Development">
-        <img class="team-avatar" src="Bob_Huang.jpg" alt="Bob Huang, VP, CMC &amp; Manufacturing">
+        <img class="team-avatar" src="Scott_Requadt.png" alt="Scott Requadt, CEO" data-leader="0" tabindex="0" role="button" aria-label="Open card for Scott Requadt">
+        <img class="team-avatar" src="Salim_Mujais.png" alt="Salim Mujais, CMO" data-leader="1" tabindex="0" role="button" aria-label="Open card for Salim Mujais">
+        <img class="team-avatar" src="Niki_Bili.png" alt="Niki Bili, VP, Clinical Development" data-leader="2" tabindex="0" role="button" aria-label="Open card for Niki Bili">
+        <img class="team-avatar" src="Bob_Huang.jpg" alt="Bob Huang, VP, CMC &amp; Manufacturing" data-leader="3" tabindex="0" role="button" aria-label="Open card for Bob Huang">
       </div>
       <p class="section-desc">
         Prolium is a small but dedicated team leveraging big science to better the lives of people with severe autoimmune disorders.</p>
@@ -260,6 +293,9 @@
     </div>
   </main>
 
+  <!-- Leadership Card Expander -->
+  <div class="expander" id="cardExpander" aria-modal="true" role="dialog" aria-label="Leadership details"></div>
+
   <script>
     // Mobile drawer
     const toggle=document.querySelector('.nav-toggle');
@@ -284,6 +320,72 @@
     };
     setShadow();
     window.addEventListener('scroll', setShadow, { passive: true });
+
+    /* ===== Leadership cards (match About page expander) ===== */
+    const leadership = [
+      { name:"Scott Requadt", title:"CEO", long_bio:`Scott has over 24 years of operating and investing experience in biotech and pharmaceuticals. Most recently, he was CEO of Talaris Therapeutics, which was developing a novel cell therapy to induce or restore immune tolerance in organ transplant and severe auto-immune disease settings. In support of Talaris' late-clinical stage pipeline, he grew Talaris from 10 to 135 FTEs and raised over $330M, including a successful IPO in 2021.<br><br>He previously spent 14 years at Clarus Ventures (acquired by Blackstone Life Sciences), where he led and managed numerous investments spanning therapeutics, medtech and diagnostics. His original training is in finance and law, and he holds an MBA from Harvard, a JD/LL.B from University of Toronto and a B.Com from McGill.`, img:"Scott_Requadt.png" },
+      { name:"Salim Mujais, MD", title:"CMO", long_bio:`Dr. Salim Mujais is an experienced pharmaceutical physician executive with more than three decades of leadership in clinical development, medical affairs, and academic medicine. He has contributed to the registration of six new chemical entities and authored over 180 scientific publications advancing patient care and therapeutic innovation.<br><br> He has served as Senior Vice President of Clinical Development at Generate:Biomedicines, Sumitomo Pharma America, and Urovant. During his 14-year tenure at Astellas Pharma, Dr. Mujais held senior leadership roles, culminating as Senior Vice President and Global Therapeutic Area Head. Earlier, as Vice President of Medical Affairs at Baxter Healthcare, he shaped clinical strategies in renal care and established the first dedicated medical affairs organizations in the renal division. <br><br> Before entering industry, Dr. Mujais was Associate Professor of Medicine in Nephrology at Northwestern University and held academic appointments at the University of Illinois at Chicago. He trained in nephrology at the University of Chicago and completed a fellowship in cardiovascular research at the Cleveland Clinic Foundation.`, img:"Salim_Mujais.png" },
+      { name:"Niki Bili, MD, MPH", title:"VP, Clinical Development", long_bio:`Androniki “Niki” Bili is a board-certified rheumatologist with over 25 years of experience spanning clinical practice, academic medicine, and drug development. She earned her medical degree from the Aristotle University of Thessaloniki, Greece, and completed her residency in Internal Medicine and fellowship in Allergy/Clinical Immunology and Rheumatology, along with a Masters in Public Health at the University of Rochester. <br><br>She has held leadership roles at Janssen, Merck, Bristol Myers Squibb, and most recently, Celldex, with expertise in the development of monoclonal and bispecific antibodies and small molecules for immunological diseases. She continues to see patients as a volunteer, maintaining a connection to those living with autoimmune diseases who inspire the advancement of new therapies.`, img:"Niki_Bili.png" },
+      { name:"Bob Huang", title:"VP, CMC & Manufacturing", long_bio:`Bob brings 24 years of experience in process development, cGMP manufacturing, tech transfers, and supply chain across multiple modalities, including monoclonal and bispecific antibodies, enzyme, and cell and gene therapy. His expertise spans from early phase IND development to commercial launches. <br><br> Prior to joining Prolium, Bob was the Vice President of Technical Operations at CARsgen Therapeutics. Before that, Bob held various roles of increasing responsibilities at Amgen, Shire, Tesaro, Kiniksa and Frontera Therapeutics.`, img:"Bob_Huang.jpg" }
+    ];
+
+    const expander = document.getElementById('cardExpander');
+
+    function openLeaderCard(member){
+      expander.innerHTML = `
+        <div class="expander-card" id="expanderCard" role="document" aria-label="${member.name}">
+          <div class="expander-inner" id="expanderInner">
+            <div class="face front">
+              <div>
+                <img class="expanded-avatar" src="${member.img}" alt="${member.name}">
+                <div class="expanded-name" style="margin-top:14px">${member.name}</div>
+                <div class="expanded-title">${member.title}</div>
+              </div>
+            </div>
+            <div class="face back">
+              <button class="close-btn" id="closeBtn" aria-label="Close">×</button>
+              <img class="expanded-avatar" src="${member.img}" alt="${member.name}">
+              <div class="expanded-name">${member.name}</div>
+              <div class="expanded-title">${member.title}</div>
+              <div class="expanded-body">${member.long_bio}</div>
+            </div>
+          </div>
+        </div>
+      `;
+      expander.classList.add('active');
+      document.body.style.overflow='hidden';
+
+      const innerEl = document.getElementById('expanderInner');
+      requestAnimationFrame(()=> innerEl.classList.add('flipped'));
+
+      const closeBtn = document.getElementById('closeBtn');
+      const close = () => closeLeaderCard();
+      closeBtn.addEventListener('click', close);
+
+      expander.addEventListener('click', (e)=>{ if(e.target === expander) close(); }, { once:true });
+      document.addEventListener('keydown', escCloseOnce);
+    }
+
+    function escCloseOnce(e){ if(e.key==='Escape'){ closeLeaderCard(); } }
+    function closeLeaderCard(){
+      document.removeEventListener('keydown', escCloseOnce);
+      const innerEl = document.getElementById('expanderInner');
+      if(innerEl) innerEl.classList.remove('flipped');
+      setTimeout(()=>{ expander.classList.remove('active'); expander.innerHTML=''; document.body.style.overflow=''; }, 180);
+    }
+
+    function setupLeadershipClicks(){
+      document.querySelectorAll('.team-avatar[data-leader]').forEach(img=>{
+        const open = () => {
+          const idx = Number(img.getAttribute('data-leader'));
+          const member = leadership[idx];
+          if(member) openLeaderCard(member);
+        };
+        img.addEventListener('click', open);
+        img.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); open(); } });
+      });
+    }
+    setupLeadershipClicks();
   </script>
 </body>
 </html>
